@@ -133,6 +133,10 @@ int nCr(int n, int r){
     return p ;
 }
 
+int64_t ceil_div(int64_t a, int64_t b) {
+    return a / b + ((a ^ b) > 0 && a % b != 0);
+}
+
 int minv(int a){ return power(a , M-2 ); }
 int mod(int n) { return (n % M + M) % M; }
 int modM(int n, int m) { return ((n % M * m % M) + M) % M; }
@@ -209,7 +213,7 @@ void presolve(){
 
 void solve(){    
         
-        cout<<"yes";
+        YES
 
     return;
 }
