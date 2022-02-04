@@ -1,0 +1,37 @@
+do Not Sort
+
+
+
+Smriti was given some queries which she have to perform in the order in which it was given.
+
+Each query is of the following three kinds:
+1 x : Append x to the end of V.
+2 : Print the element at the beginning of V. Then, delete that element. It is guaranteed that V will not empty when this query is given.
+3 : Sort V in ascending
+
+Initially an Empty Sequence V is given to her.
+
+
+
+Constraints
+1 <= Q <= 2* 10e5
+0<= x <=10e9
+
+
+
+sample input 
+8
+1 4
+1 3
+1 2
+1 1
+3
+2
+1 0
+2
+
+sample output
+1
+2
+
+

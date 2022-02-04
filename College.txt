@@ -1,0 +1,25 @@
+Acom Lab -> File () / Viva
+Deco Lab -> File () / Viva 
+Oops Lab ->
+
+CAS      -> 
+SD       ->
+ACom     ->    Ast  (today)
+Deco     ->    Ast  (6Feb)
+Math     ->
+Oops     ->
+
+Const->
+
+WorkShop->
+
+
+DATE SHEET
+
+1 OOPs   (4-5:30pm)
+3 DECO   (2-3:30pm)
+5 SD     (4-5:30pm)
+7 Math   (4-5:30pm)
+9 Cas    (4-5:30pm)
+11 Acom  (4-5:30pm)
+14 Const (11:30am -1pm)

@@ -1,0 +1,43 @@
+Lazy Salesman 
+
+
+Manav the salesman comes to a new city this time, here N houses are situated around a big lake of permieter R.
+The ith house is built at Ai meteres from the southmost point of the lake, measured clockwise around the pond.
+Manav is very lazy but have to visit all the houses to complete his job, so he wants to travell as less as he can.
+Find the minimum distance that he have to travell , he can start from any house he wants.
+
+
+Constraints:
+
+1 < R < 10^6
+2 < N < 2 * (10^5)
+A1 , A2  .... An are all distinct.
+
+
+Input Format:
+
+R N 
+A1 A2 A3 ... An
+
+
+
+
+Sample Input 1:
+20 3
+5 10 15
+
+Sample Output 1:
+10 
+
+Explanation 1:
+he stars from house 1 , then go to 2nd and then 3rd , travelling a total of 10 Units 
+
+
+
+
+Sample Input 2:
+20 3
+0 5 15
+
+Sample Output 2:
+10 
