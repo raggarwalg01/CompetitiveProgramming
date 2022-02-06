@@ -224,10 +224,10 @@ void solve(){
         cout << 1 ndl;
         return;
     }
-    if(s == sn)
-        cout << 1 ndl;
-    else{
+    if(s != sn)
         cout << 2 ndl;
+    else{
+        cout << 1 ndl;
     }
 
     return;
