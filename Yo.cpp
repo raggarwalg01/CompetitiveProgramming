@@ -193,7 +193,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -211,9 +211,47 @@ void presolve(){
     return;
 }
 
+set<string> st;
+void fnc(string s, int k){
+    if(k==0){
+        st.insert(s);
+        return;
+    }
+    string ns = s;
+    reverse(all(s));
+    int ss = s.length();
+    string a = s;
+    string b = ns;
+    rep(i,0,ss){
+        a.pb(ns[i]);
+        b.pb(s[i]);
+    }
+
+    // st.insert(a);
+    // st.insert(b);
+
+    fnc(a,k-1);
+    fnc(b,k-1);
+
+
+
+}
+
 void solve(){    
         
-        Yes
+        st.clear();
+
+  
+
+        int n , k;
+        cin>>n>>k;
+
+        string s;
+        cin>>s;
+
+        fnc(s,k);
+        cout<< st.sz ndl;
+        
 
     return;
 }
