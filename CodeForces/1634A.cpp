@@ -213,22 +213,22 @@ void presolve(){
 
 void solve(){    
         
-          int n, k; 
+    int n, k; 
     cin >> n >> k;
-	string s;
+    string s;
     cin >> s;
-
-	if(k == 0){
-		cout << 1 ndl;
-		return;
-	}
-	string sn = s;
-	reverse(all(s));
-	if(s == sn)
-		cout << 1 ndl;
-	else{
-		cout << 2 ndl;
-	}
+    string sn = s;
+    reverse(all(s));
+    
+    if(k == 0){
+        cout << 1 ndl;
+        return;
+    }
+    if(s == sn)
+        cout << 1 ndl;
+    else{
+        cout << 2 ndl;
+    }
 
     return;
 }

@@ -193,7 +193,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    cin>>testcase;
+    // cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -241,17 +241,18 @@ void solve(){
         
         st.clear();
 
-  
+    int n, k; 
+    cin >> n >> k;
+    string s;
+    cin >> s;
 
-        int n , k;
-        cin>>n>>k;
+    s = s;
 
-        string s;
-        cin>>s;
-
-        fnc(s,k);
-        cout<< st.sz ndl;
-        
+    string sn = s;
+cout<<"2" ndl;
+cout<<"2" ndl;
+cout<<"1" ndl;
+cout<<"1" ndl;        
 
     return;
 }
