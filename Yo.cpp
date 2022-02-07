@@ -198,6 +198,7 @@ int32_t  main(){
     int i = 1;
     while(testcase--){
         //cout << "Case #" << i++ << ": ";
+
         solve();
     }
 
@@ -212,8 +213,26 @@ void presolve(){
 }
 
 void solve(){    
-        
-        
-
+    int n , m;
+    cin>>n>>m;
+        int arr[n][m];
+        rep(i,0,3){
+            rep(j,0,3){
+                cin>>arr[i][j];
+            }
+            // cndl;
+        }
+        // bool check = false;
+        rep(i,0,n){
+            rep(j,0,m){
+                if(arr[i][j]==1){
+                    cout<<i spc j ndl;
+                    return;
+                    // check= true;
+                }
+            }
+        }
+        // if(check == false)
+            cout<<-1;
     return;
 }
