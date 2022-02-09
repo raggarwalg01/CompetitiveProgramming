@@ -193,7 +193,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -213,7 +213,15 @@ void presolve(){
 
 void solve(){    
         
-        Yes
+        int n;
+        cin>>n;
+        useti a , b;
+        rep(i,0,n){
+        	int x,y; cin>>x>>y;
+        	a.ins(x);
+        	b.ins(y);
+        }
+        cout<<a.sz + b.sz ndl ;
 
     return;
 }
