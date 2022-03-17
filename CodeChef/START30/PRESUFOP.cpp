@@ -224,22 +224,110 @@ void solve(){
         }
         rep(i,0,n){
         	diff[i] = b[i] - a[i];
-        	if(diff[i] <0 ){
-        		minus1 ; return;
-        	}
+        	// if(diff[i] <0 ){
+        		// minus1 ; return;
+        	// }
         }
 
-        // dbg(diff);
+        dbg(diff);
         int cnt0 = 0;
 
-        trav(i,diff){
-        	if(i==0){
-        		if(cnt0 ==1){
-        			minus1 ; return;
-        		}
-        		cnt0++;
-        	}
+        // trav(i,diff){
+        // 	if(i==0){
+        // 		if(cnt0 ==1){
+        // 			minus1 ; return;
+        // 		}
+        // 		cnt0++;
+        // 	}
+        // }
+
+        int ans1 = diff[0] , ans2 = 0;
+        int val1 = 0, val2 = 0;
+
+        rep(i,0,n){
+            if (ans1 + ans2 < diff[i] ){
+                ans2 += ((diff[i] ) - ans1 - ans2);
+            }
+            else if (ans1 + ans2 > diff[i] ){
+                ans1 -= (ans1 + ans2 - (diff[i] ));
+            }
+            
+
+            if (ans1 < 0 || ans2 > (diff[n - 1])){
+                val1 = -1;
+                val2 = 0;
+                break;
+            }
+
+            val1 = max(val1, ans1);
+            val2 = max(val2, ans2);
         }
+
+        cout << val1 + val2  ndl;
+        return;
+
+
+        deque<int> dq1;
+
+        rep(i,0,n){
+            dq1.pb(diff[i]);
+        }
+
+        deque<int> start , end;
+
+        while(!dq1.empty()){
+            if(start.empty()){
+                start.pb(dq1.front());
+                dq1.pop_front();
+            }else if(start.back()>=dq1.front()){
+                // cout<< dq1.front() spcend;
+                start.pb(dq1.front());
+                dq1.pop_front();                
+            }else break;
+        }
+
+        while(!dq1.empty() and dq1.front() ==0){
+            dq1.pop_front();
+        }
+        reverse(all(dq1));
+
+        while(!dq1.empty()){
+            if(end.empty()){
+                end.pb(dq1.front());
+                dq1.pop_front();
+            }else if(end.back()>=dq1.front()){
+                // cout<< dq1.front() spcend;
+                end.pb(dq1.front());
+                dq1.pop_front();                
+            }else break;
+        }
+
+        // int ans1 = 0;
+        // int ans2 = 0;
+
+        if(!start.empty()){
+            ans1 = start.back();
+        }
+        if(!end.empty()){
+            ans2 = end.back();
+        }
+
+
+        return;
+
+        cout<< ans2+ ans1 ndl;
+
+        // while()
+
+
+        // cndl;
+
+
+        dbg(dq1,start);
+
+
+        return;
+
 
         int ans = diff[0];
         int mark = 0;
@@ -264,7 +352,7 @@ void solve(){
         reverse(all(diff));
         // dbg( n , diff);
 
-        int ans2 = diff[0];
+        // int ans2 = diff[0];
         // cout<< ans2;
         mark = 0;
 
