@@ -210,10 +210,44 @@ void presolve(){
 
     return;
 }
+mapii mp;
+vi dp(100005,-1);
+int fnc(vi &v , int id){
+    if(id < 0) return 0;
+    if(id ==0 ) return v[id]*mp[v[id]];
+    if(dp[id]!=-1) return dp[id];
+    int ans = 0;
+
+    ans = fnc(v , id-1);
+    ans = max( ans , fnc(v,id-2) +v[id]*mp[v[id]]);
+    // cout<< id spc ans ndl;
+    return dp[id] = ans ;
+}
 
 void solve(){    
         
-        YES
+        int n;
+        cin>> n;
+        vi v(n);
+
+        trav(i,v){
+            cin>>i;
+            mp[i]++;
+        }
+        vi vn;
+        int mx = *max_element(all(v));
+        rep(i,1,mx+1){
+            vn.pb(i);
+        }
+        // vi vn;
+        // trav(i,mp){
+        //     vn.pb(i.fi);
+        // }
+        
+        // sort(all(vn));
+        // dbg(vn);
+        // dbg(mp);
+        cout<<fnc(vn,vn.sz -1 );
 
     return;
 }
