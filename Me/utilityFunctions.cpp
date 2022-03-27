@@ -234,7 +234,8 @@ int digitsum ( int n ){
     return ans ;
 }
 //(D) MEX 
-int mex( int arr[] , int n){
+int mex( vi arr){
+    int n = arr.size();
     umapii mp ;
     for(int i=0; i<n; i++){
         mp[arr[i]]++;

@@ -27,7 +27,7 @@ using namespace std;
 #define sz                  size()
 #define all(var)            var.begin(), var.end()
 #define present(c, x)       (c.find(x) != c.end())
-#define desc                greater<int>()
+#define desc                greater()
 
 #define imin                INT_MIN
 #define imax                INT_MAX
@@ -48,6 +48,8 @@ using namespace std;
 #define NO                  cout << "NO\n";
 #define Yes                 cout << "Yes\n";
 #define No                  cout << "No\n";
+#define yes                 cout << "yes\n";
+#define no                  cout << "No\n";
 #define minus1              cout << "-1\n";
 
 #define precision(n)        cout<< fixed << setprecision(n);
@@ -137,6 +139,36 @@ int64_t ceil_div(int64_t a, int64_t b) {
     return a / b + ((a ^ b) > 0 && a % b != 0);
 }
 
+int lsb(int x){
+    return log2(x&(-x));
+}
+int msb(int x){
+    return log2(x);
+}
+
+int digitsum ( int n ){
+    int ans =0 ;
+    while(n>0){
+        ans+= n%10;
+        n/=10;
+    }
+    return ans ;
+}
+
+int mex( vi arr){
+    int n = arr.size();
+    umapii mp ;
+    for(int i=0; i<n; i++){
+        mp[arr[i]]++;
+    }
+    for(int i=0; i<=n+1; i++){
+        if(mp[i]==0){
+            return i ;
+        }
+    }
+    return n+1;
+}
+
 int minv(int a){ return power(a , M-2 ); }
 int mod(int n) { return (n % M + M) % M; }
 int modM(int n, int m) { return ((n % M * m % M) + M) % M; }
@@ -173,6 +205,25 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #else
 #define dbg(x...)
 #endif
+
+//=====================================================================================================//
+
+// Operator overloads 
+template<typename T1, typename T2> // cin >> pair<T1, T2>
+istream& operator>>(istream &istream, pair<T1, T2> &p) { return (istream >> p.first >> p.second); }
+template<typename T> // cin >> vector<T>
+istream& operator>>(istream &istream, vector<T> &v){ for (auto &it : v)  cin >> it;  return istream; }
+ 
+template<typename T1, typename T2> // cout << pair<T1, T2>
+ostream& operator<<(ostream &ostream, const pair<T1, T2> &p) { return (ostream << p.first << " " << p.second); }
+template<typename T> // cout << vector<T>
+ostream& operator<<(ostream &ostream, const vector<T> &c) { for (auto &it : c) cout << it << " "; return ostream; }
+ 
+// Utility functions
+template <typename T>
+void print(T &&t)  { cout << t << "\n"; }
+template <typename T, typename... Args>
+void print(T &&t, Args &&... args) { cout << t << " ";  print(forward<Args>(args)...); }
 
 //=====================================================================================================//
 
