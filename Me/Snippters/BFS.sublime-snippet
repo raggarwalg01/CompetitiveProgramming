@@ -1,0 +1,31 @@
+<snippet>
+    <content><![CDATA[
+const int N = 1e5+10;
+vector<int> g[N];
+bool visited[N] ;
+
+void bfs(int vertex){
+
+    deque<int> dq;
+    dq.push_back(vertex);
+    visited[vertex] = true;
+
+    while(!dq.empty()){
+        int current_vertex = dq.front();
+        dq.pop_front();
+        for(int child : g[current_vertex]){
+            if(visited[child]) continue;
+            dq.push_back(child);
+            visited[child] = true; 
+
+        }
+    }
+
+}
+
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>BFS</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet wiint trigger -->
+    <scope>source.c++</scope>
+</snippet>

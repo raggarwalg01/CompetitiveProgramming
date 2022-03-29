@@ -1,0 +1,34 @@
+<snippet>
+    <content><![CDATA[
+const int N = 1e5+10;
+vector<int> g[N];
+bool visited[N] ;
+
+void dfs(int vertex){
+
+    // take action on vertex after entering vertex
+    
+    visited[vertex] = true;
+    
+    for(int child: g[vertex]){
+        
+        // take action on child before entering child node
+        
+        if(visited[child]==true) continue;
+        
+        dfs(child);
+        
+        // take action on child after exiting child node
+    }
+    
+    // take action on vertex before exiting vertex
+
+    return;
+}
+
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>DFS</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet wiint trigger -->
+    <scope>source.c++</scope>
+</snippet>
