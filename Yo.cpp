@@ -8,9 +8,11 @@ using namespace std;
 #define ull                 unsigned long long 
 #define ld                  long double
 
-#define rep(i,a,b)          for(int i = a; i <  b ; i++)
+#define rep(i, begin, end)  for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
+
+//#define rep(i,a,b)          for(int i = a; i <  b ; i++)
+//#define repn(i,a,b)         for(int i = a; i >= b ; i--)
 #define Rep(i,b)            for(int i = 0; i <  b ; i++)
-#define repn(i,a,b)         for(int i = a; i >= b ; i--)
 #define trav(a,x)           for (auto& a : x)
 
 #define seti                set<int>

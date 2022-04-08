@@ -263,23 +263,23 @@ void presolve(){
     return;
 }
 // int  primeFactors(int n){
-// 	vi v;
-// 	int cnt=0;
+//  vi v;
+//  int cnt=0;
 //     int c=2;
 //     if(n==1) return 0;
 
 //     if(isPrime(n)){
-//         	cnt++;
-//         	return cnt;
+//          cnt++;
+//          return cnt;
 //     }
 //     while(n>1){
-//     	if(isPrime(n)){
-//         	cnt++;
-//         	return cnt;
+//      if(isPrime(n)){
+//          cnt++;
+//          return cnt;
 //         }
 //         while(n%c==0){
 //         // cout<<c<<" ";
-//         	cnt++;
+//          cnt++;
 //         n/=c;
 //         }
 //          c++;
@@ -308,22 +308,26 @@ void solve(){
         int n2 = (primeFactors(b)) ;
         // dbg(n);
         
-        if(a == b ){
-        	if(k!=1 and n1+n2>=k ){
-	        	YES
-	        }else{
-	        	NO
-	        }
-        }
-        else if( (n1+n2 >=k and k!=1)){
-        	YES
-        }else if(k==1){
-        	if(	(gcd(a,b)== a or gcd(a,b)==b) ){
-        		YES
-        	}
-        	else{
-        		NO
-	        }
+        //////////////commented is also ac 
+        // if(a == b ){
+        //     if(k!=1 and n1+n2>=k ){
+        //         YES
+        //     }else{
+        //         NO
+        //     }
+        // }
+        // else if( (n1+n2 >=k and k!=1)){
+        //     YES
+        // }else 
+        if(k==1){
+            if( a!=b and (gcd(a,b)== a or gcd(a,b)==b) ){
+                YES
+            }
+            else{
+                NO
+            }
+        }else if(n1+n2>=k){
+            YES
         }
         else NO
 
