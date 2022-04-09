@@ -1,0 +1,14 @@
+<snippet>
+<content><![CDATA[
+import sys, os.path
+if(os.path.exists('input.txt')):
+    sys.stdin = open("input.txt","r")
+    sys.stdout = open("output.txt","w")
+    
+$1
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>pypy</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet wiint trigger -->
+    <scope></scope>
+</snippet>
