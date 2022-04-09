@@ -258,119 +258,15 @@ int32_t  main(){
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
 }
 
-vi v(200);
 void presolve(){    
-    rep(i,0,100){
-        int t = i%31;
-        v[i]=1<<t;
-    }
+        
         
 
     return;
 }
-ll findSplitPoint(vector<ll> v, ll n){
-    ll leftSum = 0 ;
-    rep(i,0,n){
-        leftSum += v[i] ;
-        ll rightSum = 0 ;
-        rep (j,i+1,n)
-            rightSum += v[j] ;
- 
-        if (leftSum == rightSum)
-            return i+1 ;
-    }
- 
-    return -1;
-}
-bool cmp(int a ,int b){
-    return a>b;
-}
-void printTwoParts(vector<ll> v,ll n){
-    
-    sort(all(v));
 
-     do {
-        ll splitPoint = findSplitPoint(v, n);
-        if(splitPoint == -1) continue;
-
-        rep(i,0,n){
-            if(splitPoint == i)
-                break;
-            cout<<v[i]<<" ";
-        }
-        return;
-    } while (next_permutation(all(v)));
-}
-
-int sumtemp = 0;
-void isKthBitSet(int n, int k){
-
-    if (n & (1ll << (k - 1))){
-        cout<< (1ll<<k-1) spcend;
-        sumtemp+= (1ll<<k-1);
-    }
-}
-void binary(int n)
-{
-    // Size of an integer is assumed to be 32 bits
-    for (int i = 32; i >= 0; i--) {
-        int k = n >> i;
-        if (k & 1)
-            cout << "1";
-        else
-            cout << "0";
-    }
-    return;
-}
-void solve(){ 
-    // rep(i,1,32){
-        // isKthBitSet(500,i);
-    // }
-    // return;
-sumtemp  = 0;   
-    int n;
-    cin>>n;
-   
-
-    rep(i,0,100)
-    cout<<v[i]<<" ";
-    cout<<endl;
-
-    rep(i,n,2*n)
-    cin>>v[i];
-    sort(all(v));
-    // dbg(v);
-
-    // if(n<10){
-    // // cndl
-    // printTwoParts(v,2*n);
-    // cout ndl;
-    // }
-    // return;
-    int sum = 0;
-    trav(i,v) sum+=i;
-    // dbg(v);
-    // dbg(sum);
-    int kk = sum/2;
-    // dbg(kk);
-
-    rep(i,1,32){
-        isKthBitSet((kk),i);
-    }
-    cout<<endl;
-
-    // binary(sum/2) ;//ndl;
-    // dbg(sumtemp);
-    // dbg(sum/2)
-    // YES
-    // if(sumtemp == (sum/2)){
-    //     cout<<"YES";
-    // }
-
-
-
-
-
+void solve(){    
+        
         
 
     return;
