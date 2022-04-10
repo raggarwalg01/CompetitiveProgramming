@@ -29,7 +29,7 @@ using namespace std;
 #define sz                  size()
 #define all(var)            var.begin(), var.end()
 #define present(c, x)       (c.find(x) != c.end())
-#define desc                greater()
+#define desc                greater<int>()
 
 #define imin                INT_MIN
 #define imax                INT_MAX
