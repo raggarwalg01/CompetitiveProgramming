@@ -29,7 +29,7 @@ using namespace std;
 #define sz                  size()
 #define all(var)            var.begin(), var.end()
 #define present(c, x)       (c.find(x) != c.end())
-#define desc                greater<int>()
+#define desc                greater()
 
 #define imin                INT_MIN
 #define imax                INT_MAX
@@ -258,91 +258,62 @@ int32_t  main(){
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
 }
 
+// vi vals(md+1,lmax);
+// void fnc(int a , int start, int moves){
+// 	if(a%md ==0 ){
+// 		vals[start]= min(vals[start],moves);
+// 		return;
+// 	}
+// 	if(moves>=15){
+// 		return ;
+// 	}
+// 	fnc((a+1)%md,start,moves+1);
+// 	fnc((a*2)%md,start,moves+1);
+// }
+const int md = 32768;
+int n,vec[md];
+vi l[md];
+deque<int> deq;
 void presolve(){    
         
-        
+    memset(vec, -1, sizeof(vec));
+    
+    rep(i,0,32768){
+        l[(i+1)%md].pb(i);
+        l[(i*2)%md].pb(i);
+    }
+    vec[0] = 0;
+    deq.pb(0);
+    while(!deq.empty()){
+        int x = deq.front();
+        deq.pop_front();
+        trav(z,l[x])
+            if(vec[z] == -1){
+                vec[z] = vec[x]+1;
+                deq.pb(z);
+            }
+    }
 
     return;
 }
 
 void solve(){    
-        
-         int n;
-        cin>>n;
-        // vector<vector<int>> g(n+2);
-        mapii g;
-        // g[0].pb(1);
-        g[0]++;
-        rep(i,2,n+1){
-        	int t; cin>>t;
-        	// g[t].pb(i);
-        	g[t]++;
-        }
-        vi v;
-        trav(i,g){
-        	if(i.se!=0)
-	        	v.pb(i.se);
-        }
-        sort(all(v),desc);
-        int sec = 0;
-        rep(i,0,v.sz){
-        	sec++;
-        	v[i] = max(0ll, v[i] - (v.sz -i) ) ;
-        	//####################giving TLE
-        	// v[i]--;
-        	// rep(j,0,i){
-        	// 	v[j]--;
-        	// }
-        }
 
-        int time = 0;
-        trav(i,v){
-			if(i<=0) i = 0;
-	    }
-	    dbg(v);
-	    // cout<< sec ndl;
+        // // cout<<log2(md) ndl;
 
-        int sum = accumulate(all(v),0);
-        while(true){
-        	if(sum==0) break;
-        	//////////////// NO use 
-        	// vi n;
-	        // trav(i,v){
-	        // 	if(i<=0) i = 0;
-	        // 	if(i>0) n.pb(i);
-	        // }
-	        // // v.clear();
-	        // v = n;
-	        {
-	        //// this also works ;;;;;;;
-	        // if(*v.begin()==*v.rbegin() and *v.begin() <= v.sz){
-	        // 	time+= *v.begin();
-	        // 	// cout<< *v.begin() spc v.sz  spcend;
-	        // 	break;
-	        // }
-
-	        }
-	        if(sum==0) break;
-	        // if(accumulate(all(v),0) ==0 ) break;
-	        sort(all(v),desc);
-	        time++;
-	        int k = 0;
-	        trav(i,v){
-	        	if(k==0){
-	        		i--;
-	        		k++;
-	        		sum--;
-	        	}
-	        	if(i>=1)
-		        	sum--;
-	        	i--;
-	        	if(i<=0) i=0;
-	        }
-	        if(sum==0) break;
-        }
-
-        dbg(v);
-        cout<< sec + time ndl;
+        int a;
+        cin>>a;
+        cout<<vec[a] spcend;
+        // int steps=0;
+        // while(a<md){
+        // 	if( 2*a<=md or ( md)){
+        // 		a = 2*a;
+        // 	}else{
+        // 		a++;
+        // 	}
+        // 	steps++;
+        // }
+        // cout<<steps spcend;
 
     return;
 }

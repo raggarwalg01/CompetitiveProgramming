@@ -29,7 +29,7 @@ using namespace std;
 #define sz                  size()
 #define all(var)            var.begin(), var.end()
 #define present(c, x)       (c.find(x) != c.end())
-#define desc                greater<int>()
+#define desc                greater()
 
 #define imin                INT_MIN
 #define imax                INT_MAX
@@ -267,82 +267,23 @@ void presolve(){
 
 void solve(){    
         
-         int n;
+        int n;
         cin>>n;
-        // vector<vector<int>> g(n+2);
-        mapii g;
-        // g[0].pb(1);
-        g[0]++;
-        rep(i,2,n+1){
-        	int t; cin>>t;
-        	// g[t].pb(i);
-        	g[t]++;
+        vi a(n),b(n);
+        cin>>a>>b;
+        rep(i,0,n){
+        	if(a[i]>b[i]){
+        		swap(a[i],b[i]);
+        	}
         }
-        vi v;
-        trav(i,g){
-        	if(i.se!=0)
-	        	v.pb(i.se);
+        int sum = 0;
+        rep(i,0,n-1){
+        	sum+=abs(a[i] - a[i+1]);
         }
-        sort(all(v),desc);
-        int sec = 0;
-        rep(i,0,v.sz){
-        	sec++;
-        	v[i] = max(0ll, v[i] - (v.sz -i) ) ;
-        	//####################giving TLE
-        	// v[i]--;
-        	// rep(j,0,i){
-        	// 	v[j]--;
-        	// }
+        rep(i,0,n-1){
+        	sum+=abs(b[i] - b[i+1]);
         }
-
-        int time = 0;
-        trav(i,v){
-			if(i<=0) i = 0;
-	    }
-	    dbg(v);
-	    // cout<< sec ndl;
-
-        int sum = accumulate(all(v),0);
-        while(true){
-        	if(sum==0) break;
-        	//////////////// NO use 
-        	// vi n;
-	        // trav(i,v){
-	        // 	if(i<=0) i = 0;
-	        // 	if(i>0) n.pb(i);
-	        // }
-	        // // v.clear();
-	        // v = n;
-	        {
-	        //// this also works ;;;;;;;
-	        // if(*v.begin()==*v.rbegin() and *v.begin() <= v.sz){
-	        // 	time+= *v.begin();
-	        // 	// cout<< *v.begin() spc v.sz  spcend;
-	        // 	break;
-	        // }
-
-	        }
-	        if(sum==0) break;
-	        // if(accumulate(all(v),0) ==0 ) break;
-	        sort(all(v),desc);
-	        time++;
-	        int k = 0;
-	        trav(i,v){
-	        	if(k==0){
-	        		i--;
-	        		k++;
-	        		sum--;
-	        	}
-	        	if(i>=1)
-		        	sum--;
-	        	i--;
-	        	if(i<=0) i=0;
-	        }
-	        if(sum==0) break;
-        }
-
-        dbg(v);
-        cout<< sec + time ndl;
+        cout<< sum ndl;
 
     return;
 }
