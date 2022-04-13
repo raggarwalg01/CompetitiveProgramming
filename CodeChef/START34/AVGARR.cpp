@@ -1,5 +1,3 @@
-<snippet>
-    <content><![CDATA[
 //==============================     raggarwalg01     ==============================//
 
 #include<bits/stdc++.h>
@@ -236,9 +234,9 @@ void presolve();
 
 int32_t  main(){
     #ifndef ONLINE_JUDGE
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\input.txt","r",stdin);
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\output.txt","w",stdout);
-        //freopen("D:\\\Programming\\\CompetitiveProgramming\\\error.txt","w",stderr);
+        freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
+        freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
+        //freopen("D:\\Programming\\CompetitiveProgramming\\error.txt","w",stderr);
 
 
     #endif
@@ -248,13 +246,13 @@ int32_t  main(){
 
 
     int testcase = 1;
-    $2// cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
-        $3//cout << "Case #" << i++ << ": ";
+        //cout << "Case #" << i++ << ": ";
         solve();
-        //cerr<<"//=====================================================================================================//" ndl;
+        cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
@@ -269,14 +267,52 @@ void presolve(){
 
 void solve(){    
         
-        $1
+        int n , x;
+        cin>>n>>x;
+        seti ans;
+        if(n%2==0){
+            int ele = -1000;
+            while(ans.sz<n){
+                ele++;
+                if(ele >=-1000 and ele <=1000 and 2*x - ele >=-1000 and 2*x - ele <=1000){
+                    if(ele == x or ele ==0 or (2*x-ele) ==0  or (2*x - ele)==x ) {
+                        ele++;
+                        continue;
+                    }
+                    // if(ans.fi)
+                    if(present(ans,ele) or present(ans,2*x - ele)){
+                        ele++;
+                        continue;
+                    }
+                    ans.ins(ele);
+                    ans.ins(2*x - ele);
+                }
+            }
+        }else{
+            ans.ins(x);
+            int ele = -1000;
+            while(ans.sz<n){
+                ele++;
+                if(ele >=-1000 and ele <=1000 and 2*x - ele >=-1000 and 2*x - ele <=1000){
+                    if(ele == x or ele ==0 or (2*x-ele) ==0 or (2*x - ele)==x ){
+                        ele++;
+                        continue;
+                    }
+                     if(present(ans,ele) or present(ans,2*x - ele)){
+                        ele++;
+                        continue;
+                    }
+                    ans.ins(ele);
+                    ans.ins(2*x - ele);
+                }
+            }
+        }
+        // sort(all(ans));
+
+        trav(i,ans){
+            cout<< i spcend;
+        }
+        cndl;
 
     return;
 }
-
-]]></content>
-    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-    <tabTrigger>cppp</tabTrigger>
-    <!-- Optional: Set a scope to limit where the snippet wiint trigger -->
-    <scope>source.c++</scope>
-</snippet>

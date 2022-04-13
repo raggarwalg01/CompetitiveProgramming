@@ -1,5 +1,3 @@
-<snippet>
-    <content><![CDATA[
 //==============================     raggarwalg01     ==============================//
 
 #include<bits/stdc++.h>
@@ -236,9 +234,9 @@ void presolve();
 
 int32_t  main(){
     #ifndef ONLINE_JUDGE
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\input.txt","r",stdin);
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\output.txt","w",stdout);
-        //freopen("D:\\\Programming\\\CompetitiveProgramming\\\error.txt","w",stderr);
+        freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
+        freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
+        //freopen("D:\\Programming\\CompetitiveProgramming\\error.txt","w",stderr);
 
 
     #endif
@@ -248,13 +246,13 @@ int32_t  main(){
 
 
     int testcase = 1;
-    $2// cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
-        $3//cout << "Case #" << i++ << ": ";
+        //cout << "Case #" << i++ << ": ";
         solve();
-        //cerr<<"//=====================================================================================================//" ndl;
+        cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
@@ -269,14 +267,61 @@ void presolve(){
 
 void solve(){    
         
-        $1
+    int n;
+    string s;
+    cin >>n>> s;
 
-    return;
+    if(n%2 == 1) {
+        NO return;
+    }
+
+    int one = 0, zero = 0;
+    trav(i,s){
+		if(i == '0') zero++;
+		else one++;
+    }
+
+    if(abs(zero - one) %2  == 1) {
+	    NO return;
+	}
+
+    char booll = '1'; 
+    if(zero > one) {
+        booll = '0';
+    }
+
+
+    int need = abs(zero - one)/2;
+
+    mapii hash;
+    int ctr = 0;
+
+    rep(i, -n-1,n+1){
+    	hash[i] = lmax;
+    }
+
+    rep(i,0,n){
+        if(s[i] == booll)
+            ctr++;
+        else
+            ctr--;
+        if(ctr == need) { 
+              YES
+              cout << 1 spc  i+1  ndl;
+              return;
+        }
+
+        if(hash[ctr-need] != lmax) {
+              YES
+              cout << hash[ctr-need] + 2 spc i + 1 ndl;
+              return;
+        }
+        hash[ctr] = i;
+
+    }
+    NO;
+
 }
 
-]]></content>
-    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-    <tabTrigger>cppp</tabTrigger>
-    <!-- Optional: Set a scope to limit where the snippet wiint trigger -->
-    <scope>source.c++</scope>
-</snippet>
+
+      

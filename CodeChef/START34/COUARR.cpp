@@ -1,5 +1,3 @@
-<snippet>
-    <content><![CDATA[
 //==============================     raggarwalg01     ==============================//
 
 #include<bits/stdc++.h>
@@ -236,9 +234,9 @@ void presolve();
 
 int32_t  main(){
     #ifndef ONLINE_JUDGE
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\input.txt","r",stdin);
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\output.txt","w",stdout);
-        //freopen("D:\\\Programming\\\CompetitiveProgramming\\\error.txt","w",stderr);
+        freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
+        freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
+        //freopen("D:\\Programming\\CompetitiveProgramming\\error.txt","w",stderr);
 
 
     #endif
@@ -248,11 +246,11 @@ int32_t  main(){
 
 
     int testcase = 1;
-    $2// cin>>testcase;
+    // cin>>testcase;
     
     int i = 1;
     while(testcase--){
-        $3//cout << "Case #" << i++ << ": ";
+        //cout << "Case #" << i++ << ": ";
         solve();
         //cerr<<"//=====================================================================================================//" ndl;
     }
@@ -269,14 +267,7 @@ void presolve(){
 
 void solve(){    
         
-        $1
+        
 
     return;
 }
-
-]]></content>
-    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-    <tabTrigger>cppp</tabTrigger>
-    <!-- Optional: Set a scope to limit where the snippet wiint trigger -->
-    <scope>source.c++</scope>
-</snippet>

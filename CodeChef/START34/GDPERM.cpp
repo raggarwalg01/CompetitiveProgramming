@@ -1,5 +1,3 @@
-<snippet>
-    <content><![CDATA[
 //==============================     raggarwalg01     ==============================//
 
 #include<bits/stdc++.h>
@@ -236,9 +234,9 @@ void presolve();
 
 int32_t  main(){
     #ifndef ONLINE_JUDGE
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\input.txt","r",stdin);
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\output.txt","w",stdout);
-        //freopen("D:\\\Programming\\\CompetitiveProgramming\\\error.txt","w",stderr);
+        freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
+        freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
+        //freopen("D:\\Programming\\CompetitiveProgramming\\error.txt","w",stderr);
 
 
     #endif
@@ -248,16 +246,16 @@ int32_t  main(){
 
 
     int testcase = 1;
-    $2// cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
-        $3//cout << "Case #" << i++ << ": ";
+        //cout << "Case #" << i++ << ": ";
         solve();
-        //cerr<<"//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
-    cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
+    // cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
 }
 
 void presolve(){    
@@ -269,14 +267,86 @@ void presolve(){
 
 void solve(){    
         
-        $1
+        int n;
+        cin>>n;
+        if(n==1 or n==3 ){
+        	minus1 return;
+        }
+        if(n%2==0){
+        	// vi v(n);
+        	// int id = 1;
+        	// trav(i,v){
+        	// 	i = id;
+        	// 	id++;
+        	// }
+        	for(int i = 0; i <n ; i++){        		
+		        if(i%2==0){
+		            cout<<i+2<<" ";
+		        }
+		        else{
+		            cout<<i<<" ";
+		        }
+		    }
+		    cndl;
+        return;
+        	// int ele1 = 2;
+        	// int ele2 = 1;
+        	// for(int i = 0; i <n ; i++){        		
+        	// 	// swap(v[i],v[i+1]);
+        	// 	if(i%2==0){
+        	// 		v[i] = ele1;
+        	// 		ele1+=2;
+        	// 	}else{
+        	// 		v[i] = ele2;
+        	// 		ele2+=2;
+        	// 	}
+        	// }
+        	// int xr = 0;
+        	// int cnt = 1;
+        	// trav(i,v){
+        	// 	xr = xr^ abs(i - cnt++);
+        	// }
+        	// dbg(xr)
+        	// cout<< v ndl;
+        	return;
+        }else{
+        	// vi v(5);
+        	// int id = 1;
+        	// trav(i,v){
+        	// 	i = id;
+        	// 	id++;
+        	// }
+        	// v[0] = 2 ; 
+        	// v[1] = 5 ;
+        	// v[2] = 1 ;
+        	// v[3] = 3 ;
+        	// v[4] = 4 ;
+        	cout<<"2 5 1 3 4 ";
+
+        	// for(int i = 5; i+1 <n ; i++){        		
+        	// 	// swap(v[i],v[i+1]);
+
+        	// }
+        	// cout<< v ;
+        	// cndl;
+        	for(int i = 5; i <n; i++){        		
+		        if(i%2==0){
+		            cout<<i<<" ";
+		        }
+		        else{
+		            cout<<i+2<<" ";
+		        }
+		    }
+		    cndl;
+			// int xr = 0;
+   //      	int cnt = 1;
+   //      	trav(i,v){
+   //      		xr = xr^ abs(i - cnt++);
+   //      	}
+   //      	dbg(xr)
+
+        	// cout<< v ndl;        	
+        }
 
     return;
 }
-
-]]></content>
-    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-    <tabTrigger>cppp</tabTrigger>
-    <!-- Optional: Set a scope to limit where the snippet wiint trigger -->
-    <scope>source.c++</scope>
-</snippet>

@@ -1,5 +1,3 @@
-<snippet>
-    <content><![CDATA[
 //==============================     raggarwalg01     ==============================//
 
 #include<bits/stdc++.h>
@@ -236,9 +234,9 @@ void presolve();
 
 int32_t  main(){
     #ifndef ONLINE_JUDGE
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\input.txt","r",stdin);
-        freopen("D:\\\Programming\\\CompetitiveProgramming\\\output.txt","w",stdout);
-        //freopen("D:\\\Programming\\\CompetitiveProgramming\\\error.txt","w",stderr);
+        freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
+        freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
+        //freopen("D:\\Programming\\CompetitiveProgramming\\error.txt","w",stderr);
 
 
     #endif
@@ -248,13 +246,13 @@ int32_t  main(){
 
 
     int testcase = 1;
-    $2// cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
-        $3//cout << "Case #" << i++ << ": ";
+        //cout << "Case #" << i++ << ": ";
         solve();
-        //cerr<<"//=====================================================================================================//" ndl;
+        cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
@@ -267,16 +265,85 @@ void presolve(){
     return;
 }
 
+bool fnczero(int n , string s , int k ){
+	int id = 0;
+	vector<string> v;
+	string ss;
+	int one = 0;
+	while(id<n){
+		if(s[id]=='0'){
+			ss.pb(s[id]);
+		}
+		else{
+			one++;
+			ss.pb(s[id]);
+		}
+		if(one%2==0){
+			v.pb(ss);
+			ss.clear();
+			one = 0;	
+		}
+		id++;
+	}
+	dbg(v,k);
+	int sum = 0;
+	trav(i,v){
+		sum+= i.sz;
+	}
+	if(v.sz>=k and sum == n){
+		return true;
+	}
+	return false;
+}
+bool fncone(int n , string s , int k ){
+	int id = 0;
+	vector<string> v;
+	string ss;
+	int one = 0;
+	while(id<n){
+		if(s[id]=='0'){
+			ss.pb(s[id]);
+		}
+		else{
+			one++;
+			ss.pb(s[id]);
+		}
+		if(one%2==1){
+			v.pb(ss);
+			ss.clear();
+			one = 0;
+		}
+		id++;
+	}
+	bool abc = false;
+	if(one%2==0 and !ss.empty()){
+			v.pb(ss);
+			ss.clear();
+			one = 0;
+			abc = true;
+		}
+	dbg(v,k);
+	int sum = 0;
+	trav(i,v){
+		sum+= i.sz;
+	}
+	if( ((v.sz>=k and (v.sz - k)%2==0 and abc == false) or( abc == true and v.sz >k and (v.sz - k - 1)%2==0 ))   and sum == n){
+		return true;
+	}
+	return false;
+}
+
 void solve(){    
-        
-        $1
+        int n ,k;
+        cin>>n>>k;
+
+        string s;
+        cin>>s;
+        if(fnczero(n,s,k) or fncone(n,s,k)){
+        	YES
+        }else{
+        	NO
+        }
 
     return;
 }
-
-]]></content>
-    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-    <tabTrigger>cppp</tabTrigger>
-    <!-- Optional: Set a scope to limit where the snippet wiint trigger -->
-    <scope>source.c++</scope>
-</snippet>
