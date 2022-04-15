@@ -252,209 +252,228 @@ int32_t  main(){
     while(testcase--){
         //cout << "Case #" << i++ << ": ";
         solve();
-        cerr<<"//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
 }
-bool isPowerOfTwo (int x)
-{
-    /* First x in the below expression is for the case when x is 0 */
-    return x && (!(x&(x-1)));
-}
-int bitcnt = 31;
-vi v(200);
 
-void presolve(){    
-        // cout<< power(10,11) ndl;
-        // cout<< (1ll<<37) ndl;
 
-        int n = 1;
-        int xk = bitcnt;
-        rep(i,0,xk){
-            v[i]=(n);
-            n = n*2;
-        }
-        
 
-        int k = 3;
-        rep(i,xk,100){
-            if( isPowerOfTwo(k)){
-                k++;
-            }
-            v[i] = k;
-            k++;
-        }
-                // dbg(kk);
-        // dbg(v);
-        // cout<<v.sz;
-    return;
-}
-int sumtemp = 0;
-void isKthBitSet(int n, int k){
 
-    if (n & (1ll << (k - 1))){
-        cout<< v[k-1] spcend;
-        sumtemp+= v[k-1];
-    }
-}
-// void binary(int n){
-//     for (int i = bitcnt; i >= 0; i--) {
-//         int k = n >> i;
-//         if (k & 1)
-//             cout<<v[i] <<" ";
-//     }
-//     return;
-// }
 
-void solve(){    
-        // dbg(v);
-
-        int n;
-        cin>>n;
-        rep(i,0,100)
-            cout<<v[i]<<" ";
-        cout<<endl;
-        // cout.flush();
-        
-        rep(i,100,200)
-            cin>>v[i];
-
-        ll sum = 0;
-        trav(i,v) sum+=i;
-        // dbg(sum);
-        sumtemp =0;
-        int half = sum/2;
-        rep(i,1,bitcnt+1){
-         isKthBitSet(half,i);
-             // cout<<v[i] spcend;
-        }
-        // binary(half);
-        cndl;
-        cout.flush();
-        // dbg(sum/2);
-        // dbg(sumtemp);
-        // cout<<sum ndl;
-        // cout<<sum/2 ndl;
-        // binary(sum/2);
-        // cndl
-        // cout<< sumtemp ndl;
-
-        // if(sumtemp == half){
-        //  YES
-        // }
-
-    return;
-}
-
+// int bitcnt = 29;
 // vi v(200);
+// vi other(30);
+
 // void presolve(){    
-//     rep(i,0,100){
-//         int t = i%31;
-//         v[i]=1<<t;
-//     }
+//         // cout<< power(10,11) ndl;
+//         // cout<< (1ll<<37) ndl;
+
+//         int n = 1;
+//         int xk = bitcnt;
+//         rep(i,0,xk){
+//             v[i]=(n);
+//             n = n*2;
+//         }
         
 
+//         int k = 3;
+//         rep(i,xk,100){
+//             if( isPowerOfTwo(k)){
+//                 k++;
+//             }
+//             v[i] = k;
+//             k++;
+//         }
+//                 // dbg(kk);
+//         // dbg(v);
+//         // cout<<v.sz;
 //     return;
 // }
-// ll findSplitPoint(vector<ll> v, ll n){
-//     ll leftSum = 0 ;
-//     rep(i,0,n){
-//         leftSum += v[i] ;
-//         ll rightSum = 0 ;
-//         rep (j,i+1,n)
-//             rightSum += v[j] ;
- 
-//         if (leftSum == rightSum)
-//             return i+1 ;
-//     }
- 
-//     return -1;
-// }
-// bool cmp(int a ,int b){
-//     return a>b;
-// }
-// void printTwoParts(vector<ll> v,ll n){
-    
-//     sort(all(v));
-
-//      do {
-//         ll splitPoint = findSplitPoint(v, n);
-//         if(splitPoint == -1) continue;
-
-//         rep(i,0,n){
-//             if(splitPoint == i)
-//                 break;
-//             cout<<v[i]<<" ";
-//         }
-//         return;
-//     } while (next_permutation(all(v)));
-// }
-
 // int sumtemp = 0;
 // void isKthBitSet(int n, int k){
 
 //     if (n & (1ll << (k - 1))){
-//         cout<< (1ll<<k-1) spcend;
-//         sumtemp+= (1ll<<k-1);
+//         cout<< (1ll<< (k-1) ) spcend;
+//         // cout<< v[k-1] spcend;
+//         // sumtemp+= v[k-1];
 //     }
 // }
-// void binary(int n)
-// {
-//     // Size of an integer is assumed to be 32 bits
-//     for (int i = 32; i >= 0; i--) {
-//         int k = n >> i;
-//         if (k & 1)
-//             cout << "1";
-//         else
-//             cout << "0";
-//     }
+// // void binary(int n){
+// //     for (int i = bitcnt; i >= 0; i--) {
+// //         int k = n >> i;
+// //         if (k & 1)
+// //             cout<<v[i] <<" ";
+// //     }
+// //     return;
+// // }
+
+// void solve(){    
+//         // dbg(v);
+
+//         int n;
+//         cin>>n;
+//         rep(i,0,100)
+//             cout<<v[i]<<" ";
+//         cout<<endl;
+//         // cout.flush();
+        
+//         rep(i,100,200)
+//             cin>>v[i];
+
+//         ll sum = 0;
+//         trav(i,v) sum+=i;
+//         // dbg(sum);
+//         sumtemp =0;
+//         int half = sum/2;
+//         sort(all(v));
+//         // reverse(all())
+//         // dbg(v);
+//         dbg(half);
+
+//         cndl
+//         while(v.back() >= 1e3){
+//             if(v.back() <=half ){
+//                 cout<< v.back() spcend;
+//                 half = half - v.back();
+//             }
+//             v.pop_back();
+//         }
+//         dbg(half);
+
+
+//         rep(i,1,bitcnt+1){
+//          isKthBitSet(half,i);
+//              // cout<<v[i] spcend;
+//         }
+//         // binary(half);
+//         cndl;
+//         cout.flush();
+
+//         // dbg(sum/2);
+//         // dbg(sumtemp);
+//         // cout<<sum ndl;
+//         // cout<<sum/2 ndl;
+//         // binary(sum/2);
+//         // cndl
+//         // cout<< sumtemp ndl;
+
+//         // if(sumtemp == half){
+//         //  YES
+//         // }
+
 //     return;
 // }
-// void solve(){ 
-//     // rep(i,1,32){
-//         // isKthBitSet(500,i);
-//     // }
-//     // return;
-// sumtemp  = 0;   
-//     int n;
-//     cin>>n;
+
+// // vi v(200);
+// // void presolve(){    
+// //     rep(i,0,100){
+// //         int t = i%31;
+// //         v[i]=1<<t;
+// //     }
+        
+
+// //     return;
+// // }
+// // ll findSplitPoint(vector<ll> v, ll n){
+// //     ll leftSum = 0 ;
+// //     rep(i,0,n){
+// //         leftSum += v[i] ;
+// //         ll rightSum = 0 ;
+// //         rep (j,i+1,n)
+// //             rightSum += v[j] ;
+ 
+// //         if (leftSum == rightSum)
+// //             return i+1 ;
+// //     }
+ 
+// //     return -1;
+// // }
+// // bool cmp(int a ,int b){
+// //     return a>b;
+// // }
+// // void printTwoParts(vector<ll> v,ll n){
+    
+// //     sort(all(v));
+
+// //      do {
+// //         ll splitPoint = findSplitPoint(v, n);
+// //         if(splitPoint == -1) continue;
+
+// //         rep(i,0,n){
+// //             if(splitPoint == i)
+// //                 break;
+// //             cout<<v[i]<<" ";
+// //         }
+// //         return;
+// //     } while (next_permutation(all(v)));
+// // }
+
+// // int sumtemp = 0;
+// // void isKthBitSet(int n, int k){
+
+// //     if (n & (1ll << (k - 1))){
+// //         cout<< (1ll<<k-1) spcend;
+// //         sumtemp+= (1ll<<k-1);
+// //     }
+// // }
+// // void binary(int n)
+// // {
+// //     // Size of an integer is assumed to be 32 bits
+// //     for (int i = 32; i >= 0; i--) {
+// //         int k = n >> i;
+// //         if (k & 1)
+// //             cout << "1";
+// //         else
+// //             cout << "0";
+// //     }
+// //     return;
+// // }
+// // void solve(){ 
+// //     // rep(i,1,32){
+// //         // isKthBitSet(500,i);
+// //     // }
+// //     // return;
+// // sumtemp  = 0;   
+// //     int n;
+// //     cin>>n;
    
 
-//     rep(i,0,100)
-//     cout<<v[i]<<" ";
-//     cout<<endl;
+// //     rep(i,0,100)
+// //     cout<<v[i]<<" ";
+// //     cout<<endl;
 
-//     rep(i,n,2*n)
-//     cin>>v[i];
-//     sort(all(v));
-//     // dbg(v);
+// //     rep(i,n,2*n)
+// //     cin>>v[i];
+// //     sort(all(v));
+// //     // dbg(v);
 
-//     // if(n<10){
-//     // // cndl
-//     // printTwoParts(v,2*n);
-//     // cout ndl;
-//     // }
-//     // return;
-//     int sum = 0;
-//     trav(i,v) sum+=i;
-//     // dbg(v);
-//     // dbg(sum);
-//     int kk = sum/2;
-//     // dbg(kk);
+// //     // if(n<10){
+// //     // // cndl
+// //     // printTwoParts(v,2*n);
+// //     // cout ndl;
+// //     // }
+// //     // return;
+// //     int sum = 0;
+// //     trav(i,v) sum+=i;
+// //     // dbg(v);
+// //     // dbg(sum);
+// //     int kk = sum/2;
+// //     // dbg(kk);
 
-//     rep(i,1,32){
-//         isKthBitSet((kk),i);
-//     }
-//     cout<<endl;
+// //     rep(i,1,32){
+// //         isKthBitSet((kk),i);
+// //     }
+// //     cout<<endl;
 
-//     // binary(sum/2) ;//ndl;
-//     // dbg(sumtemp);
-//     // dbg(sum/2)
-//     // YES
-//     // if(sumtemp == (sum/2)){
-//     //     cout<<"YES";
-//     // }
+// //     // binary(sum/2) ;//ndl;
+// //     // dbg(sumtemp);
+// //     // dbg(sum/2)
+// //     // YES
+// //     // if(sumtemp == (sum/2)){
+// //     //     cout<<"YES";
+// //     // }
 
 
 
@@ -462,5 +481,92 @@ void solve(){
 
         
 
-//     return;
-// }
+// //     return;
+// // }
+
+
+
+
+
+int bits = 29;
+
+bool isPowerOfTwo (int x){
+    /* First x in the below expression is for the case when x is 0 */
+    return x && (!(x&(x-1)));
+}
+
+void presolve(){
+    // sort(all(v));
+    // dbg(v);
+}
+
+void isKthBitSet(int n, int k){
+    if (n & (1ll << (k - 1))){
+        cout<< (1ll<< (k-1) ) spcend;
+    }
+}
+
+void solve(){
+
+    vi v; //{1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, 16777216, 33554432, 67108864, 134217728, 268435456, 536870912, 3, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int sum =0;
+
+    rep(i,0,bits+1){
+        cout<<( (1<<i) ) <<" ";
+        sum += (1<<i);
+    }
+    int kt = 3;
+    rep(i,bits + 1 , 100){
+        while(isPowerOfTwo(kt)){
+            kt++;
+        }
+        v.pb(kt);
+        cout<< kt spcend;
+        sum +=kt;
+        kt++;
+    }
+    cout<< endl;
+
+    int n;
+    cin>>n;
+    cout.flush();
+    rep(i,n,2*n){
+        int x ; cin>>x;
+        v.pb(x);
+        sum+=x;
+    }
+
+    // dbg(sum);
+    sum = sum/2;
+
+    // sort(all(v));
+    // dbg(sum);
+
+    // return;
+    // dbg(v);
+    vi ans ;
+    trav(i,v){
+        if( i < sum ){
+            sum = sum - i;
+            ans.pb(i);
+        }
+    }
+    // cndl cndl;
+
+    // dbg(sum);
+    rep(i,0,bits+1){
+        if (sum & (1 << i)) {
+            ans.pb(1 << i);
+        }
+    }
+    // sort(all(ans));
+    cout<< ans ;
+
+    cout<< endl;
+    cout.flush();
+
+    // cout<<isPowerOfTwo(1);
+
+}
+
+

@@ -29,7 +29,7 @@ using namespace std;
 #define sz                  size()
 #define all(var)            var.begin(), var.end()
 #define present(c, x)       (c.find(x) != c.end())
-#define desc                greater()
+#define desc                greater<int>()
 
 #define imin                INT_MIN
 #define imax                INT_MAX
@@ -252,7 +252,7 @@ int32_t  main(){
     while(testcase--){
         //cout << "Case #" << i++ << ": ";
         solve();
-        // cerr<<"//=====================================================================================================//" ndl;
+        //cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
@@ -264,172 +264,41 @@ void presolve(){
 
     return;
 }
-// int ans = lmax;
 
-// int helpsolve(vi v,int mx ){
-// trav(i,v) i = mx - i;
-//         // dbg(v);
-//         int eve = 0;
-//         int odd = 0;
-//         trav(i,v){
-//             if(i%2==0){
-//                 eve+= i/2;
-//             }else{
-//                 eve+= i/2;
-//                 odd++;
-//             }
-//         }
-//         int odcpy = odd;
-//         int evcpy = eve;
-//         int days;
-//         {
-//         int ans = min(odd,eve);
-//         odd-=ans;
-//         eve-=ans;
-//         ans+=ans;
-//         // cout<<ans ndl;
-//         days = ans;
-//         }
-        
-//         int t =eve%6;
-//         int tt = (eve/6)*8;
-//         eve = eve%6;
-
-//         // int ans = eve/3;
-//         // ans = ans * 4;
-//         // eve = eve%3;
-//         if(eve==0){
-//             return days + tt+ odd ; //ndl;
-//             // return;
-//         }
-//         if(eve==1){
-//             return days + tt+ 2 ; //ndl;
-//         }
-//         if(eve==2){
-//             // cout<<  ndl;
-//             return days + tt+ 3;
-//         }
-//         if(eve==3){
-//             // cout<<  ndl;
-//             return days + tt+ 4;
-//         }
-//         if(eve==4){
-//             return days+ tt+6;
-//         } 
-//         if(eve==5){
-//             return days + tt+7;
-//         }
-//         if(eve==6){
-//             return days +tt+8;
-//         }
-        // if(eve ==1){
-        //     ans +=3;
-        // }else if(eve==2){
-        //     ans+=3;
-        // }
-
-        // return days + ans;// ndl;
-        // return 0;
-
-// }
-
-int helpsolve(vi a,int mx ){
-    int x = mx;
-    int ans = lmax;
-    int n = a.sz;
-    long long cnt1 = 0, cnt2 = 0;
-    
-    rep(i,0, n){
-        cnt2 += (x - a[i]) / 2;
-        cnt1 += (x - a[i]) % 2;
-    }
-    
-    long long dif = max(0ll, cnt2 - cnt1 - 1) / 3;
-    
-    cnt1 += dif * 2;
-    cnt2 -= dif;
-    ans = min(ans, max(cnt1 * 2 - 1, cnt2 * 2));
-    if (cnt2 > 0){
-        cnt1 += 2;
-        --cnt2;
-        ans = min(ans, max(cnt1 * 2 - 1, cnt2 * 2));
-    }
-
-    return ans;
-}
 void solve(){    
         
-        int ans = lmax;
-
-        int n;
-        cin>>n;
-        vi v(n);
-        cin>>v;
-
-        int mx = *max_element(all(v));
-        // dbg(mx);
-        ans = min({helpsolve(v,mx),helpsolve(v,mx+1),helpsolve(v,mx+2)});
-        cout<< ans ndl;;
-
-        // vi a = v;
+        string a,b;
+        cin>>a>>b;
+        map<char , int > hash;
+        trav(i,a){
+        	hash[i]++;
+        }
+        trav(i,b){
+        	hash[i]--;
+        	if(hash[i]<0){
+        		NO return;
+        	}
+        }
         
-        // dbg(eve,odd);
+        dbg(hash);
 
-        return;
-    }
-
-        // // dbg(eve,odd);
-        // int day = 0;
-        // while(true){
-        // 	day++;
-        // 	if(day%2==0){
-        // 		if(eve>0)
-	       //  		eve--;
-	       //  	else{
-	       //  		// NO; return;
-	       //  		// day++;break;
-        // 			// day;
-	       //  	}
-        // 	}else{
-        // 		if(odd>0){
-        // 			odd--;
-        // 		}else if(eve>0){
-        // 			int ansneed = 0;
-        //             if(eve==1){
-        //     			day += ceil_div(eve*2,3);
-        //     			break;
-        //             }
-        // 			odd++;
-        // 			eve--;
-        // 		}else{
-        //             // NO return;
-        // 			// eve++;
-        // 			// odd-=2;
-        // 			// day-=4;
-        // 		}
-        // 	}
-        // 	// cout<<day spc eve spc odd ndl;
-        // 	if(odd<=0 and eve<=0) break;
-        // }
-        // int day2 =lmax;
-        // // odd = odcpy;
-        // // eve = evcpy;
-        // // while(true){
-        // // 	day2++;
-        // // 	// if(day2 == 2) continue;
-        // // 	if(day2%2==0){
-        // // 		if(eve>0)
-	       // //  		eve--;
-        // // 	}else{
-        // // 		if(odd>0){
-        // // 			odd--;
-        // // 		}else if(eve>0){
-        // // 			odd++;
-        // // 			eve--;
-        // // 		}
-        // // 	}
-        // // 	// cout<<eve spc odd ndl;
-        // // 	if(odd==0 and eve==0) break;
-        // // }
-        // dbg(day,day2)
-        // cout<< min(day,day2) ndl;
+        trav(i,a){
+        	if(hash[i] >0){
+        		hash[i]--;
+        		i = '.';
+        	}
+        }
+        string ns;
+        trav(i,a){
+        	if(i!='.'){
+        		ns.pb(i);
+        	}
+        }
+        dbg(a,b,ns);
+        if(b == ns){
+        	YES
+        }else {
+        	NO;
+        }
+    return;
+}

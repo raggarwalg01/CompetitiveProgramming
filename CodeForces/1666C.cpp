@@ -29,7 +29,7 @@ using namespace std;
 #define sz                  size()
 #define all(var)            var.begin(), var.end()
 #define present(c, x)       (c.find(x) != c.end())
-#define desc                greater()
+#define desc                greater<int>()
 
 #define imin                INT_MIN
 #define imax                INT_MAX
@@ -246,13 +246,13 @@ int32_t  main(){
 
 
     int testcase = 1;
-    cin>>testcase;
+    // cin>>testcase;
     
     int i = 1;
     while(testcase--){
         //cout << "Case #" << i++ << ": ";
         solve();
-        // cerr<<"//=====================================================================================================//" ndl;
+        //cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
@@ -264,172 +264,103 @@ void presolve(){
 
     return;
 }
-// int ans = lmax;
+int dis(pi a , pi b, pi c){
+	int ans = 0;
+	ans = abs(b.fi - a.fi) + abs(b.se - a.se) + abs(b.fi - c.fi) + abs(b.se - c.se);
+	return ans;
+}
+void printdis(pi a ,pi b , pi c){
+	vector<pair< pair<int,int>, pair<int,int>>> ans;
+	pi now = {a.fi , a.se};
+	ans.pb({ {a.fi,a.se}, {a.fi,b.se} });
+	ans.pb({ {a.fi,b.se}, {b.fi,b.se} });
+	ans.pb({ {b.fi,b.se}, {c.fi,b.se} });
+	ans.pb({ {c.fi,b.se}, {c.fi,c.se} });
+	cout<< 4 ndl;
+	trav(i,ans){
+		cout<<i.fi.fi spc i.fi.se spc i.se.fi spc i.se.se ndl;
+	}
 
-// int helpsolve(vi v,int mx ){
-// trav(i,v) i = mx - i;
-//         // dbg(v);
-//         int eve = 0;
-//         int odd = 0;
-//         trav(i,v){
-//             if(i%2==0){
-//                 eve+= i/2;
-//             }else{
-//                 eve+= i/2;
-//                 odd++;
-//             }
-//         }
-//         int odcpy = odd;
-//         int evcpy = eve;
-//         int days;
-//         {
-//         int ans = min(odd,eve);
-//         odd-=ans;
-//         eve-=ans;
-//         ans+=ans;
-//         // cout<<ans ndl;
-//         days = ans;
-//         }
-        
-//         int t =eve%6;
-//         int tt = (eve/6)*8;
-//         eve = eve%6;
-
-//         // int ans = eve/3;
-//         // ans = ans * 4;
-//         // eve = eve%3;
-//         if(eve==0){
-//             return days + tt+ odd ; //ndl;
-//             // return;
-//         }
-//         if(eve==1){
-//             return days + tt+ 2 ; //ndl;
-//         }
-//         if(eve==2){
-//             // cout<<  ndl;
-//             return days + tt+ 3;
-//         }
-//         if(eve==3){
-//             // cout<<  ndl;
-//             return days + tt+ 4;
-//         }
-//         if(eve==4){
-//             return days+ tt+6;
-//         } 
-//         if(eve==5){
-//             return days + tt+7;
-//         }
-//         if(eve==6){
-//             return days +tt+8;
-//         }
-        // if(eve ==1){
-        //     ans +=3;
-        // }else if(eve==2){
-        //     ans+=3;
-        // }
-
-        // return days + ans;// ndl;
-        // return 0;
-
-// }
-
-int helpsolve(vi a,int mx ){
-    int x = mx;
-    int ans = lmax;
-    int n = a.sz;
-    long long cnt1 = 0, cnt2 = 0;
-    
-    rep(i,0, n){
-        cnt2 += (x - a[i]) / 2;
-        cnt1 += (x - a[i]) % 2;
+}
+bool cmp(pi a ,pi b){
+    if(a.se == b.se){
+        return a.fi < b.fi;
     }
-    
-    long long dif = max(0ll, cnt2 - cnt1 - 1) / 3;
-    
-    cnt1 += dif * 2;
-    cnt2 -= dif;
-    ans = min(ans, max(cnt1 * 2 - 1, cnt2 * 2));
-    if (cnt2 > 0){
-        cnt1 += 2;
-        --cnt2;
-        ans = min(ans, max(cnt1 * 2 - 1, cnt2 * 2));
-    }
-
-    return ans;
+    return a.se < b.se;
 }
 void solve(){    
         
-        int ans = lmax;
+        vpi v(3);
+        trav(i,v){
+        	cin>>i.fi >>i.se;
+        }
+        sort(all(v));
+        vvi ans(3,vi(4,0));
+        pi a = v[0];
+        pi b = v[1];
+        pi c = v[2];
+        int miny = lmax;
+        int maxy = lmin;
 
-        int n;
-        cin>>n;
-        vi v(n);
-        cin>>v;
-
-        int mx = *max_element(all(v));
-        // dbg(mx);
-        ans = min({helpsolve(v,mx),helpsolve(v,mx+1),helpsolve(v,mx+2)});
-        cout<< ans ndl;;
-
-        // vi a = v;
+        trav(i,v){
+            miny = min(miny , i.se);
+            maxy = max(maxy , i.se);
+        }
+        ans[0] = {b.fi, miny, b.fi, maxy};
+        ans[1] = {a.fi, a.se, b.fi, a.se};
+        ans[2] = {b.fi, c.se, c.fi, c.se};
         
-        // dbg(eve,odd);
-
+        cout<< 3 ndl;
+        
+        trav(i,ans){
+            print(i);
+        }
         return;
-    }
+        // vector<pair< pair<int,int>, pair<int,int>>> ans;
+        // ans.pb({ {a.fi,a.se}, {a.fi,c.se} });
+        // ans.pb({ {a.fi,c.se}, {c.fi,c.se} });
 
-        // // dbg(eve,odd);
-        // int day = 0;
-        // while(true){
-        // 	day++;
-        // 	if(day%2==0){
-        // 		if(eve>0)
-	       //  		eve--;
-	       //  	else{
-	       //  		// NO; return;
-	       //  		// day++;break;
-        // 			// day;
-	       //  	}
-        // 	}else{
-        // 		if(odd>0){
-        // 			odd--;
-        // 		}else if(eve>0){
-        // 			int ansneed = 0;
-        //             if(eve==1){
-        //     			day += ceil_div(eve*2,3);
-        //     			break;
-        //             }
-        // 			odd++;
-        // 			eve--;
-        // 		}else{
-        //             // NO return;
-        // 			// eve++;
-        // 			// odd-=2;
-        // 			// day-=4;
-        // 		}
-        // 	}
-        // 	// cout<<day spc eve spc odd ndl;
-        // 	if(odd<=0 and eve<=0) break;
+        // if( abs(b.fi - a.fi) < abs(c.se - b.se) ){
+        //     ans.pb({ {b.fi,b.se}, {a.fi,b.se} });
+        // }else{
+        //     // YES
+        //     ans.pb({ {b.fi,b.se}, {b.fi,c.se} });
         // }
-        // int day2 =lmax;
-        // // odd = odcpy;
-        // // eve = evcpy;
-        // // while(true){
-        // // 	day2++;
-        // // 	// if(day2 == 2) continue;
-        // // 	if(day2%2==0){
-        // // 		if(eve>0)
-	       // //  		eve--;
-        // // 	}else{
-        // // 		if(odd>0){
-        // // 			odd--;
-        // // 		}else if(eve>0){
-        // // 			odd++;
-        // // 			eve--;
-        // // 		}
-        // // 	}
-        // // 	// cout<<eve spc odd ndl;
-        // // 	if(odd==0 and eve==0) break;
-        // // }
-        // dbg(day,day2)
-        // cout<< min(day,day2) ndl;
+        // cout<< ans.sz ndl;
+        // trav(i,ans){
+        //     cout<<i.fi.fi spc i.fi.se spc i.se.fi spc i.se.se ndl;
+        // }
+
+
+        // int ans = lmax;
+        // do{
+        // 	ans = min(ans , dis(v[0],v[1],v[2]));
+        // }while(next_permutation(all(v)));
+        
+        // sort(all(v));
+
+        // do{
+        // 	if(ans ==dis(v[0],v[1],v[2])){
+        // 		printdis(v[0],v[1],v[2]);
+        // 		return;
+        // 	}
+        // }while(next_permutation(all(v)));
+        
+
+
+        // ans = min(ans , dis(v[0],v[1],v[2]));
+        // ans = min(ans , dis(v[0],v[2],v[1]));
+        // ans = min(ans , dis(v[1],v[0],v[2]));
+
+        // if(ans == dis(v[0],v[1],v[2])){
+        // 	printdis(v[0],v[1],v[2]);
+        // }else if(ans == dis(v[0],v[2],v[1])){
+        // 	printdis(v[0],v[2],v[1]);
+        // }else{
+        // 	printdis(v[1],v[0],v[2]);
+        // }
+
+
+
+    return;
+}
