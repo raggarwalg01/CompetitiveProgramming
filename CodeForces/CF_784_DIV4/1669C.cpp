@@ -268,7 +268,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -289,7 +289,35 @@ void presolve(){
 
 void solve(){    
         
-        
+        int n;
+        cin>>n;
+        vi v(n);
+        cin>>v;
+        trav(i,v){
+        	i = i%2;
+        }
+
+        vi vcopy = v;
+
+        bool odd = true;
+        bool eve = true;
+        for(int i = 2 ; i<n; i++){
+        	if(i%2==0){
+	        	if(v[i]!=v[0]){
+	        		eve = false;
+	        		break;
+	        	}
+        	}else{
+        		if(v[i]!=v[1]){
+        			odd = false;
+        		}
+        	}
+        }
+        if(odd and eve){
+        	YES
+        }else{
+        	NO
+        }
 
     return;
 }

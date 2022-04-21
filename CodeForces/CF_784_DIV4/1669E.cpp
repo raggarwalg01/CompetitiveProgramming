@@ -268,7 +268,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -289,7 +289,34 @@ void presolve(){
 
 void solve(){    
         
-        
+        int n; cin >> n;
+      vector<string> s;
+      for(int i=0; i<n; i++) {
+
+            string s1;cin >> s1;
+            s.pb(s1);
+      }
+
+
+      map<char, int> hash1, hash2;
+      map<string, int> m;
+
+      int ans = 0;
+      for(int i=n-1; i>=0; i--) {
+            if(i == n-1) {
+                  hash1[s[i][0]]++;
+                  hash2[s[i][1]]++;
+                  m[s[i]]++;
+                  continue;
+            }
+            ans += hash2[s[i][1]];
+            ans += hash1[s[i][0]];
+            ans -= 2*m[s[i]];
+            hash1[s[i][0]]++;
+            hash2[s[i][1]]++;
+            m[s[i]]++;
+      }
+      cout << ans  ndl;
 
     return;
 }

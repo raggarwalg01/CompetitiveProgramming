@@ -268,7 +268,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -289,7 +289,20 @@ void presolve(){
 
 void solve(){    
         
-        
+        int n;
+        cin>>n;
+        vi v(n);
+        cin>>v;
+        sort(all(v));
+        umapii mp;
+        trav(i,v){
+        	mp[i]++;
+        	if(mp[i]==3){
+        		cout<< i ndl;return;
+        	}
+        }
+        minus1;
+
 
     return;
 }

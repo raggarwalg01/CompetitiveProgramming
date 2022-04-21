@@ -268,7 +268,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -289,7 +289,29 @@ void presolve(){
 
 void solve(){    
         
-        
-
+        int n ,k;
+        cin>>n>>k;
+        vi v(n);
+        vi bits(31);
+        cin>>v;
+        dbg(v);
+        rep(j,0,n){
+        	// cout<<v[j];
+        	for(int i = 0 ; i <=30; i++){
+        		if(v[j] & (1ll<<i)){
+        			bits[i]++;
+        		}
+        	}
+        }
+        int ans = 0;
+        for(int i = 30; i>=0;i--){
+        	int need = n - bits[i];
+        	if(need <=k){
+        		k = k - need;
+        		ans = ans | (1<<i);
+        	}
+        }
+        cout<< ans ndl;
+        dbg(bits);
     return;
 }

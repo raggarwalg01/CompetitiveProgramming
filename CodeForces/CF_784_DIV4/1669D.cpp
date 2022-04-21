@@ -268,7 +268,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -289,7 +289,37 @@ void presolve(){
 
 void solve(){    
         
-        
+        int n; cin >> n;
+        string s;cin >> s;
+
+        // rep(i,0,n)
+                for(int i=0; i<n; i++) {
+                int j = i;
+                int cnt1 = 0;
+                int cnt2 = 0;
+                while(j < n && s[j] != 'W') {
+                        if(s[j] == 'R') {
+                                cnt1++;
+                        } else {
+                                cnt2++;
+                        }
+                        j++;
+                }
+                if(cnt1 == 0 && cnt2 == 0) {
+                        i = j;
+                        continue;
+                } else {
+                        if(cnt1 > 0 && cnt2 > 0) {
+                                i = j;
+                                continue;
+                        } else {
+                                NO
+                                return;
+                        }
+                }
+        }
+
+        YES
 
     return;
 }

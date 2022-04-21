@@ -268,7 +268,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -289,7 +289,36 @@ void presolve(){
 
 void solve(){    
         
-        
+      int n; cin >> n;
+      vi v(n);
+      cin>>v;
+
+
+      int firstvar = 0;
+      int lastvar = n-1;
+      int val = 0;
+      int init = 0;
+      int init2 = 0;
+      while(firstvar <= lastvar) {
+            if(init <= init2) {
+                  init += v[firstvar];
+                  if(init == init2) {
+                        val = (firstvar+1) + (n - lastvar - 1);
+                  }
+                  firstvar++;
+                  continue;
+            } else {
+                  init2 += v[lastvar];
+                  if(init == init2) {
+                        val = (firstvar) + (n - lastvar);
+                  }
+                  lastvar--;
+                  continue;
+            }
+      }
+            
+
+      cout << val ndl;;
 
     return;
 }

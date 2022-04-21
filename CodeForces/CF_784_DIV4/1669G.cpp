@@ -268,7 +268,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -289,7 +289,31 @@ void presolve(){
 
 void solve(){    
         
-        
+        int n,m;
+        cin>>n>>m;
+
+        vector<string> v(n);
+        cin>>v;
+
+        dbg(v);
+        for(int i = 0 ; i<m ; i++){
+        	int stonecnt = 0;
+        	for(int j = n-1; j>=0; j--){
+        		if(v[j][i]=='o') continue; 
+        		for(int k = j; k<n-1;k++){
+        			if(v[k+1][i]=='o') break;
+        			else if(v[k+1][i]=='*'){
+        				break;
+        			}
+        			else{
+        				swap(v[k][i],v[k+1][i]);
+        			}
+        		}
+        	} 
+        }
+        trav(i,v){
+        	cout<<i ndl;
+        }
 
     return;
 }

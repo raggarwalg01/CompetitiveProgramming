@@ -268,12 +268,13 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
         //cout << "Case #" << i++ << ": ";
         solve();
+        cndl;
         //cerr<<"//=====================================================================================================//" ndl;
     }
 
@@ -289,7 +290,21 @@ void presolve(){
 
 void solve(){    
         
-        
+        int n;
+    cin>>n;
+    if(n<1400){
+        cout<<"Division 4";
+        return;
+    }  
+    if(n>=1400 && n<1600){
+        cout<<"Division 3";
+        return;
+    }
+    if(n>=1600 && n<1900){
+        cout<<"Division 2";
+        return;
+    }
+    cout<<"Division 1"; return;
 
     return;
 }
