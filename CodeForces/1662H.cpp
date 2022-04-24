@@ -8,10 +8,10 @@ using namespace std;
 #define ull                 unsigned long long 
 #define ld                  long double
 
-#define rep(i, begin, end)  for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
+// #define rep(i, begin, end)  for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
 
-//#define rep(i,a,b)          for(int i = a; i <  b ; i++)
-//#define repn(i,a,b)         for(int i = a; i >= b ; i--)
+#define rep(i,a,b)          for(int i = a; i <  b ; i++)
+#define repn(i,a,b)         for(int i = a; i >= b ; i--)
 #define Rep(i,b)            for(int i = 0; i <  b ; i++)
 #define trav(a,x)           for (auto& a : x)
 
@@ -268,7 +268,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -286,10 +286,138 @@ void presolve(){
 
     return;
 }
+vi factors(int n){
+    vi v;
+    for(int i = 1 ; i*i<=n ; i++){
+        if(n%i==0 ){
+            v.pb(i);
+            if(n/i !=i)
+                v.pb(n/i);
+        }
+    }
+    return v;
+}
+bool checkleft(int num , int init , int n , int m ){
+    int length1 = n - init;
+    if(length1%num ==0 ){
+        // cout<<"ok";
+            int length2 = m - 1;
+            if(length2%num==0){
+                // cout<<"zero";
+                    int length3 = n - 1;
+                    if(length3%num==0){
+                            int length4 = m - 2 + init;
+                            if(length4%num==0){
+                                return true;
+                            }else{
+                                return false;
+                            }
+                    }else if(length3%num==1){
+                            int length4 = m - 1 + init;
+                            if(length4%num==0){
+                                return true;
+                            }else{
+                                return false;
+                            }
+                    }else{
+                            return false;
+                    }
+            }else if(length2%num==1){
+                // cout<<"one";
+                    int length3 = n;
+                    if(length3%num==0){
+                        // cout<<"ok3";
+                            int length4 = m - 2 + init;
+                            if(length4%num==0){
+                                // cout<<"ok4";
+                                return true;
+                            }else{
+                                return false;
+                            }
+                    }else if(length3%num==1){
+                            int length4 = m - 1 + init;
+                            if(length4%num==0){
+                                return true;
+                            }else{
+                                return false;
+                            }
+                    }else{
+                        return false;
+                    }
+            }else{
+                return false;
+            }
+    }else if (length1%num==1){
+            int length2 = m;
+            // int length2 = m - 1;
+            if(length2%num==0){
+                    int length3 = n - 1;
+                    if(length3%num==0){
+                            int length4 = m - 2 + init;
+                            if(length4%num==0){
+                                return true;
+                            }else{
+                                return false;
+                            }
+                    }else if(length3%num==1){
+                            int length4 = m - 1 + init;
+                            if(length4%num==0){
+                                return true;
+                            }else{
+                                return false;
+                            }
+                    }else{
+                        return false;
+                    }
+            }else if(length2%num==1){
+                    int length3 = n;
+                    if(length3%num==0){
+                            int length4 = m - 2 + init;
+                            if(length4%num==0){
+                                return true;
+                            }else{
+                                return false;
+                            }
+                    }else if(length3%num==1){
+                            int length4 = m - 1 + init;
+                            if(length4%num==0){
+                                return true;
+                            }else{
+                                return false;
+                            }
+                    }else{
+                        return false;
+                    }
+            }else{
+                return false;
+            }
+    }else{
+        return false;
+    }
 
+}
 void solve(){    
         
-        
+        int n , m;
+        cin>> n >> m;
+        int peri = 2*n + 2*m - 4;
+        peri = 2*n + 2*(m-2);
+        dbg(peri);
+        // peri = 16;
+        vi fact = factors(peri);
+        dbg(fact);
+        vi ans ;
+
+        trav(i,fact){
+        // rep(i,1,min(n,m)+1){
+            // if(i!=3) continue;
+            if(checkleft(i ,0,n,m) or checkleft(i,1 , n , m)) {
+                ans.pb(i);
+            }
+        }
+        sort(all(ans));
+        cout<< ans .sz spcend;
+        cout<< ans ndl;
 
     return;
 }

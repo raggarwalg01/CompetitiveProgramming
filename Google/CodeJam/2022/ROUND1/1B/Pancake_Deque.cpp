@@ -268,12 +268,13 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
-        //cout << "Case #" << i++ << ": ";
+        cout << "Case #" << i++ << ": ";
         solve();
+        cndl;
         //cerr<<"//=====================================================================================================//" ndl;
     }
 
@@ -289,7 +290,33 @@ void presolve(){
 
 void solve(){    
         
-        
+    int n;
+    cin>>n;
+    deque<int> dq{};
+    int x;
+    rep(i,0,n){
+        cin>>x;
+        dq.pb(x);
+    }
+    int cnt=imin;
+    int ans=0;
+    while(dq.size()>0){
+        if(dq.front()>dq.back()){
+            cnt=max(cnt,dq.back());
+            if(dq.back()>=cnt){
+                ans++;            
+            }
+            dq.pop_back();
+        }
+        else{
+            cnt=max(dq.front(),cnt);
+            if(dq.front()>=cnt){
+                ans++;
+            }
+            dq.pop_front();
+        }
+    }
+    cout<<ans;
 
     return;
 }

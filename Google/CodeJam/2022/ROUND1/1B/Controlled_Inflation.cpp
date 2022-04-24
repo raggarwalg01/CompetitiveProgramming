@@ -268,11 +268,11 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
-        //cout << "Case #" << i++ << ": ";
+        cout << "Case #" << i++ << ": ";
         solve();
         //cerr<<"//=====================================================================================================//" ndl;
     }
@@ -286,10 +286,134 @@ void presolve(){
 
     return;
 }
+int cttttr =0;
+int fnc(int customer, vvi &v ,int n , int p , int startair , vector<vector<int>> &dp){
+	if(customer == n-1){
+		int ans = lmax;
+		startair = v[customer-1][startair];
+		ans = v[customer][p-1] - v[customer][0] + min( abs(startair - v[customer][p-1]), abs(startair - v[customer][0]) );
+		// for(int i = 0 ; i< p ; i++){
+		// 	int temp =lmax;
+		// 	// temp  = min( v[customer][p-1] - )
+		// 	if( startair <= v[customer][0]){
+		// 		temp  = v[customer][p-1] - startair;
+		// 	}else if(startair>= v[customer][p-1]){
+		// 		temp = min(temp , startair - v[customer][p-1]);
+		// 	}else{
+		// 		int up = min(v[customer][p-1] - startair, startair - v[customer][0]) + v[customer][p-1] - v[customer][0];
+		// 		temp = min(temp , up);
+		// 	}
+		// 	ans = min(ans , temp);
+		// }
+		return ans ;
+	}
+		if( customer!=0 and dp[customer][startair]!=lmax) return dp[customer][startair];
+		int id = startair;
+		if(customer!=0){
+			startair = v[customer -1][startair];
+		}else startair = 0;
+
+
+		int ans = lmax;
+		for(int i = 0 ; i <p ;i++){
+			int endair = v[customer][i];
+			int temp =lmax;
+			temp = abs(v[customer][p-1] - v[customer][0] );
+			// cout<< temp spcend;
+			temp += min( abs(startair - v[customer][p-1]) + abs( endair - v[customer][0]),abs(startair - v[customer][0]) + abs( endair - v[customer][p-1])   );
+			// cout<< customer spc  startair spc endair spc temp ndl;
+			ans = min(ans , temp + fnc( customer + 1 , v , n , p , i,dp) ) ;
+			cttttr++;
+		}
+		return dp[customer][id] = ans;
+}
 
 void solve(){    
-        
-        
+        mapii max1;
+        mapii min1; 
+        int n , p ; cin>> n >> p;
+        // vvi v(n,vi(p));
+        int ct = 0;
+        vector<vector<int>> v;
+
+        for(int i=0; i<n; i++) {
+
+                vi vtemp;
+                int ele = lmin;
+                int ele2 = lmax;
+                for(int j=0; j<p; j++) {
+                        int x;cin >> x;
+                        vtemp.pb(x);
+                        ele = max(ele, x);
+                        ele2 = min(ele2, x);
+                }
+
+                max1[i] = ele;
+                min1[i] = ele2;
+                sort(all(vtemp));
+                v.pb(vtemp);
+        }
+        // trav(i,v){
+        // 	cin>>i;
+        // 	sort(all(i));
+        // 	max1[ct] = i[0];
+        //     min1[ct] = i[p-1];
+        //     ct++;
+        // }
+
+        int ans = lmax;
+        int air = 0;
+        // for(int i = 0; i < p ; i++){
+        vector<vector<int>> dp(n+1, vector<int>(p+1, lmax));
+        int temp = fnc(0, v , n , p , 0 , dp );
+        ans = min(ans , temp);
+        // }
+        cout<< ans ndl;
+        // dbg(cttttr);
+        return;
+    }
+/*
+
+        trav(i,dp)
+	        // memset(i,lmax,sizeof(i));
+		    fill(all(i),lmax);
+
+        for(int i=0; i<n; i++) {
+	        if(i == 0) {
+	                for(int j=0; j<p; j++) {
+	                        dp[i][j] = min(dp[i][j], max1[i] + abs(max1[i] - v[i][j]));
+	                }
+	                continue;
+	        }
+	        for(int j=0; j<p; j++) {
+	                for(int k = 0; k<p; k++) {
+	                        if(v[i-1][k] < v[i][j]) {
+	                                dp[i][j] = min(dp[i][j], dp[i-1][k] + abs(min1[i] - v[i-1][k]) + (max1[i] - min1[i]) + abs(max1[i] - v[i][j]));
+	                        } else {
+	                                dp[i][j] = min(dp[i][j], dp[i-1][k] + abs(max1[i] - v[i-1][k]) + (max1[i] - min1[i]) + abs(min1[i] - v[i][j]));
+	                        }
+	                }  
+	        }
+		}
+
+
+        ans = lmax;
+        for(int i=0; i<p; i++) {
+                ans = min(ans, dp[n-1][i]);
+        }
+
+        cout << ans ndl;
+        // dbg(i);
+        // int ans = lmax;
+        // int air = 0;
+        // for(int i = 0; i < p ; i++){
+        // 	int temp = fnc(0, v , n , p , 0 );
+        // 	ans = min(ans , temp);
+        // }
+        // cout<< ans ndl;
+
+
 
     return;
 }
+*/
