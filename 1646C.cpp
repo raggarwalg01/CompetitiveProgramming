@@ -269,7 +269,7 @@ int32_t  main(){
 
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -280,17 +280,72 @@ int32_t  main(){
 
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
 }
-
+vi nums;
+vpi subsetsumvector;
+void subsetsums(int i,int cnt , int sum){
+	if(i==nums.size()){
+		subsetsumvector.pb({sum, cnt});
+		return;
+	}
+	subsetsums(i+1 ,cnt, sum);
+	subsetsums(i+1 ,cnt+1 , sum + nums[i]);
+}
 void presolve(){    
         
-        
+    int prev = 2;
+    int fct = 3;
 
+    while(fct*prev <=1e12){
+    	nums.pb(fct*prev);
+    	prev = fct*prev;
+    	fct++;
+    }
+    // nums.pb( fct*prev );
+    dbg(fct);
+    // rep(i,0,62){
+    // 	nums.pb( 1ll<<i);
+    // }
+    // cout<< ( 1e12 >= nums.back());
+    dbg(nums);
+    dbg(nums.sz);
+
+    subsetsums(0,0,0);
+    sort(all(subsetsumvector));
+    dbg(subsetsumvector);
     return;
+}
+string decToBinary(int n)
+{
+    // Size of an integer is assumed to be 32 bits
+    string s;
+    for (int i = 63; i >= 0; i--) {
+        int k = n >> i;
+        if (k & 1)
+            s.pb('1');
+        else
+        	s.pb('0');
+            // cout << "0";
+    }
+    return s;
 }
 
 void solve(){    
         
-        
+        int n ;
+        cin>> n;
+        // string s = decToBinary(n);
+        // dbg(s);
+        int ans = lmax;
+        // cout<< subsetsumvector.sz ndl; cndl
+        trav(i,subsetsumvector){
+        	int num = i.fi ;
+        	int cnt = i.se;
+        	if(i.fi<=n)
+	        	ans = min( ans , cnt + set_bits(n - num));
+	        else break;
+        }
+	    cout<< ans ndl;
 
+        // cout<< count(all(s),'1') ndl;
     return;
 }
