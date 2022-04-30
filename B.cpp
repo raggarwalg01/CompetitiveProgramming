@@ -351,8 +351,8 @@ void solve(){
         		return;
         	}
         } 
+        		cout<<"IMPOSSIBLE" ndl;
 
-        	cout<<"IMPOSSIBLE" ndl;
 
 
         // int sumiii = pref[n-1];
