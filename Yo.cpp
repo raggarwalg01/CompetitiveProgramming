@@ -8,10 +8,10 @@ using namespace std;
 #define ull                 unsigned long long 
 #define ld                  long double
 
-#define rep(i, begin, end)  for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
+//#define rep(i, begin, end)  for (__typeof(end) i = (begin) - ((begin) > (end)); i != (end) - ((begin) > (end)); i += 1 - 2 * ((begin) > (end)))
 
-//#define rep(i,a,b)          for(int i = a; i <  b ; i++)
-//#define repn(i,a,b)         for(int i = a; i >= b ; i--)
+#define rep(i,a,b)          for(int i = a; i <  b ; i++)
+#define repn(i,a,b)         for(int i = a; i >= b ; i--)
 #define Rep(i,b)            for(int i = 0; i <  b ; i++)
 #define trav(a,x)           for (auto& a : x)
 
@@ -53,6 +53,7 @@ using namespace std;
 #define yes                 cout << "yes\n";
 #define no                  cout << "no\n";
 #define minus1              cout << "-1\n";
+#define zero                cout << "0\n";
 
 #define set_bits            __builtin_popcountll
 #define precision(n)        cout<< fixed << setprecision(n);
@@ -194,6 +195,46 @@ int mex( vi arr){
     return n+1;
 }
 
+bool is_palindrome(vector<int> &s){
+    int n = s.size();
+    int lo = 0;
+    int hi = n-1;
+    while(lo<hi){
+        if(s[lo]!=s[hi]){
+            return false;
+        }
+        lo++;
+        hi--;
+    }
+    return true;
+}
+
+bool is_palindrome(string &s){
+    int n = s.length();
+    int lo = 0;
+    int hi = n-1;
+    while(lo<hi){
+        if(s[lo]!=s[hi]){
+            return false;
+        }
+        lo++;
+        hi--;
+    }
+    return true;
+}
+
+bool is_palindrome(int n){
+    // int n = s.length();
+    vi v;
+    while(n>0){
+        v.pb(n%10);
+        n = n/10;
+    }
+    reverse(all(v));
+    // dbg(v);
+    return is_palindrome(v);
+}
+
 int minv(int a){ return power(a , M-2 ); }
 int mod(int n) { return (n % M + M) % M; }
 int modM(int n, int m) { return ((n % M * m % M) + M) % M; }
@@ -256,17 +297,17 @@ void solve();
 void presolve();
 
 int32_t  main(){
+
     #ifndef ONLINE_JUDGE
         freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
         freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
         //freopen("D:\\Programming\\CompetitiveProgramming\\error.txt","w",stderr);
-
-
     #endif
+
+
     ios_base::sync_with_stdio(false);cin.tie(NULL);
     
     presolve();
-
 
     int testcase = 1;
     // cin>>testcase;
@@ -290,7 +331,7 @@ void presolve(){
 
 void solve(){    
         
-        
+        yes
 
     return;
 }
