@@ -310,7 +310,7 @@ int32_t  main(){
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -331,7 +331,33 @@ void presolve(){
 
 void solve(){    
         
-        
+        string s , t;
+        cin>> s >> t;
+
+        int ts = t.length();
+        int ss = s.length();
+
+        int cta = 0;
+        trav(i,t){
+        	if(i=='a') cta++;
+        }
+        if(cta ==1 and ts ==1){
+        	cout<< 1 ndl ;return;
+        }
+
+        if(cta ==1 and ts !=1){
+        	minus1; return;
+        }
+
+        if(cta> 1){
+        	minus1; return;
+        }
+        set<char> st;
+        // trav(i,)
+        if(cta ==0 ){
+        	cout<< power(2,ss) ndl;return;
+        }
+
 
     return;
 }

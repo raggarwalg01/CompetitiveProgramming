@@ -310,7 +310,7 @@ int32_t  main(){
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -331,7 +331,14 @@ void presolve(){
 
 void solve(){    
         
-        
+    int x,y;
+    cin>>x>>y;
+    
+    if(y%x!=0){
+        cout<< 0 spc 0 ndl;
+        return;
+    }
+    cout<<"1"<<" "<<(y/x) ndl;
 
     return;
 }

@@ -310,11 +310,11 @@ int32_t  main(){
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
-        //cout << "Case #" << i++ << ": ";
+        // cout << "Case #" << i++ << ": ";
         solve();
         //cerr<<"//=====================================================================================================//" ndl;
     }
@@ -331,7 +331,38 @@ void presolve(){
 
 void solve(){    
         
-        
+        int n; 
+        cin >> n;
+        vi v(n);
+        cin>>v;
+        if(n%2 == 1) {
+                for(int i=2; i<n; i+=2) {
+                        if(v[i] < v[i-1]) {
+                                swap(v[i], v[i-1]);
+                        }
+                }
+                for(int i=1; i<n; i++) {
+                        if(v[i] < v[i-1]) {
+                                NO
+                                return;
+                        }
+                }
+                YES
+                return;
+        }else{
+                for(int i=1; i<n; i+=2) {
+                        if(v[i] < v[i-1]) {
+                                swap(v[i], v[i-1]);
+                        }
+                }
+                for(int i=1; i<n; i++) {
+                        if(v[i] < v[i-1]) {
+                                NO
+                                return;
+                        }
+                }
+                YES
+        }
 
     return;
 }

@@ -310,7 +310,7 @@ int32_t  main(){
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin>>testcase;
     
     int i = 1;
     while(testcase--){
@@ -321,17 +321,37 @@ int32_t  main(){
 
     cerr<<"Time Taken : "<<(float)clock()/CLOCKS_PER_SEC<<" secs     " ;
 }
+unordered_map<string , int> mapppp;
 
 void presolve(){    
         
-        
+       vector<string> v;
+
+       for(char a = 'a' ; a <='z'; a++){
+       		for(char b = 'a'; b<='z';b++){
+       			if(a==b ) continue;
+       			string s;
+       			s.pb(a);
+       			s.pb(b);
+       			v.pb(s);
+       		}
+       }
+       sort(all(v));
+       dbg(v.sz);
+       int ct = 1;
+       trav(i,v){
+       	mapppp[i] = ct;
+       	ct++;
+       }
 
     return;
 }
 
 void solve(){    
         
-        
+       string s;
+       cin>> s;
+       cout<< mapppp[s] ndl; 
 
     return;
 }
