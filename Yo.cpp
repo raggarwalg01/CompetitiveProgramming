@@ -331,7 +331,7 @@ void presolve(){
 
 void solve(){    
         
-       yes
+        yes
 
     return;
 }
