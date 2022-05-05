@@ -3,3 +3,7 @@
 *.exe
 input.txt
 output.txt
+
+.vscode/settings.json
+
+/bin
