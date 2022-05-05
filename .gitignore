@@ -1,9 +1,11 @@
 # Specify filepatterns you want git to ignore.
 
 *.exe
-input.txt
-output.txt
 
-.vscode/settings.json
+input.txt
+
+/.vscode
+
+output.txt
 
 /bin
