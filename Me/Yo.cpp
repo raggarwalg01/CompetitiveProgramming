@@ -299,8 +299,8 @@ void presolve();
 int32_t  main(){
 
     #ifndef ONLINE_JUDGE
-        freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
-        freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
+        // freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
+        // freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
         //freopen("D:\\Programming\\CompetitiveProgramming\\error.txt","w",stderr);
     #endif
 
@@ -331,7 +331,7 @@ void presolve(){
 
 void solve(){    
         
-       yes
+        
 
     return;
 }
