@@ -3,9 +3,7 @@
 *.exe
 
 input.txt
-
-/.vscode
-
 output.txt
 
+/.vscode
 /bin
