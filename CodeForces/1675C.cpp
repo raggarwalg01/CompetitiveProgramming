@@ -384,7 +384,7 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin >> testcase;
 
     int i = 1;
     while (testcase--)
@@ -405,67 +405,50 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    vi ones;
-
+    string s;
+    cin >> s;
+    int n = s.length();
+    umapii pref, suff;
     rep(i, 0, n)
     {
-        ones.pb(ceil_div(v[i], 2));
-    }
-    sort(all(ones));
 
-    int ans = ones[0] + ((ones.sz >= 2) ? ones[1] : 0);
-    int two = lmax;
-    rep(i, 0, n - 1)
-    {
-        int sumtwo = v[i] + v[i + 1];
-        int mn = min(v[i], v[i + 1]);
-        int mx = max(v[i], v[i + 1]);
-        if (2 * mn > mx)
-            two = min(two, ceil_div(sumtwo, 3));
+        if (s[i] == '0')
+        {
+
+            pref[i] = pref[i - 1] + 1;
+        }
         else
         {
-            two = min(two, ceil_div(mx, 2));
+
+            pref[i] = pref[i - 1];
         }
     }
-    ans = min({ans, two});
-    int thirds = lmax;
-    rep(i, 1, n - 1)
+
+    for (int i = n - 1; i >= 0; i--)
     {
-        int thirdtemp = max(v[i - 1], v[i + 1]);
-        thirdtemp = min(thirdtemp, ceil_div(v[i - 1] + v[i + 1], 2));
-        thirds = min(thirds, thirdtemp);
+
+        if (s[i] == '1')
+        {
+
+            suff[i] = suff[i + 1] + 1;
+        }
+        else
+        {
+
+            suff[i] = suff[i + 1];
+        }
     }
-    ans = min(ans, thirds);
 
-    cout << ans ndl;
-    // int moves = 0 ;
-    // int broken = 0;
-    // int temp = lmax;
-    // rep(i,0,n){
-    //     int num = v[i];
-    //     int prenum = lmax;
-    //     int nexnum = lmax;
-    //     int ans = ceil_div(v[i],2);
+    int cnt = 0;
+    rep(i, 0, n)
+    {
 
-    //     v[i] = lmax;
+        if (pref[i - 1] == 0 && suff[i + 1] == 0)
+        {
+            cnt++;
+        }
+    }
 
-    //     if(i>=1 ){
-    //         prenum = v[i-1];
-    //     }
-    //     if(i<n-1){
-    //         nexnum = v[i+1];
-    //     }
-
-    //     int ans =
-    //     fnc()
-    //     temp = min(temp , ans);
-    // }
-    // cout<< temp ;
-    // fnc(v, moves , broken );
-
+    cout << cnt ndl;
     return;
 }

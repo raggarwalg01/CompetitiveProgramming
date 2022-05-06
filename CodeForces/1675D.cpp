@@ -373,9 +373,9 @@ int32_t main()
 {
 
 #ifndef ONLINE_JUDGE
-    // freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
-    // freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
-    freopen("D:\\Programming\\CompetitiveProgramming\\error.txt", "w", stderr);
+    freopen("D:\\Programming\\CompetitiveProgramming\\input.txt", "r", stdin);
+    freopen("D:\\Programming\\CompetitiveProgramming\\output.txt", "w", stdout);
+    // freopen("D:\\Programming\\CompetitiveProgramming\\error.txt", "w", stderr);
 #endif
 
     ios_base::sync_with_stdio(false);
@@ -384,7 +384,7 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin >> testcase;
 
     int i = 1;
     while (testcase--)
@@ -403,69 +403,154 @@ void presolve()
     return;
 }
 
+void dfs(int curr, map<int, vector<int>> &tree, vector<vi> &ans, vi &temp)
+{
+    if (tree[curr].sz == 0)
+    {
+        ans.pb(temp);
+
+        return;
+    }
+    bool one = false;
+
+    trav(i, tree[curr])
+    {
+        if (one == false)
+        {
+            temp.pb(i);
+            one = true;
+            dfs(i, tree, ans, temp);
+        }
+        else
+        {
+            temp = {};
+            temp.pb(i);
+            dfs(i, tree, ans, temp);
+        }
+    }
+
+    return;
+}
 void solve()
 {
     int n;
     cin >> n;
     vi v(n);
     cin >> v;
-    vi ones;
-
-    rep(i, 0, n)
+    map<int, vector<int>> tree;
+    int root;
+    rep(i, 1, n + 1)
     {
-        ones.pb(ceil_div(v[i], 2));
-    }
-    sort(all(ones));
-
-    int ans = ones[0] + ((ones.sz >= 2) ? ones[1] : 0);
-    int two = lmax;
-    rep(i, 0, n - 1)
-    {
-        int sumtwo = v[i] + v[i + 1];
-        int mn = min(v[i], v[i + 1]);
-        int mx = max(v[i], v[i + 1]);
-        if (2 * mn > mx)
-            two = min(two, ceil_div(sumtwo, 3));
-        else
+        if (v[i - 1] == i)
         {
-            two = min(two, ceil_div(mx, 2));
+            root = i;
+            continue;
         }
+
+        (tree[v[i - 1]]).pb(i);
     }
-    ans = min({ans, two});
-    int thirds = lmax;
-    rep(i, 1, n - 1)
-    {
-        int thirdtemp = max(v[i - 1], v[i + 1]);
-        thirdtemp = min(thirdtemp, ceil_div(v[i - 1] + v[i + 1], 2));
-        thirds = min(thirds, thirdtemp);
-    }
-    ans = min(ans, thirds);
-
-    cout << ans ndl;
-    // int moves = 0 ;
-    // int broken = 0;
-    // int temp = lmax;
-    // rep(i,0,n){
-    //     int num = v[i];
-    //     int prenum = lmax;
-    //     int nexnum = lmax;
-    //     int ans = ceil_div(v[i],2);
-
-    //     v[i] = lmax;
-
-    //     if(i>=1 ){
-    //         prenum = v[i-1];
-    //     }
-    //     if(i<n-1){
-    //         nexnum = v[i+1];
-    //     }
-
-    //     int ans =
-    //     fnc()
-    //     temp = min(temp , ans);
+    // dbg(tree);
+    // trav(i,tree){
+    //     cout<< i.fi <<"   ::::" spc i.se ndl;
     // }
-    // cout<< temp ;
-    // fnc(v, moves , broken );
+    vector<vector<int>> ans;
+    vi temp;
+    temp.pb(root);
+    dfs(root, tree, ans, temp);
+
+    cout << ans.sz ndl;
+    trav(i, ans)
+    {
+        cout << i.sz spc i ndl;
+    }
 
     return;
 }
+
+// vvi val;
+// vvi v(200001);
+// vvi v1(200001);
+
+// void dfs(int node, int par, vi &vis)
+// {
+
+//     if (!vis[node])
+//     {
+//         vi temp;
+//         temp.pb(node);
+//         int par = node;
+//         while (v[par].size() > 0)
+//         {
+
+//             // trace1("check");
+//             int neww = v[par].back();
+//             vis[neww] = 1;
+//             v[par].pop_back();
+//             temp.pb(neww);
+//             par = neww;
+//         }
+//         vis[node] = 1;
+//         val.pb(temp);
+//     }
+
+//     trav(i, v1[node])
+//     {
+//         dfs(i, -1, vis);
+//     }
+// }
+
+// void solve()
+// {
+//     val.clear();
+//     int node;
+//     int n;
+//     cin >> n;
+//     rep(i, 1, n + 1)
+//     {
+//         v[i].clear();
+//         v1[i].clear();
+//     }
+//     vi vis(n + 1, 0);
+//     vi a;
+//     umapii parents;
+//     rep(i, 0, n)
+//     {
+//         int x;
+//         cin >> x;
+//         a.pb(x);
+//         parents[i + 1] = x;
+//         if (x == i + 1)
+//         {
+//             node = i + 1;
+//         }
+//     }
+
+//     for (int i = 0; i < n; i++)
+//     {
+
+//         if (a[i] != i + 1)
+//         {
+//             v[a[i]].pb(i + 1);
+//             v1[a[i]].pb(i + 1);
+//         }
+//     }
+
+//     dfs(node, -1, vis);
+//     int anssz = val.sz;
+//     cout << anssz ndl;
+//     for (int i = 0; i < anssz; i++)
+//     {
+
+//         cout << val[i].sz ndl;
+//         for (int j = 0; j < val[i].size(); j++)
+//         {
+
+//             cout << val[i][j] spcend;
+//         }
+
+//         cndl;
+//     }
+
+//     cndl;
+//     return;
+// }

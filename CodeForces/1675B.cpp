@@ -384,7 +384,7 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin >> testcase;
 
     int i = 1;
     while (testcase--)
@@ -405,67 +405,39 @@ void presolve()
 
 void solve()
 {
+
     int n;
     cin >> n;
     vi v(n);
     cin >> v;
-    vi ones;
-
-    rep(i, 0, n)
+    reverse(all(v));
+    int ans = 0;
+    int last = v[0];
+    for (int i = 1; i < n; i++)
     {
-        ones.pb(ceil_div(v[i], 2));
-    }
-    sort(all(ones));
 
-    int ans = ones[0] + ((ones.sz >= 2) ? ones[1] : 0);
-    int two = lmax;
-    rep(i, 0, n - 1)
-    {
-        int sumtwo = v[i] + v[i + 1];
-        int mn = min(v[i], v[i + 1]);
-        int mx = max(v[i], v[i + 1]);
-        if (2 * mn > mx)
-            two = min(two, ceil_div(sumtwo, 3));
-        else
+        while (v[i] >= v[i - 1])
         {
-            two = min(two, ceil_div(mx, 2));
+            v[i] = v[i] / 2;
+            ans++;
+            if (v[i] == 0 and v[i - 1] == 0)
+            {
+                minus1;
+                return;
+            }
         }
+        if (v[i] < v[i - 1])
+            continue;
+        // if (v[i] == 0 and i + 1 != n)
+        // {
+        //     minus1;
+        //     return;
+        // }
+        // int num = log2(1.0 * ceil_div((v[i]), v[i - 1]));
+        // ans += num;
+        // v[i] = v[i] / (power(2, num1));
+        // if()
     }
-    ans = min({ans, two});
-    int thirds = lmax;
-    rep(i, 1, n - 1)
-    {
-        int thirdtemp = max(v[i - 1], v[i + 1]);
-        thirdtemp = min(thirdtemp, ceil_div(v[i - 1] + v[i + 1], 2));
-        thirds = min(thirds, thirdtemp);
-    }
-    ans = min(ans, thirds);
-
     cout << ans ndl;
-    // int moves = 0 ;
-    // int broken = 0;
-    // int temp = lmax;
-    // rep(i,0,n){
-    //     int num = v[i];
-    //     int prenum = lmax;
-    //     int nexnum = lmax;
-    //     int ans = ceil_div(v[i],2);
-
-    //     v[i] = lmax;
-
-    //     if(i>=1 ){
-    //         prenum = v[i-1];
-    //     }
-    //     if(i<n-1){
-    //         nexnum = v[i+1];
-    //     }
-
-    //     int ans =
-    //     fnc()
-    //     temp = min(temp , ans);
-    // }
-    // cout<< temp ;
-    // fnc(v, moves , broken );
-
     return;
 }

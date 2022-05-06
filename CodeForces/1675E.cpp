@@ -375,7 +375,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
     // freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
-    freopen("D:\\Programming\\CompetitiveProgramming\\error.txt", "w", stderr);
+    // freopen("D:\\Programming\\CompetitiveProgramming\\error.txt", "w", stderr);
 #endif
 
     ios_base::sync_with_stdio(false);
@@ -384,7 +384,7 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin >> testcase;
 
     int i = 1;
     while (testcase--)
@@ -396,76 +396,97 @@ int32_t main()
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
 }
-
+map<char, int> mapp;
 void presolve()
 {
-
+    int cnt = 1;
+    for (char a = 'a'; a <= 'z'; a++)
+    {
+        mapp[a] = cnt;
+        cnt++;
+    }
+    dbg(mapp);
     return;
 }
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    vi ones;
-
-    rep(i, 0, n)
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    char mx = 'a';
+    char mn = 'z';
+    trav(i, s)
     {
-        ones.pb(ceil_div(v[i], 2));
+        mn = min(mn, i);
+        mx = max(mx, i);
     }
-    sort(all(ones));
-
-    int ans = ones[0] + ((ones.sz >= 2) ? ones[1] : 0);
-    int two = lmax;
-    rep(i, 0, n - 1)
+    map<char, int> done;
+    map<char, char> to;
+    trav(i, s)
     {
-        int sumtwo = v[i] + v[i + 1];
-        int mn = min(v[i], v[i + 1]);
-        int mx = max(v[i], v[i + 1]);
-        if (2 * mn > mx)
-            two = min(two, ceil_div(sumtwo, 3));
-        else
+        if (done[i] == 1)
         {
-            two = min(two, ceil_div(mx, 2));
+            i = to[i];
+            continue;
         }
+        char now = i;
+
+        int movesdown = 0;
+        while (k > 0 and now != 'a' and done[now] != 1)
+        {
+            now--;
+            k--;
+        }
+        // cout << now spcend;
+        // cout<<
+
+        // int req = i - 'a';
+        // if (req <= k)
+        // {
+        //     i = 'a';
+        //     k -= req;
+        // }
+        // else
+        // {
+        //     i = i - k;
+        //     k = 0;
+
+        //     // break;
+        // }
+        if (done[now] == 1)
+        {
+            now = to[now];
+        }
+        for (char ichar = i; ichar >= now; ichar--)
+        {
+            done[ichar] = 1;
+            to[ichar] = now;
+        }
+        i = now;
+        // done[now] = 1;
+        // to[now] = i;
     }
-    ans = min({ans, two});
-    int thirds = lmax;
-    rep(i, 1, n - 1)
-    {
-        int thirdtemp = max(v[i - 1], v[i + 1]);
-        thirdtemp = min(thirdtemp, ceil_div(v[i - 1] + v[i + 1], 2));
-        thirds = min(thirds, thirdtemp);
-    }
-    ans = min(ans, thirds);
-
-    cout << ans ndl;
-    // int moves = 0 ;
-    // int broken = 0;
-    // int temp = lmax;
-    // rep(i,0,n){
-    //     int num = v[i];
-    //     int prenum = lmax;
-    //     int nexnum = lmax;
-    //     int ans = ceil_div(v[i],2);
-
-    //     v[i] = lmax;
-
-    //     if(i>=1 ){
-    //         prenum = v[i-1];
-    //     }
-    //     if(i<n-1){
-    //         nexnum = v[i+1];
-    //     }
-
-    //     int ans =
-    //     fnc()
-    //     temp = min(temp , ans);
+    cout << s ndl;
+    // int moves = min(mapp[mn] - 1, k);
+    // cout << moves spcend;
+    // trav(i, s)
+    // {
+    //     i = i - moves;
     // }
-    // cout<< temp ;
-    // fnc(v, moves , broken );
+    // cout << s ndl;
+    // int n = s.length();
+    // cout << mapp[mx] spcend;
+    // if (k + 1 >= mapp[mx])
+    // {
+    //     rep(i, 0, n)
+    //     {
+    //         cout << 'a';
+    //     }
+    //     cndl;
+    //     return;
+    // }
 
     return;
 }

@@ -1,3 +1,1 @@
-solve : 411 [bitsss] = [2]
-
-Time Taken : 0.002 secs     
+Time Taken : 0.006 secs     

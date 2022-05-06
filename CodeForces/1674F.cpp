@@ -402,70 +402,68 @@ void presolve()
 
     return;
 }
-
+vi bit;
+int value(int i)
+{
+    int ans = 0;
+    for (; i > 0; i -= (i & -i))
+    {
+        ans += bit[i];
+    }
+    return ans;
+}
+void update(int i, int x, int n)
+{
+    for (; i <= n; i += (i & (-i)))
+    {
+        bit[i] += x;
+    }
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    vi ones;
 
-    rep(i, 0, n)
+    int n, m, q;
+    cin >> n >> m >> q;
+    char v[n + 1][m + 1];
+    for (int i = 1; i < n + 1; i++)
     {
-        ones.pb(ceil_div(v[i], 2));
-    }
-    sort(all(ones));
-
-    int ans = ones[0] + ((ones.sz >= 2) ? ones[1] : 0);
-    int two = lmax;
-    rep(i, 0, n - 1)
-    {
-        int sumtwo = v[i] + v[i + 1];
-        int mn = min(v[i], v[i + 1]);
-        int mx = max(v[i], v[i + 1]);
-        if (2 * mn > mx)
-            two = min(two, ceil_div(sumtwo, 3));
-        else
+        for (int j = 1; j < m + 1; j++)
         {
-            two = min(two, ceil_div(mx, 2));
+            cin >> v[i][j];
         }
     }
-    ans = min({ans, two});
-    int thirds = lmax;
-    rep(i, 1, n - 1)
+    bit = vi(n * m + 1);
+    for (int j = 1; j < m + 1; j++)
     {
-        int thirdtemp = max(v[i - 1], v[i + 1]);
-        thirdtemp = min(thirdtemp, ceil_div(v[i - 1] + v[i + 1], 2));
-        thirds = min(thirds, thirdtemp);
+        for (int i = 1; i < n + 1; i++)
+        {
+            if (v[i][j] == '*')
+            {
+                update((j - 1) * n + i, 1, n * m);
+            }
+        }
     }
-    ans = min(ans, thirds);
-
-    cout << ans ndl;
-    // int moves = 0 ;
-    // int broken = 0;
-    // int temp = lmax;
-    // rep(i,0,n){
-    //     int num = v[i];
-    //     int prenum = lmax;
-    //     int nexnum = lmax;
-    //     int ans = ceil_div(v[i],2);
-
-    //     v[i] = lmax;
-
-    //     if(i>=1 ){
-    //         prenum = v[i-1];
-    //     }
-    //     if(i<n-1){
-    //         nexnum = v[i+1];
-    //     }
-
-    //     int ans =
-    //     fnc()
-    //     temp = min(temp , ans);
-    // }
-    // cout<< temp ;
-    // fnc(v, moves , broken );
+    while (q--)
+    {
+        int x, y;
+        cin >> x >> y;
+        if (v[x][y] == '*')
+        {
+            v[x][y] = '.';
+            update((y - 1) * n + x, -1, n * m);
+            int temp = value(n * m);
+            int temp1 = value(temp);
+            cout << temp - temp1 << endl;
+        }
+        else
+        {
+            v[x][y] = '*';
+            update((y - 1) * n + x, 1, n * m);
+            int temp = value(n * m);
+            int temp1 = value(temp);
+            cout << temp - temp1 << endl;
+        }
+    }
 
     return;
 }
