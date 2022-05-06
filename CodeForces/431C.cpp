@@ -369,13 +369,12 @@ void print(T &&t, Args &&...args)
 void solve();
 void presolve();
 
-int testcase = 1;
 int32_t main()
 {
 
 #ifndef ONLINE_JUDGE
-    // freopen("D:\\Programming\\CompetitiveProgramming\\input.txt","r",stdin);
-    // freopen("D:\\Programming\\CompetitiveProgramming\\output.txt","w",stdout);
+    // freopen("D:\\Programming\\CompetitiveProgramming\\input.txt", "r", stdin);
+    // freopen("D:\\Programming\\CompetitiveProgramming\\output.txt", "w", stdout);
     freopen("D:\\Programming\\CompetitiveProgramming\\error.txt", "w", stderr);
 #endif
 
@@ -384,8 +383,9 @@ int32_t main()
 
     presolve();
 
+    int testcase = 1;
     // cin>>testcase;
-    testcase = 0;
+
     int i = 1;
     while (testcase--)
     {
@@ -396,59 +396,49 @@ int32_t main()
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
 }
-int k;
 
-// mapii ans;
-const int num = 1e5 + 10;
-vi ans(num, 0);
 void presolve()
 {
-    cin >> testcase >> k;
-    // int tk = k;
-    // num = 99252 + 2;
-    // num = 70888;
-    // ans[1] = 1;
-    ans[0] = 1;
-    for (int i = 1; i < num; i++)
-    {
-        if (i >= k)
-        {
-            // ans[i] = ((ans[i - 1]) % Mod + (ans[i - k]) % Mod) % Mod;
-            ans[i] = (ans[i - 1] + ans[i - k]) % Mod;
-        }
-        else
-        {
-            ans[i] = 1;
-        }
-        // ans[i] %= Mod;
-        // tk = k;
-        // for (; tk <= i; tk += k)
-        // {
-        //     ans[i] += i - tk + 1;
-        //     ans[i] %= Mod;
-        // }
-    }
 
-    // dbg(ans);
-    rep(i, 1, num)
-    {
-        ans[i] %= Mod;
-        ans[i] += (ans[i - 1]) % Mod;
-        ans[i] %= Mod;
-    }
-    while (testcase--)
-    {
-        int a, b;
-        cin >> a >> b;
-        cout << (ans[b] - ans[a - 1] + Mod) % Mod ndl;
-    }
-
-    dbg(ans);
     return;
+}
+vector<vi> dp(101, vi(101, -1));
+int fnc(int sum, int k, int d, int check)
+{
+    if (sum == 0)
+    {
+        if (check >= d)
+            return 1;
+        return 0;
+    }
+    if (dp[sum][check] != -1)
+    {
+        return dp[sum][check];
+    }
+    // if (i > k and sum > 0)
+    //     return 0;
+    int temp = 0;
+    for (int num = 1; num <= k; num++)
+    {
+        // cout << i spc num spc temp ndl;
+        if (sum >= num)
+            temp += (fnc(sum - num, k, d, max(num, check))) % Mod;
+    }
+    temp = temp % Mod;
+    return dp[sum][check] = temp;
 }
 
 void solve()
 {
+    int sum, k, d;
+    cin >> sum >> k >> d;
+    vi v;
+    rep(i, 1, k + 1)
+    {
+        v.pb(i);
+    }
+    int i = 1;
+    cout << fnc(sum, k, d, 0);
 
     return;
 }

@@ -369,7 +369,6 @@ void print(T &&t, Args &&...args)
 void solve();
 void presolve();
 
-int testcase = 1;
 int32_t main()
 {
 
@@ -384,8 +383,9 @@ int32_t main()
 
     presolve();
 
+    int testcase = 1;
     // cin>>testcase;
-    testcase = 0;
+
     int i = 1;
     while (testcase--)
     {
@@ -396,59 +396,82 @@ int32_t main()
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
 }
-int k;
 
-// mapii ans;
-const int num = 1e5 + 10;
-vi ans(num, 0);
 void presolve()
 {
-    cin >> testcase >> k;
-    // int tk = k;
-    // num = 99252 + 2;
-    // num = 70888;
-    // ans[1] = 1;
-    ans[0] = 1;
-    for (int i = 1; i < num; i++)
-    {
-        if (i >= k)
-        {
-            // ans[i] = ((ans[i - 1]) % Mod + (ans[i - k]) % Mod) % Mod;
-            ans[i] = (ans[i - 1] + ans[i - k]) % Mod;
-        }
-        else
-        {
-            ans[i] = 1;
-        }
-        // ans[i] %= Mod;
-        // tk = k;
-        // for (; tk <= i; tk += k)
-        // {
-        //     ans[i] += i - tk + 1;
-        //     ans[i] %= Mod;
-        // }
-    }
 
-    // dbg(ans);
-    rep(i, 1, num)
-    {
-        ans[i] %= Mod;
-        ans[i] += (ans[i - 1]) % Mod;
-        ans[i] %= Mod;
-    }
-    while (testcase--)
-    {
-        int a, b;
-        cin >> a >> b;
-        cout << (ans[b] - ans[a - 1] + Mod) % Mod ndl;
-    }
-
-    dbg(ans);
     return;
 }
+int money = 0, b = 1, c = 2, s = 3;
+bool possible(string str, umapii have, umapii cost, int money, int order)
+{
+    umapii need;
+    trav(i, str)
+    {
+        if (i == 'B')
+            need[b]++;
+        if (i == 'C')
+            need[c]++;
+        if (i == 'S')
+            need[s]++;
+    }
+    trav(i, need)
+    {
+        if (need[i.fi] == 0)
+            continue;
 
+        i.se = i.se * order - have[i.fi];
+        if (i.se >= 0)
+            // cout << i.fi spc i.se ndl;
+            money -= cost[i.fi] * i.se;
+    }
+    // cout << money ndl;
+    if (money >= 0)
+        return true;
+
+    return false;
+}
 void solve()
 {
 
+    string str;
+    cin >> str;
+    umapii have, cost;
+    have[b] = 0;
+    have[s] = 0;
+    have[c] = 0;
+    cost[b] = 0;
+    cost[s] = 0;
+    cost[c] = 0;
+
+    cin >> have[b] >> have[s] >> have[c] >> cost[b] >> cost[s] >> cost[c];
+
+    cin >> money;
+
+    int ans = 0;
+    // cout << possible(str, have, cost, 381, 382);
+
+    // return;
+
+    int lo = 0, hi = 1e15;
+    while (lo < hi)
+    {
+        // int mid = lo + ceil_div((hi - lo), 2);
+        int mid = (lo + hi) / 2;
+        if (possible(str, have, cost, money, mid))
+        {
+            lo = mid + 1;
+            ans = mid;
+        }
+        else
+        {
+            hi = mid - 1;
+        }
+    }
+    if (possible(str, have, cost, money, ans + 1))
+    {
+        ans++;
+    }
+    cout << ans;
     return;
 }

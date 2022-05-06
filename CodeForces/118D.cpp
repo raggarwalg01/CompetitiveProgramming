@@ -369,7 +369,6 @@ void print(T &&t, Args &&...args)
 void solve();
 void presolve();
 
-int testcase = 1;
 int32_t main()
 {
 
@@ -384,8 +383,9 @@ int32_t main()
 
     presolve();
 
+    int testcase = 1;
     // cin>>testcase;
-    testcase = 0;
+
     int i = 1;
     while (testcase--)
     {
@@ -396,59 +396,84 @@ int32_t main()
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
 }
-int k;
 
-// mapii ans;
-const int num = 1e5 + 10;
-vi ans(num, 0);
 void presolve()
 {
-    cin >> testcase >> k;
-    // int tk = k;
-    // num = 99252 + 2;
-    // num = 70888;
-    // ans[1] = 1;
-    ans[0] = 1;
-    for (int i = 1; i < num; i++)
-    {
-        if (i >= k)
-        {
-            // ans[i] = ((ans[i - 1]) % Mod + (ans[i - k]) % Mod) % Mod;
-            ans[i] = (ans[i - 1] + ans[i - k]) % Mod;
-        }
-        else
-        {
-            ans[i] = 1;
-        }
-        // ans[i] %= Mod;
-        // tk = k;
-        // for (; tk <= i; tk += k)
-        // {
-        //     ans[i] += i - tk + 1;
-        //     ans[i] %= Mod;
-        // }
-    }
 
-    // dbg(ans);
-    rep(i, 1, num)
-    {
-        ans[i] %= Mod;
-        ans[i] += (ans[i - 1]) % Mod;
-        ans[i] %= Mod;
-    }
-    while (testcase--)
-    {
-        int a, b;
-        cin >> a >> b;
-        cout << (ans[b] - ans[a - 1] + Mod) % Mod ndl;
-    }
-
-    dbg(ans);
     return;
+}
+// vvi dp(150, vi(150, -1));
+int dp[150][150][2];
+int mdd = 1e8;
+int fnc(int n1, int n2, int k1, int k2, int i1, int i2, int now)
+{
+    if (i1 == n1)
+    {
+        if (n2 - i2 <= k2)
+            return 1;
+        return -1;
+    }
+    if (i2 == n2)
+    {
+        if (n1 - i1 <= k1)
+            return 1;
+        return -1;
+    }
+    if (dp[i1][i2][now] != -1)
+        return dp[i1][i2][now];
+
+    int ans = 0;
+    if (now == 1)
+        for (int temp = 1; temp <= k1; temp++)
+        {
+            int left = n1 - i1;
+            if (temp > left)
+                break;
+            ans += max(0ll, fnc(n1, n2, k1, k2, i1 + temp, i2, 2));
+            ans = ans % mdd;
+        }
+    if (now == 2)
+        for (int temp = 1; temp <= k2; temp++)
+        {
+            int left = n2 - i2;
+            if (temp > left)
+                break;
+
+            ans += max(0ll, fnc(n1, n2, k1, k2, i1, i2 + temp, 1));
+            ans = ans % mdd;
+        }
+    ans = ans % mdd;
+    // cerr << i1 spc i2 spc ans ndl;
+    return dp[i1][i2][now] = ans;
 }
 
 void solve()
 {
-
+    rep(i, 0, 140)
+    {
+        rep(j, 0, 140)
+        {
+            dp[i][j][0] = -1;
+            dp[i][j][1] = -1;
+        }
+    }
+    int n1, n2, k1, k2;
+    cin >> n1 >> n2 >> k1 >> k2;
+    int i1 = 0, i2 = 0;
+    int ans = 0;
+    ans += fnc(n1, n2, k1, k2, i1, i2, 1);
+    ans = ans % mdd;
+    // rep(i, 0, 140)
+    // {
+    //     rep(j, 0, 140)
+    //     {
+    //         dp[i][j] = -1;
+    //     }
+    // }
+    ans += fnc(n1, n2, k1, k2, i1, i2, 2);
+    ans = ans % mdd;
+    cout << ans ndl;
+    // dbg(dp);
+    // cerr << n1 spc n2 ndl;
     return;
 }
