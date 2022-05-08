@@ -384,7 +384,7 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin >> testcase;
 
     int i = 1;
     while (testcase--)
@@ -405,6 +405,32 @@ void presolve()
 
 void solve()
 {
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int last = 0;
+    int ans = 0;
+    int k;
+    cin >> k;
+    unordered_map<char, int> hash;
+    rep(i, 0, k)
+    {
+        char c;
+        cin >> c;
+        hash[c] = 1;
+    }
+    int ct = 0;
+    trav(i, s)
+    {
+        if (hash[i] == 1)
+        {
+            ans = max(ct - last, ans);
+            last = ct;
+        }
+        ct++;
+    }
+    cout << ans ndl;
 
     return;
 }

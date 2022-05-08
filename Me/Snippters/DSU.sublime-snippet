@@ -1,32 +1,38 @@
 <snippet>
     <content><![CDATA[
-vector<vector<int>> lst(110);
-vi parent(110);
-
-void make_set(int v) {
+const int MAXN = 1e5 + 10;
+vector<vector<int>> lst(MAXN);
+// int parent[MAXN];
+vector<int> parent(MAXN);
+ 
+void make_set(int v)
+{
     lst[v] = vector<int>(1, v);
     parent[v] = v;
 }
-
-int find_set(int v) {
+ 
+int find_set(int v)
+{
     return parent[v];
 }
-
-void union_sets(int a, int b) {
+ 
+void union_sets(int a, int b)
+{
     a = find_set(a);
     b = find_set(b);
-    if (a != b) {
+    if (a != b)
+    {
         if (lst[a].size() < lst[b].size())
             swap(a, b);
-        while (!lst[b].empty()) {
+        while (!lst[b].empty())
+        {
             int v = lst[b].back();
             lst[b].pop_back();
             parent[v] = a;
-            lst[a].push_back (v);
+            lst[a].push_back(v);
         }
     }
 }
-
 ]]></content>
     <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
     <tabTrigger>DSU</tabTrigger>

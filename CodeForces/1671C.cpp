@@ -384,7 +384,7 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin >> testcase;
 
     int i = 1;
     while (testcase--)
@@ -405,6 +405,24 @@ void presolve()
 
 void solve()
 {
+    int n, x;
+    cin >> n >> x;
+
+    vector<int> v(n);
+
+    ll res = 0, sum = 0;
+    cin >> v;
+
+    sort(all(v));
+
+    rep(i, 0, n)
+    {
+        sum += v[i];
+        if (sum <= x)
+            res += 1 + ((x - sum) / (i + 1));
+    }
+
+    cout << res << endl;
 
     return;
 }

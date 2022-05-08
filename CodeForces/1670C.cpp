@@ -384,7 +384,7 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    // cin>>testcase;
+    cin >> testcase;
 
     int i = 1;
     while (testcase--)
@@ -403,8 +403,165 @@ void presolve()
     return;
 }
 
+const int MAXN = 1e5 + 10;
+vector<vector<int>> lst(MAXN);
+// int parent[MAXN];
+vi parent(MAXN);
+
+void make_set(int v)
+{
+    lst[v] = vector<int>(1, v);
+    parent[v] = v;
+}
+
+int find_set(int v)
+{
+    return parent[v];
+}
+
+void union_sets(int a, int b)
+{
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b)
+    {
+        if (lst[a].size() < lst[b].size())
+            swap(a, b);
+        while (!lst[b].empty())
+        {
+            int v = lst[b].back();
+            lst[b].pop_back();
+            parent[v] = a;
+            lst[a].push_back(v);
+        }
+    }
+}
+
 void solve()
 {
 
-    return;
+    int n;
+    cin >> n;
+    vi a(n), b(n), d(n);
+    cin >> a >> b >> d;
+    rep(i, 1, n + 1)
+    {
+        parent[i] = i;
+        lst[i].clear();
+    }
+    rep(i, 1, n + 1)
+    {
+        make_set(i);
+    }
+    umapii par;
+    rep(i, 0, n)
+    {
+        union_sets(a[i], b[i]);
+    }
+    rep(i, 0, n)
+    {
+        int pare = find_set(i + 1);
+        par[pare] = 1;
+    }
+    rep(i, 0, n)
+    {
+        if (d[i] != 0)
+        {
+            int pare = find_set(d[i]);
+            par.erase(pare);
+        }
+        else if (a[i] == b[i])
+        {
+
+            int pare = find_set(a[i]);
+            par.erase(pare);
+        }
+    }
+    int ans = 1;
+    trav(i, par)
+    {
+        ans *= 2;
+        ans = ans % Mod;
+    }
+
+    // dbg(par);
+    // rep(i,1,n+1){
+    //     cerr << i spc parent[i] ndl;
+    // }
+    // cerr  ndl;
+    // dbg(par)
+    cout << ans ndl;
 }
+////////// DP ni h :/
+// const int ss = 1e5 + 10;
+// int dp[ss][3];
+// // unordered_map<pair<int, umapii>, int > dp(-1);
+// int fnc(int i, int n, vi &a, vi &b, vi &c, umapii done)
+// {
+//     if (i == n - 1)
+//     {
+//         if (c[i] != 0)
+//         {
+//             if (done[c[i]] != 1)
+//             {
+//                 return 1;
+//             }
+//             else
+//             {
+//                 return 0;
+//             }
+//         }
+//         else
+//         {
+//             int ans = 0;
+//             if (done[a[i]] != 1)
+//                 ans++;
+//             if (a[i] != b[i] and done[b[i]] != 1)
+//                 ans++;
+//             return ans;
+//         }
+//     }
+//     // if (dp[i][0] != -1 and dp[i][1] != -1 and dp[i][2] != -1)
+//     // {
+//     //     return dp[i][0] + dp[i][1] + dp[i][2];
+//     // }
+//     int ans = 0;
+//     dp[i][0] = 0;
+//     dp[i][1] = 0;
+//     dp[i][2] = 0;
+//     if (c[i] != 0)
+//     {
+//         done[c[i]] = 1;
+//         return dp[i][0] = fnc(i + 1, n, a, b, c, done);
+//     }
+//     if (done[a[i]] != 1)
+//     {
+//         done[a[i]] = 1;
+//         ans += dp[i][1] = fnc(i + 1, n, a, b, c, done);
+//         done[a[i]] = 0;
+//     }
+//     if (a[i] != b[i] and done[b[i]] != 1)
+//     {
+//         done[b[i]] = 1;
+//         ans += dp[i][2] = fnc(i + 1, n, a, b, c, done);
+//         done[b[i]] = 0;
+//     }
+//     return ans;
+// }
+// void solve()
+// {
+//     rep(i, 0, ss)
+//     {
+//         dp[i][0] = -1;
+//         dp[i][1] = -1;
+//         dp[i][2] = -1;
+//     }
+//     int n;
+//     cin >> n;
+//     vi a(n), b(n), c(n);
+//     cin >> a >> b >> c;
+//     int ans = 1;
+//     umapii done;
+//     cout << fnc(0, n, a, b, c, done) ndl;
+//     return;
+// }
