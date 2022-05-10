@@ -2,5 +2,8 @@
     "cph.general.ignoreSTDERROR": true,
     "cph.general.defaultLanguage": "cpp",
     "cph.general.defaultLanguageTemplateFileLocation": "D:\\Programming\\CompetitiveProgramming\\Me\\Yo.cpp",
-    "cph.general.useShortCodeForcesName": true
+    "cph.general.useShortCodeForcesName": true,
+    "files.associations": {
+        "iostream": "cpp"
+    }
 }
