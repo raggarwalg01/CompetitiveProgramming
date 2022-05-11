@@ -1,7 +1,19 @@
 //==============================     raggarwalg01     ==============================//
 
 #include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+
+using namespace __gnu_pbds;
 using namespace std;
+
+typedef tree<int,null_type,less_equal<int>,rb_tree_tag,tree_order_statistics_node_update> pbds ; 
+// order_of_key (val): returns the no. of values less than val
+// find_by_order (k): returns the kth largest element.(0-based)
+
+// typedef tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+
+#define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 
 #define int                 long long
 #define ll                  long long
@@ -26,7 +38,8 @@ using namespace std;
 
 #define pb                  push_back
 #define ins                 insert
-#define sz                  size()
+//#define sz                  size()
+#define sz(x)               ((int)(x).size())
 #define all(var)            var.begin(), var.end()
 #define present(c, x)       (c.find(x) != c.end())
 #define desc                greater<int>()
@@ -60,7 +73,6 @@ using namespace std;
 
 //=====================================================================================================//
 
-//int Mod = 1000000007;
 int M = 1e9+7;
 int Mod = 1e9+7;
 
@@ -89,24 +101,6 @@ bool isPrime(int n){
     return true;
 }
 
-//int power(int x,  int y){
-//    if (y == 0)
-//        return 1;
-//    else if (y % 2 == 0)
-//        return ((power(x, y / 2)) * (power(x, y / 2)));
-//    else
-//        return ((((x  ) * ((power(x, y / 2)))) * (power(x, y / 2))));
-//}
-
-//int powermod(int x,  int y,int Mod){
-//    if (y == 0)
-//        return 1;
-//    else if (y % 2 == 0)
-//        return ((power(x, y / 2)%Mod) * (power(x, y / 2)%Mod))%Mod;
-//    else
-//        return ((((x  %Mod) * ((power(x, y / 2)%Mod)))%Mod * (power(x, y / 2)%Mod))%Mod)%Mod;
-//}
-
 ll power(ll a, ll b) {
     ll res = 1; 
     while (b > 0) {
@@ -128,6 +122,24 @@ ll powermod(ll a, ll b, ll mod = Mod) {
     } 
     return res;
 }
+
+//int power(int x,  int y){
+//    if (y == 0)
+//        return 1;
+//    else if (y % 2 == 0)
+//        return ((power(x, y / 2)) * (power(x, y / 2)));
+//    else
+//        return ((((x  ) * ((power(x, y / 2)))) * (power(x, y / 2))));
+//}
+
+//int powermod(int x,  int y,int Mod){
+//    if (y == 0)
+//        return 1;
+//    else if (y % 2 == 0)
+//        return ((power(x, y / 2)%Mod) * (power(x, y / 2)%Mod))%Mod;
+//    else
+//        return ((((x  %Mod) * ((power(x, y / 2)%Mod)))%Mod * (power(x, y / 2)%Mod))%Mod)%Mod;
+//}
 
 int gcd(int a,int b){
     if(b==0)
@@ -168,6 +180,7 @@ int64_t ceil_div(int64_t a, int64_t b) {
 int lsb(int x){
     return log2(x&(-x));
 }
+
 int msb(int x){
     return log2(x);
 }
@@ -305,7 +318,7 @@ int32_t  main(){
     #endif
 
 
-    ios_base::sync_with_stdio(false);cin.tie(NULL);
+    fastio();
     
     presolve();
 
@@ -331,7 +344,7 @@ void presolve(){
 
 void solve(){    
         
-        
+        yes
 
     return;
 }
