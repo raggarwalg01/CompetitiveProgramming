@@ -409,7 +409,7 @@ void solve()
     cin >> n >> k;
     vi v(n);
     cin >> v;
-    umapii hash;
+    mapii hash;
     trav(i, v) hash[i]++;
     vi nums;
     trav(i, hash)
@@ -424,33 +424,55 @@ void solve()
         minus1;
         return;
     }
-    int mn = *min_element(all(v));
-    int mx = *max_element(all(v));
-    // nums.pb(mn - 2);
     sort(all(nums));
-    nums.pb(mx + 2);
-    int ct = 1;
-    n = nums.sz;
-    int ans = lmin;
-    int val = lmin;
-    rep(i, 0, n - 1)
+    vi c = nums;
+    int mx = 0;
+    int lans = c[0], rans = c[0];
+    int l = c[0];
+    for (int i = 1; i < c.size(); i++)
     {
-        if (nums[i] == nums[i + 1] - 1)
+        if (c[i] - 1 == c[i - 1])
         {
-            ct++;
+            if (c[i] - l > mx)
+            {
+                lans = l;
+                rans = c[i];
+                mx = c[i] - l;
+            }
         }
         else
         {
-            if (ct > ans)
-            {
-                val = nums[i];
-                ans = ct;
-            }
-            // ans = max(ans, ct);
-            ct = 1;
+            l = c[i];
         }
     }
-    cout << val - ans + 1 spc val ndl;
+    cout << lans << " " << rans << endl;
+    // int mn = *min_element(all(v));
+    // int mx = *max_element(all(v));
+    // // nums.pb(mn - 2);
+    // sort(all(nums));
+    // nums.pb(mx + 2);
+    // int ct = 1;
+    // n = nums.sz;
+    // int ans = lmin;
+    // int val = lmin;
+    // rep(i, 0, n - 1)
+    // {
+    //     if (nums[i] == nums[i + 1] - 1)
+    //     {
+    //         ct++;
+    //     }
+    //     else
+    //     {
+    //         if (ct > ans)
+    //         {
+    //             val = nums[i];
+    //             ans = ct;
+    //         }
+    //         // ans = max(ans, ct);
+    //         ct = 1;
+    //     }
+    // }
+    // cout << val - ans + 1 spc val ndl;
     dbg(nums);
     return;
 }
