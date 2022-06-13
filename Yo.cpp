@@ -444,68 +444,9 @@ void presolve()
     return;
 }
 
-
-
-
-
 void solve()
 {
-      int n, m;
-    cin>>n>>m;
-    vector<ll> a(n), b(m);
-    for(auto &i: a)
-    {
-        cin>>i;
-    }
-    for(auto &i: b)
-    {
-        cin>>i;
-    }
-    map<ll, ll> hash1, hash2;
-    for(int i=0; i<n; i++)
-    {
-        for(int j=0; j<32; j++)
-        {
-            if(a[i]&(1<<j))
-            {
-                hash1[j] += m;
-            }
-        }
-    }
-    for(int i=0; i<m; i++)
-    {
-        for(int j=0; j<32; j++)
-        {
-            if(b[i]&(1<<j))
-            {
-                if(hash1[j])
-                {
-                    hash2[j] += (n-hash1[j]/m);
-                }
-                else
-                {
-                    hash2[j]+=n;
-                }
-            }
-        }
-    }
-    ll ans = 0;
-    for(int i=0; i<32; i++)
-    {
-        if((hash1[i]+hash2[i])%2)
-        {
-            ans+=(1<<i);
-        }
-    }
-    cout<<ans<<endl;
-
-    int xr1 = 0;
-    rep(i,0,sz(a)){
-        rep(j,0,sz(b)){
-                xr1 = xr1 ^ (a[i]|b[j]);
-        }
-    }
-    cout<<xr1;
+    
     return;
 }
 
