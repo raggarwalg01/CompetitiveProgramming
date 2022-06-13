@@ -391,12 +391,10 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
-    cout << fixed << setprecision(10);
-    cerr << fixed << setprecision(10);
 
     presolve();
 
@@ -408,7 +406,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +420,122 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, k, x;
+    cin >> n >> k >> x;
+    x--;
+    string s;
+    cin >> s;
+    s.pb('k');
+    vi temp;
+    int ct = 1;
+    for (int i = 1; i < n + 1; i++)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        if (s[i] == s[i - 1])
+        {
+            ct++;
+        }
+        else
+        {
+            temp.pb(ct);
+            ct = 1;
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    int aone = 0, atwo = 1;
+    if (s[0] == '*')
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        aone = 1;
+        atwo = 0;
+    }
+
+    // reverse(all(temp));
+    for (int i = 0; i < sz(temp); i++)
+    {
+        if (i % 2 == atwo)
+        {
+            temp[i] *= k;
+            temp[i]++;
+        }
+    }
+    // cout << temp ndl;
+    // return;
+
+    vi atemp = temp;
+    int num = x;
+    int kkkkt = 0;
+    for (int i = sz(temp) - 1; i >= 0; i--)
+    {
+        if (i % 2 == aone)
+            continue;
+        atemp[i] = 0;
+        // temp[i] += kkkkt++;
+    }
+    bool first = false;
+    for (int i = sz(temp) - 1; i >= 0; i--)
+    {
+        if (i % 2 == aone)
+            continue;
+        // atemp[i] = 0;
+        atemp[i] = num % temp[i];
+        // if (temp[i] <= 0)
+        //     continue;
+
+        num = num / temp[i];
+        // if (num == 0)
+        // break;
+        ;
+        // if (first == false)
+        // if (atemp[i] == 0)
+        // {
+        //     atemp[i] = temp[i] - 1;
+        //     // if (i - 2 >= 0)
+        //     // atemp[i - 2]++;
+        //     // first = true;
+        // }
+        // else
+        // {
+        //     atemp[i]--;
+        //     first = true;
+        // }
+        if (num == 0)
+            break;
+    }
+    // cout << atemp ndl;
+    // cout << aone spc atwo;
+    // return;
+
+    // reverse(all(atemp));
+    string ans;
+    for (int i = 0; i < sz(temp); i++)
+    {
+        if (i % 2 == aone)
+        {
+            while (atemp[i]--)
+            {
+                ans.pb('a');
+            }
+        }
+        else
+        {
+            while (atemp[i]--)
+            {
+                ans.pb('b');
+            }
+        }
     }
     cout << ans ndl;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    return;
+
+    cout << temp ndl;
+    cout << atemp ndl;
+    // cout << temp ndl;
     return;
 }

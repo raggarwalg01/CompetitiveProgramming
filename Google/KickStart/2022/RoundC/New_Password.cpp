@@ -388,11 +388,11 @@ void presolve();
 int32_t main()
 {
 
-#ifndef ONLINE_JUDGE
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
-#endif
+    // #ifndef ONLINE_JUDGE
+    //     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
+    //     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
+    //     freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    // #endif
 
     fastio();
     cout << fixed << setprecision(10);
@@ -406,12 +406,12 @@ int32_t main()
     int i = 1;
     while (testcase--)
     {
-        // cout << "Case #" << i++ << ": ";
+        cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
-    cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
+    // cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
 }
 
 void presolve()
@@ -424,21 +424,91 @@ void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    string s;
+    cin >> s;
+
+    int check1 = 0;
+    int check2 = 0;
+    int check3 = 0;
+    int check4 = 0;
+
+    for (int i = 0; i < n; i++)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+
+        if (s[i] >= 'a' && s[i] <= 'z')
+        {
+
+            check2 = 1;
+        }
+
+        if (s[i] >= 'A' && s[i] <= 'Z')
+        {
+
+            check1 = 1;
+        }
+
+        if (s[i] >= '0' && s[i] <= '9')
+        {
+
+            check3 = 1;
+        }
+
+        if (s[i] == '#')
+        {
+
+            check4 = 1;
+        }
+
+        if (s[i] == '&')
+        {
+
+            check4 = 1;
+        }
+
+        if (s[i] == '@')
+        {
+
+            check4 = 1;
+        }
+
+        if (s[i] == '*')
+        {
+
+            check4 = 1;
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+
+    if (check1 == 0)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+
+        s += 'A';
     }
-    cout << ans ndl;
+
+    if (check2 == 0)
+    {
+
+        s += 'a';
+    }
+
+    if (check3 == 0)
+    {
+
+        s += '1';
+    }
+
+    if (check4 == 0)
+    {
+
+        s += '#';
+    }
+
+    while (s.size() < 7)
+    {
+
+        s += 'a';
+    }
+
+    cout << s ndl;
+
     return;
 }

@@ -18,7 +18,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
     cin.tie(NULL);                    \
     cout.tie(NULL)
 
-#define int long long
+#define int unsigned long long
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -295,7 +295,7 @@ void __print(long x) { cerr << x; }
 // void __print(long long x) {cerr << x;}
 void __print(unsigned x) { cerr << x; }
 void __print(unsigned long x) { cerr << x; }
-void __print(unsigned long long x) { cerr << x; }
+// void __print(unsigned long long x) { cerr << x; }
 void __print(float x) { cerr << x; }
 void __print(double x) { cerr << x; }
 void __print(long double x) { cerr << x; }
@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,38 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, k;
+    cin >> n >> k;
+    vi a(n), b(n);
+    cin >> a >> b;
+    int lo = 0, hi = 1e10;
+    int mid;
+    while (lo <= hi)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        mid = (hi + lo) / 2;
+        int price = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if ((mid * a[i]) >= b[i])
+            {
+                int j = ((mid) * (a[i])) - b[i];
+                price += j;
+            }
+        }
+        if (price < k)
+        {
+            lo = mid + 1;
+        }
+        else if (price > k)
+        {
+            hi = mid - 1;
+        }
+        else
+        {
+            cout << mid ndl;
+            return;
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
+    cout << hi;
     return;
 }

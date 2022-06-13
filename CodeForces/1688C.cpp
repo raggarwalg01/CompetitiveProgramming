@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -424,21 +424,24 @@ void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    string s;
+    unordered_map<char, int> hash;
+    rep(i, 0, 2 * n + 1)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        cin >> s;
+        trav(j, s)
+        {
+            hash[j]++;
+        }
     }
-    // dbg(hash);
-    int ans = 0;
+    dbg(hash);
     trav(i, hash)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        if (i.se % 2 == 1)
+        {
+            cout << i.fi ndl;
+            return;
+        }
     }
-    cout << ans ndl;
     return;
 }

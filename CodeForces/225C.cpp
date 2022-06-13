@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -280,6 +280,30 @@ bool is_palindrome(int n)
     // dbg(v);
     return is_palindrome(v);
 }
+int findPeriodofString(string A)
+{
+    string s = A;
+    int n = s.length();
+    rep(i, 1, n / 2 + 1)
+    {
+        if (n % i != 0)
+            continue;
+        bool ch = true;
+        rep(j, i, n)
+        {
+            if (s[j - i] != s[j])
+            {
+                ch = false;
+                break;
+            }
+        }
+        if (ch)
+        {
+            return i;
+        }
+    }
+    return n;
+}
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
@@ -401,14 +425,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -420,25 +444,117 @@ void presolve()
     return;
 }
 
+int n, m, x, y;
+vector<string> v;
+mapii hashct, dotct;
+vector<vector<vector<int>>> dp(1010, vvi(1010, vi(3, -1)));
+
+int fnc(int id, int type)
+{
+    int ans = lmax;
+    if (type != 1)
+    {
+        for (int i = x; i <= y and id < m; i++)
+        {
+            int val = fnc(id + i, 2);
+            if (val != lmax)
+                ans = min(ans, val + hashct[id + i - 1] - hashct[id - 1]);
+        }
+    }
+    if (type != 2)
+    {
+        for (int i = x; i <= y and id < m; i++)
+        {
+            int val = fnc(id + i, 1);
+            if (val != lmax)
+                ans = min(ans, val + dotct[id + i - 1] - dotct[id - 1]);
+        }
+    }
+}
+
+// int fnc(int id, int type, int grpct)
+// {
+//     // if (id == m - 1)
+//     // {
+//     //     if (type == 1)
+//     //     {
+//     //         return hashct[id] - hashct[id - 1];
+//     //     }
+//     //     return dotct[id] - dotct[id - 1];
+//     // }
+//     if (id == m)
+//     {
+//         return 0;
+//     }
+//     int diff = m - id;
+//     if (diff < x)
+//     {
+//         return lmax;
+//     }
+//     // if (dp[id][grpct][type] != -1)
+//     // return dp[id][grpct][type];
+//     int ans = lmax;
+//     if (type != 1)
+//     {
+//         for (int i = x; i <= y and id < m; i++)
+//         {
+//             int val = fnc(id + i, 2, i);
+//             if (val != lmax)
+//                 ans = min(ans, val + hashct[id + i - 1] - hashct[id - 1]);
+//         }
+//     }
+//     if (type != 2)
+//     {
+//         for (int i = x; i <= y and id < m; i++)
+//         {
+//             int val = fnc(id + i, 1, i);
+//             if (val != lmax)
+//                 ans = min(ans, val + dotct[id + i - 1] - dotct[id - 1]);
+//         }
+//     }
+//     return dp[id][grpct][type] = ans;
+// }
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    cin >> n >> m >> x >> y;
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        string s;
+        cin >> s;
+        v.pb(s);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    // hashct.resize(m);
+    // dotct.resize(m);
+    rep(i, 0, m)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        rep(j, 0, n)
+        {
+            hashct[i] += (v[j][i] == '#');
+            dotct[i] += (v[j][i] == '.');
+        }
     }
-    cout << ans ndl;
+    rep(i, 1, m + 1)
+    {
+        hashct[i] += hashct[i - 1];
+        dotct[i] += dotct[i - 1];
+    }
+    dbg(hashct);
+    dbg(dotct);
+    int ans = lmax;
+    // rep(i, x, y + 1)
+    // {
+
+    cout << fnc(0, 0);
     return;
+    // ;
+    // int v1 = fnc(0, 1, 0);
+    // int v2 = fnc(0, 2, 0);
+    // dbg(v1, v2);
+    // ans = min({ans, v1, v2});
+    // // ans = min(ans, );
+    // // }
+    // cout << ans;
+    // cout << fnc(0, 0, 0);
+    // dbg(v);
+    // return;
 }

@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,39 @@ void presolve()
 
     return;
 }
+vvi dp(1e5 + 10, vi(3, -1));
+int fnc(vi &a, vi &b, int n, int id, int last)
+{
+    if (id == n)
+    {
+        return 0;
+    }
+    if (dp[id][last] != -1)
+    {
+        return dp[id][last];
+    }
+    if (last == 1)
+    {
+        int ans1 = fnc(a, b, n, id + 1, last);
+        int ans2 = b[id] + fnc(a, b, n, id + 1, 2);
+        return dp[id][last] = max(ans1, ans2);
+    }
+    else
+    {
+        int ans1 = fnc(a, b, n, id + 1, last);
+        int ans2 = a[id] + fnc(a, b, n, id + 1, 1);
+        return dp[id][last] = max(ans1, ans2);
+    }
+}
 
 void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
-    }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
-    return;
+    vi a(n), b(n);
+    cin >> a >> b;
+
+    int ans1 = fnc(a, b, n, 0, 2);
+    int ans2 = fnc(a, b, n, 0, 1);
+    cout << max(ans1, ans2);
 }

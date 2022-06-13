@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -389,9 +389,9 @@ int32_t main()
 {
 
 #ifndef ONLINE_JUDGE
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+// freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -424,21 +424,26 @@ void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    vvi ans;
+    int k = 1;
+    while (k < n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        vi temp;
+        rep(i, 1, n + 1)
+        {
+            if (k & i)
+            {
+                temp.pb(i);
+            }
+        }
+        ans.pb(temp);
+        k *= 2;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+
+    cout << sz(ans) ndl;
+    trav(i, ans)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        cout << sz(i) spc i ndl;
     }
-    cout << ans ndl;
     return;
 }

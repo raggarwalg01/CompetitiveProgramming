@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,51 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
+    if (k % 2 == 1)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        rep(i, 0, n)
+        {
+            if (v[i] > k / 2)
+            {
+                v[i] = 1;
+            }
+            else
+            {
+                v[i] = 0;
+            }
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    else
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int ctr = 0;
+        rep(i, 0, n)
+        {
+            if (v[i] > k / 2)
+            {
+                v[i] = 1;
+            }
+            else if (v[i] < k / 2)
+            {
+                v[i] = 0;
+            }
+            else if (v[i] == k / 2)
+            {
+                if (ctr % 2 == 0)
+                {
+                    v[i] = 1;
+                }
+                else
+                {
+                    v[i] = 0;
+                }
+                ctr++;
+            }
+        }
     }
-    cout << ans ndl;
+    cout << v ndl;
     return;
 }

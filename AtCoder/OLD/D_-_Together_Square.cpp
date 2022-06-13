@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,80 @@ void presolve()
 
     return;
 }
+vpi printDivisors(int n, int k)
+{
+    // Note that this loop runs till square root
+    vpi ans;
+    int xx = sqrt(n);
+    for (int i = 1; i <= min(k, xx); i++)
+    {
+        if (n % i == 0)
+        {
+            // If divisors are equal, print only one
+            if (n / i == i)
+            {
+                if (n / i > k)
+                    continue;
+                ans.pb({i, i});
+            }
+            // cout << " " << i;
+
+            else
+            { // Otherwise print both{
+                if (n / i > k)
+                    continue;
+                ans.pb({i, n / i});
+                ans.pb({n / i, i});
+            }
+            // cout << " " << i << " " << n / i;
+        }
+    }
+    return ans;
+}
 
 void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int cnt = 0;
+    vi squares;
+    for (int i = 1; i <= min(n, 1000ll); i++)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+
+        squares.pb(i * i);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    // set<pair<int, int>> ans;
+    for (int i = 1; i <= n; i++)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int num = i * n;
+        auto lbb = lb(all(squares), num);
+        int kt = 1;
+        dbg(*lbb);
+        // int kmun = *lbb;
+        // if
+        while (squares[kt] <= *lbb)
+        {
+            if (squares[kt] % i == 1)
+            {
+                if (squares[kt] / i > n or i > n)
+                {
+                    kt++;
+                    continue;
+                }
+                cnt += 2;
+                if (squares[kt] / i == i)
+                    cnt--;
+            }
+            kt++;
+        }
+        // if (num / i > n)
+        // continue;
+        // ;
+        // cnt += sqrt(num);
     }
-    cout << ans ndl;
+    cout << cnt;
+    // dbg(ans);
+    // cout << sz(ans);
+
     return;
 }

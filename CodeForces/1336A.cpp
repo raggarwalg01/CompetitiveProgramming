@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -420,25 +420,77 @@ void presolve()
     return;
 }
 
+const int N = 1e5 + 10;
+vector<int> g[N];
+bool visited[N];
+
+vi depth(N, 0);
+
+void dfs(int vertex, int curr)
+{
+
+    // take action on vertex after entering vertex
+    depth[vertex] = curr;
+    curr++;
+    visited[vertex] = true;
+
+    for (int child : g[vertex])
+    {
+
+        // take action on child before entering child node
+
+        if (visited[child] == true)
+            continue;
+
+        dfs(child, curr);
+
+        // take action on child after exiting child node
+    }
+
+    // take action on vertex before exiting vertex
+
+    return;
+}
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, k;
+    cin >> n >> k;
+
+    rep(i, 0, n - 1)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        int a, b;
+        cin >> a >> b;
+        a--;
+        b--;
+        g[a].pb(b);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    int root = 0;
+    int curr = 0;
+    dfs(root, curr);
+
+    multiset<int, greater<int>> pq;
+    rep(i, 0, n)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        pq.ins(depth[i]);
+        // cout << depth[i] spcend;
     }
-    cout << ans ndl;
+
+    // trav(i, pq)
+    // {
+    //     cout << i spcend;
+    // }
+    // cndl;
+    // int ans = 0;
+    // for (int i = 0; i < k; i++)
+    // {
+    //     int ele = *pq.begin();
+    //     // ele--;
+    //     pq.erase(pq.begin());
+    //     ans += ele;
+    //     ele--;
+    //     pq.ins(ele);
+    // }
+    // cout << ans;
     return;
 }

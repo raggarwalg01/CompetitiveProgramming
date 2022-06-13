@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,77 @@ void presolve()
 
     return;
 }
+void getPairsMerge(int arr[], int l, int r, int mid, vector<pair<int, int>> &p)
+{
+    int b[l + r + 1], i = l, k = l, j = mid + 1;
+    while (i <= mid && j <= r)
+    {
+        if (arr[i] > arr[j])
+        {
+            b[k] = arr[j];
+            p.push_back({arr[i], arr[j]});
+            p.push_back({arr[j], arr[i]});
+            p.push_back({arr[j], arr[j]});
+            k++;
+            j++;
+        }
+        else
+        {
+            p.push_back({arr[i], arr[j]});
+            p.push_back({arr[j], arr[i]});
+            p.push_back({arr[i], arr[i]});
+            b[k] = arr[i];
+            i++;
+            k++;
+        }
+    }
+
+    while (i <= mid)
+    {
+        b[k] = arr[i];
+        p.push_back({arr[i], arr[i]});
+        i++;
+        k++;
+    }
+    while (j <= r)
+    {
+        b[k] = arr[j];
+        p.push_back({arr[j], arr[j]});
+        j++;
+        k++;
+    }
+
+    for (int x = l; x <= r; x++)
+    {
+        arr[x] = b[x];
+    }
+}
+
+void getAllPairs(int arr[], int l, int r, vector<pair<int, int>> &p)
+{
+    if (l < r)
+    {
+        int mid = (l + r) / 2;
+        getAllPairs(arr, l, mid, p);
+        getAllPairs(arr, mid + 1, r, p);
+        getPairsMerge(arr, l, r, mid, p);
+    }
+}
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, k;
+    cin >> n >> k;
+    int arr[n];
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        cin >> arr[i];
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    vpi p;
+    getAllPairs(arr, 0, n, p);
+    int ans = lmin;
+    trav(i, p)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
     }
-    cout << ans ndl;
     return;
 }

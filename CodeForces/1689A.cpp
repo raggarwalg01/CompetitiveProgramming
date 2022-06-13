@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -280,6 +280,30 @@ bool is_palindrome(int n)
     // dbg(v);
     return is_palindrome(v);
 }
+int findPeriodofString(string A)
+{
+    string s = A;
+    int n = s.length();
+    rep(i, 1, n / 2 + 1)
+    {
+        if (n % i != 0)
+            continue;
+        bool ch = true;
+        rep(j, i, n)
+        {
+            if (s[j - i] != s[j])
+            {
+                ch = false;
+                break;
+            }
+        }
+        if (ch)
+        {
+            return i;
+        }
+    }
+    return n;
+}
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
@@ -408,7 +432,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +446,100 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, m, k;
+    cin >> n >> m >> k;
+    string ad, bd;
+    cin >> ad >> bd;
+    sort(all(ad));
+    sort(all(bd));
+    reverse(all(ad));
+    reverse(all(bd));
+    string ans;
+    deque<char> a, b;
+    trav(i, ad)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        a.pb(i);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    trav(i, bd)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        b.pb(i);
     }
+    int cnta = 0, cntb = 0;
+    int last = -1;
+    while (ad.size() > 0 && bd.size() > 0)
+    {
+        if (ad.back() < bd.back())
+        {
+            if (cnta < k)
+            {
+                ans.push_back(ad.back());
+                ad.pop_back();
+                cnta++;
+                cntb = 0;
+            }
+            else
+            {
+                ans.push_back(bd.back());
+                bd.pop_back();
+                cntb++;
+                cnta = 0;
+            }
+        }
+        else
+        {
+            if (cntb < k)
+            {
+                ans.push_back(bd.back());
+                bd.pop_back();
+                cntb++;
+                cnta = 0;
+            }
+            else
+            {
+                ans.push_back(ad.back());
+                ad.pop_back();
+                cnta++;
+                cntb = 0;
+            }
+        }
+    }
+    // while (!ad.empty() and !bd.empty())
+    // {
+    //     if (a.front() < b.front())
+    //     {
+    //         if (cnta < k)
+    //         {
+    //             ans.pb(a.front());
+    //             a.pop_front();
+    //             cnta++;
+    //             cntb = 0;
+    //         }
+    //         else
+    //         {
+    //             ans.pb(b.front());
+    //             b.pop_front();
+    //             cntb++;
+    //             cnta = 0;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         if (cntb < k)
+    //         {
+    //             ans.pb(b.front());
+    //             b.pop_front();
+    //             cntb++;
+    //             cnta = 0;
+    //         }
+    //         else
+    //         {
+    //             ans.pb(a.front());
+    //             a.pop_front();
+    //             cnta++;
+    //             cntb = 0;
+    //         }
+    //     }
+    // }
     cout << ans ndl;
     return;
 }

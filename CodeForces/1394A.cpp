@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,146 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, m, d;
+    cin >> n >> d >> m;
+    vi fine = {0}, ban = {0};
+    for (int i = 0; i < n; ++i)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        int a;
+        cin >> a;
+        if (a > m)
+            ban.push_back(a);
+        else
+            fine.push_back(a);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    sort(all(fine));
+    sort(all(ban));
+
+    int fs = sz(fine) - 1;
+    int bs = sz(ban) - 1;
+    for (int i = 1; i <= fs; ++i)
+        fine[i] += fine[i - 1];
+    for (int i = 1; i <= bs; ++i)
+        ban[i] += ban[i - 1];
+
+    ll res = 0;
+    for (int k = 0; k <= bs; ++k)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int rem = bs - k;
+        int waste = max(0ll, max(0ll, k - 1) * d - rem);
+        if (waste > fs)
+            break;
+
+        int off = 0;
+        off += fine[fs] - fine[waste];
+        off += ban[bs] - ban[bs - k];
+        res = max(res, off);
     }
-    cout << ans ndl;
+    cout << res << '\n';
     return;
 }
+
+//     int n, d, m;
+//     cin >> n >> d >> m;
+//     vi v(n);
+//     cin >> v;
+//     sort(all(v));
+//     int lo = 0, hi = n - 1;
+//     int ans = 0;
+//     vi large, small;
+//     rep(i, 0, n)
+//     {
+//         if (v[i] > m)
+//         {
+//             large.pb(v[i]);
+//         }
+//         else
+//         {
+//             small.pb(v[i]);
+//         }
+//     }
+//     sort(all(large));
+//     sort(all(small));
+//     mapii ban;
+//     mapii fine;
+//     rep(i, 1, sz(large) + 1)
+//     {
+//         ban[i] = ban[i - 1] + large[i - 1];
+//     }
+//     rep(i, 1, sz(small) + 1)
+//     {
+//         fine[i] = fine[i - 1] + small[i - 1];
+//     }
+//     // for (int i = sz(small) - 1; i >= 0; i--)
+//     // {
+//     //     suff[i] = suff[i + 1] + small[i];
+//     // }
+//     dbg(small);
+//     dbg(fine);
+//     dbg(ban);
+
+//     rep(muted, 0, sz(large))
+//     {
+//         int rem = sz(large) - muted;
+//         int waste = max(0ll, max(0ll, muted - 1) * d - rem);
+//         if (waste > sz(small))
+//             break;
+
+//         int temp = 0;
+//         temp += fine[sz(small)] - fine[waste];
+//         temp += ban[sz(large)] - ban[sz(large) - muted];
+//         ans = max(ans, temp);
+//         // int temp = 0;
+//         // temp += ban[muted - 1];
+//         // int szzzz = max(0ll, sz(small) - muted * d);
+//         // temp += fine[szzzz - 1];
+
+//         // if (muted * d > sz(small))
+//         //     continue;
+//         // ;
+//         // // temp += suff[sz(small) - 1] - suff[min(muted * d - 1, sz(small) - 1)];
+//         // ans = max(ans, temp);
+//         // cout << temp spcend;
+//     }
+//     cout << ans ndl;
+//     return;
+//     // hi--;
+//     // ans += v[n - 1];
+//     // // cout << ans spcend;
+//     // umapii pref;
+//     // rep(i, 0, n)
+//     // {
+//     //     pref[i] = pref[i - 1] + v[i];
+//     // }
+//     // while (lo <= hi)
+//     // {
+//     //     // cout << ans spcend;
+//     //     if (v[hi] > m)
+//     //     {
+//     //         int temp_lo = lo;
+//     //         int temp_sum = 0;
+//     //         while (temp_lo <= hi and temp_lo < lo + d and v[temp_lo] < m)
+//     //         {
+//     //             temp_sum += v[temp_lo++];
+//     //         }
+//     //         if (temp_sum > v[hi])
+//     //         {
+//     //             ans += temp_sum;
+//     //             lo = temp_lo;
+//     //         }
+//     //         else
+//     //         {
+//     //             ans += v[hi];
+//     //             lo += d;
+//     //             hi--;
+//     //         }
+//     //     }
+//     //     else
+//     //     {
+//     //         ans += v[hi];
+//     //         hi--;
+//     //     }
+//     // }
+//     cout << ans ndl;
+//     return;
+// }

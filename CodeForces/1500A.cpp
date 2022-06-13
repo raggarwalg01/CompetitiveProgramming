@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -426,19 +426,29 @@ void solve()
     cin >> n;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
+    vector<pair<int, int>> hash(5e6 + 10, {-1, -1});
+
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        rep(j, i + 1, n)
+        {
+            int x, y, w, z;
+            x = i;
+            y = j;
+            int sum = v[x] + v[y];
+            if (hash[sum].fi != -1 and hash[sum].se != -1)
+            {
+                w = hash[sum].fi;
+                z = hash[sum].se;
+                if (x != w and x != z and y != w and y != z)
+                {
+                    YES;
+                    cout << x + 1 spc y + 1 spc w + 1 spc z + 1 ndl;
+                    return;
+                }
+            }
+            hash[sum] = {i, j};
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
-    return;
+    NO return;
 }

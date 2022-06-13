@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -18,7 +18,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
     cin.tie(NULL);                    \
     cout.tie(NULL)
 
-#define int long long
+// #define int long long
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -420,25 +420,66 @@ void presolve()
     return;
 }
 
+umapii hasgem;
+int last;
+// vvi dp(30110, vi(2000, -1));
+map<int, map<int, int>> dp;
+int fnc(int curr, int len)
+{
+    if (len <= 0)
+        return 0;
+
+    if (dp[curr].find(len) != dp[curr].end())
+    // if (dp[curr][len] != -1)
+    {
+        return dp[curr][len];
+    }
+    // if (curr > last + 5)
+    // {
+    //     return 0;
+    // }
+    // if (dp[curr][len] != -1)
+
+    int ans = 0;
+    for (int i = -1; i <= 1; i++)
+    {
+        int tcur = curr + len + i;
+        if (tcur > 30000 or tcur <= curr)
+            continue;
+        ans = max(ans, fnc(tcur, len + i));
+    } // rep(i, -1, 2)
+    // {
+    //     int newc = curr + len + i;
+    //     if (newc > last + 5 or newc <= curr)
+    //     {
+    //         continue;
+    //     }
+
+    //     ans = max(ans, fnc(newc, len + i));
+    // }
+    // ans = max(ans, fnc(curr + len - 1, len - 1));
+    // ans = max(ans, fnc(curr + len + 1, len + 1));
+    return dp[curr][len] = hasgem[curr] + ans;
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, d;
+    cin >> n >> d;
+    // vi v(n);
+    // cin >> v;
+    last = 0;
+    // trav(i, v)
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        int x;
+        cin >> x;
+        last = max(last, x);
+        hasgem[x]++;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
+    int curr = d;
+    int length = d;
+    int ans = fnc(curr, length);
+    cout << ans;
+
     return;
 }

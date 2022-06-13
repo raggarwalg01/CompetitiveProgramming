@@ -389,9 +389,9 @@ int32_t main()
 {
 
 #ifndef ONLINE_JUDGE
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
+    //freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+     // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,41 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+    int n , q;
+    cin>> n >> q;
+    string s;
+    cin>>s;
+    string st = s;
+    while(q--){
+    	int a , b;
+    	cin>> a>>b;
+    	a--; b--;
+    	string ss = s.substr(a,b-a+1);
+    	unordered_map<char , int> hash1;
+    	trav(i,ss){
+    		hash1[i]++;
+    	}
+
+    	deque<int> cnt;
+    	trav(i,hash1){
+    		if(i.se == 0) continue;
+    		cnt.pb(i.se);
+    	}
+    	sort(all(cnt));
+    	dbg(cnt);
+    	int ans = 0;
+while(!cnt.empty() and cnt.front() >= ans+1){
+	ans++;
+	cnt.pop_front();
+	while(!cnt.empty() and cnt.front() <= ans){
+		cnt.pop_front();
+	}
+}
+cout<< ans ndl;
+
+    	// cout<< sz(cnt) ndl;
+    	dbg(ss);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
     return;
 }
+

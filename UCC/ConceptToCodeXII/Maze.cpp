@@ -389,9 +389,9 @@ int32_t main()
 {
 
 #ifndef ONLINE_JUDGE
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
+    //freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,100 @@ void presolve()
 
     return;
 }
+int orangesRotting(vector<vector<int>>& grid) {
+        int mins = 0;
+        int rotten = 0;
+        int fresh = 0;
+        
+        // count rotten and fresh oranges
+        // add rotten oranges to q
+        queue<pair<int, int>> q;
+        for (int i = 0; i < grid.size(); i++) {
+            for (int j = 0; j < grid[0].size(); j++) {
+                if (grid[i][j] == 2) {
+                    q.push({ i, j });
+                    rotten++;
+                } else if (grid[i][j] == 1) {
+                    fresh++;
+                }
+            }
+        }
+        
+        // based on the number of fresh orange neighbours to change,
+        // loop that many times to make them rot and get their neighbours to repeat the process
+        int freshNeighbours = rotten;
+        while (!q.empty()) {
+            int tempFreshNeighbours = 0;
+            for (int i = 0; i < freshNeighbours; i++) {
+                // get neighbours, push them to the queue and make them rot, then add to minutes
+                pair<int, int> curr = q.front(); // current rotten orange
+                q.pop();
+                
+                int x = curr.first;
+                int y = curr.second;
+                
+                if (x - 1 >= 0 && grid[x - 1][y] == 1) { // top
+                    q.push({ x - 1, y });
+                    grid[x - 1][y] = 2;
+                    tempFreshNeighbours++;
+                    fresh--;
+                }
+                if (y + 1 < grid[0].size() && grid[x][y + 1] == 1) { // right
+                    q.push({ x, y + 1 });
+                    grid[x][y + 1] = 2;
+                    tempFreshNeighbours++;
+                    fresh--;
+                }
+                if (x + 1 < grid.size() && grid[x + 1][y] == 1) { // bottom
+                    q.push({ x + 1, y });
+                    grid[x + 1][y] = 2;
+                    tempFreshNeighbours++;
+                    fresh--;
+                }
+                if (y - 1 >= 0 && grid[x][y - 1] == 1) { // left
+                    q.push({ x, y - 1 });
+                    grid[x][y - 1] = 2;
+                    tempFreshNeighbours++;
+                    fresh--;
+                }
+            }
+            
+            freshNeighbours = tempFreshNeighbours;
+            
+            if (!q.empty()) mins++;
+        }
+        
+        // check for any fresh oranges
+        if (fresh > 0) return -1;
+        
+        return mins;
+    }
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+    int n , m;
+    cin>> n >> m ;
+    int a, b ;
+    cin >> a>> b;
+    vector<string> s;
+    cin >> s;
+    vvi grid;
+    vi temp(m);
+    rep(i,0,n){
+    	vi temp;
+    	rep(j,0,m){
+    		if(s[i][j] == )
+    	}
+    	// cin>> temp;
+    	// grid.pb(temp);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
+    int ans = orangesRotting(grid);
+    if(ans == -1){
+    	minus1;
+
+    }else{
+    	cout<< ans ndl;
     }
-    cout << ans ndl;
     return;
 }
+

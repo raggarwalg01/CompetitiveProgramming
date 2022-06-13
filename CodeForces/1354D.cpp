@@ -18,7 +18,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
     cin.tie(NULL);                    \
     cout.tie(NULL)
 
-#define int long long
+// #define int long long
 #define ll long long
 #define ull unsigned long long
 #define ld long double
@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,43 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
-    }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
-    return;
 }
+//{
+///// pbds memory dera :/
+//     pbds s;
+//     int n, q;
+//     cin >> n >> q;
+//     vi v(n);
+//     cin >> v;
+//     trav(i, v)
+//     {
+//         s.ins(i);
+//     }
+//     while (q--)
+//     {
+//         int t;
+//         cin >> t;
+//         if (t >= 1)
+//         {
+//             s.ins(t);
+//         }
+//         else
+//         {
+//             t = abs(t);
+//             t--;
+//             auto nn = (s.find_by_order(t));
+//             s.erase(nn);
+//             // cout << nn ndl;
+//         }
+//     }
+//     if (sz(s) == 0)
+//     {
+//         cout << 0 ndl;
+//         return;
+//     }
+//     else
+//     {
+//         cout << *s.begin() ndl;
+//     }
+//     return;
+// }

@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,60 @@ void presolve()
 
     return;
 }
-
+vector<vector<int>> dp(510, vector<int>(1024, -1));
+bool fnc(int n, int m, int i, vector<vector<int>> &v, vector<int> ans, int xr)
+{
+    if (i == n - 1)
+    {
+        int temp = xr;
+        for (int j = 0; j < m; j++)
+        {
+            xr = temp;
+            int num = xr ^ v[i][j];
+            if (num != 0)
+            {
+                ans.push_back(j);
+                cout << "TAK\n";
+                for (auto it : ans)
+                {
+                    cout << it + 1 << " ";
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    if (dp[i][xr] != -1)
+    {
+        return dp[i][xr];
+    }
+    int temp = xr;
+    for (int j = 0; j < m; j++)
+    {
+        xr = temp;
+        xr = xr ^ v[i][j];
+        ans.push_back(j);
+        if (fnc(n, m, i + 1, v, ans, xr))
+        {
+            return dp[i][temp] = true;
+        }
+        ans.pop_back();
+    }
+    return dp[i][temp] = false;
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> v(n, vector<int>(m, 0));
     cin >> v;
-    umapii hash;
-    trav(i, v)
+    bool ch = true;
+    vector<int> ans;
+    if (fnc(n, m, 0, v, ans, 0) == false)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+
+        cout << "NIE";
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
+
     return;
 }

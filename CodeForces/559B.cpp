@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,55 @@ void presolve()
 
     return;
 }
+string a, b;
+bool equal(int l1, int r1, int l2, int r2)
+{
 
+    for (int i = 0; i <= (r1 - l1); i++)
+        if (a[i + l1] != b[i + l2])
+            return 0;
+    return 1;
+}
+bool fnc(int l1, int r1, int l2, int r2)
+{
+
+    if (equal(l1, r1, l2, r2))
+        return 1;
+    if ((r2 - l2 + 1) % 2 == 1 or (r1 - l1 + 1) % 2 == 1)
+    {
+        return false;
+    }
+    int m1 = l1 + ((r1 - l1 + 1) / 2) - 1;
+    int m2 = l2 + ((r2 - l2 + 1) / 2) - 1;
+
+    return (fnc(l1, m1, l2, m2) and fnc(m1 + 1, r1, m2 + 1, r2)) or (fnc(l1, m1, m2 + 1, r2) and fnc(m1 + 1, r1, l2, m2));
+    // string a1 = a.substr(0, mid);
+    // string a2 = a.substr(mid, mid);
+
+    // string b1 = b.substr(0, mid);
+    // string b2 = b.substr(mid, mid);
+    // if ((fnc(0, l0 + mid - 1, 0, l1 + mid - 1) and fnc(l0 + mid, r0, l1 + mid, r1)) or (fnc(0, l0 + mid - 1, l1 + mid, r1) and fnc(l0 + mid, r0, 0, l1 + mid - 1)))
+    // {
+    //     return true;
+    // }
+    // return false;
+
+    // dbg(a1, a2, b1, b2);
+    // return true;
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    cin >> a >> b;
+    int n = sz(a);
+    int m = sz(b);
+
+    if (fnc(0, n - 1, 0, m - 1))
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        YES
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    else
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        NO
     }
-    cout << ans ndl;
     return;
 }

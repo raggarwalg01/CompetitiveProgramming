@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,275 @@ void presolve()
 
     return;
 }
+const int MAXN = 210;
+vector<int> lst[MAXN];
+int parent[MAXN];
 
+void make_set(int v)
+{
+    lst[v] = vector<int>(1, v);
+    parent[v] = v;
+}
+
+int find_set(int v)
+{
+    return parent[v];
+}
+
+void union_sets(int a, int b)
+{
+    a = find_set(a);
+    b = find_set(b);
+    if (a != b)
+    {
+        if (lst[a].size() < lst[b].size())
+            swap(a, b);
+        while (!lst[b].empty())
+        {
+            int v = lst[b].back();
+            lst[b].pop_back();
+            parent[v] = a;
+            lst[a].push_back(v);
+        }
+    }
+}
+void computeLPSArray(string str, int M, int lps[])
+{
+    // length of the previous longest prefix suffix
+    int len = 0;
+    int i;
+
+    lps[0] = 0; // lps[0] is always 0
+    i = 1;
+
+    // the loop calculates lps[i] for i = 1 to M-1
+    while (i < M)
+    {
+        if (str[i] == str[len])
+        {
+            len++;
+            lps[i] = len;
+            i++;
+        }
+        else // (pat[i] != pat[len])
+        {
+            if (len != 0)
+            {
+                // This is tricky. Consider the example
+                // AAACAAAA and i = 7.
+                len = lps[len - 1];
+
+                // Also, note that we do not increment i
+                // here
+            }
+            else // if (len == 0)
+            {
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
+}
+bool isRepeat(string str)
+{
+    // Find length of string and create an array to
+    // store lps values used in KMP
+    // int n = strlen(str);
+    int n = str.length();
+    int lps[n];
+
+    // Preprocess the pattern (calculate lps[] array)
+    computeLPSArray(str, n, lps);
+
+    // Find length of longest suffix which is also
+    // prefix of str.
+    int len = lps[n - 1];
+
+    // If there exist a suffix which is also prefix AND
+    // Length of the remaining substring divides total
+    // length, then str[0..n-len-1] is the substring that
+    // repeats n/(n-len) times (Readers can print substring
+    // and value of n/(n-len) for more clarity.
+    return (len > 0 && n % (n - len) == 0) ? len : -1;
+}
+int findPeriod(string A)
+{
+    string s = A;
+    int n = s.length();
+    rep(i, 1, n / 2 + 1)
+    {
+        if (n % i != 0)
+            continue;
+        bool ch = true;
+        rep(j, i, n)
+        {
+            if (s[j - i] != s[j])
+            {
+                ch = false;
+                break;
+            }
+        }
+        if (ch)
+        {
+            return i;
+        }
+    }
+    return n;
+    // int length = A.size();
+
+    // // Initially consider there is no period for given
+    // // String
+    // int period = -1;
+
+    // /*set two pointers one(i) at
+    // index 0 and other(j) at index 1. increment j till
+    // first character is obtained in the string*/
+    // int i = 0;
+    // for (int j = 1; j < length; j++)
+    // {
+    //     int currChar = A[j];
+    //     int comparator = A[i];
+
+    //     /*If current character matches with first
+    //      *character
+    //      *update period as the difference of j and i*/
+    //     if (currChar == comparator)
+    //     {
+    //         period = (j - i);
+    //         i++;
+    //     }
+
+    //     /* if any mismatch occurs in between set i to
+    //      * zero also check if current character again
+    //      * matches
+    //      * with starting character. If matches, update
+    //      * period*/
+    //     else
+    //     {
+    //         if (currChar == A[0])
+    //         {
+    //             i = 1;
+    //             period = j;
+    //         }
+    //         else
+    //         {
+    //             i = 0;
+    //             period = -1;
+    //         }
+    //     }
+    // }
+
+    // /*check if the period is exactly dividing
+    //  * string if not reset the period to -1
+    //  * this eliminates partial substrings like
+    //  * e.g string -"GEEKSFORGEEKS" */
+
+    // period = (length % period != 0) ? -1 : period;
+    // return period;
+}
+
+void dfs(int vertex, vi &visited, vvi &g, vector<string> &strs, int root, string s)
+{
+
+    // take action on vertex after entering vertex
+
+    visited[vertex] = 1;
+    // cout << s[vertex - 1];
+    strs[root].pb(s[vertex - 1]);
+
+    for (int child : g[vertex])
+    {
+
+        // take action on child before entering child node
+
+        if (visited[child] == 1)
+            continue;
+
+        dfs(child, visited, g, strs, root, s);
+
+        // take action on child after exiting child node
+    }
+
+    // take action on vertex before exiting vertex
+
+    return;
+}
 void solve()
 {
     int n;
     cin >> n;
+    string s;
+    cin >> s;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
+
+    vvi graph(n + 1, vi());
+
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        graph[v[i]].pb(i + 1);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    // dbg(graph);
+    vector<string> stringgggs(n + 1);
+    vi vis(n + 1, -1);
+
+    rep(i, 1, n + 1)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+
+        if (vis[i] == -1)
+        {
+            dfs(i, vis, graph, stringgggs, i, s);
+        }
     }
-    cout << ans ndl;
+    int lcd = 1;
+    trav(i, stringgggs)
+    {
+        int len = findPeriod(i);
+        // cout << len spcend;
+        // cerr << i spcend;
+        if (len == -1)
+        {
+            len = sz(i);
+        }
+        if (len > 0)
+            lcd = lcm(lcd, len);
+    }
+    cout << lcd ndl;
+
+    // rep(i, 1, n + 1)
+    // {
+    //     make_set(i);
+    // }
+    // rep(i, 0, n)
+    // {
+    //     union_sets(i + 1, v[i]);
+    // }
+    // // vvi graph(n + 1, vi());
+    // umapii graph;
+    // map<int, string> hassss;
+    // rep(i, 0, n)
+    // {
+    //     int ele = find_set(i + 1);
+    //     graph[ele]++;
+    //     hassss[ele].pb(s[i]);
+    // }
+
+    // trav(i, graph)
+    // {
+    // int lennn = findPeriod(hassss[i.fi]);
+    // cout << hassss[i.fi] spc lennn << "    " spcend;
+    // if (lennn != -1)
+    // {
+    // i.se = lennn;
+    // }
+    // }
+
+    // int lm = 1;
+    // trav(i, graph)
+    // {
+    //     lm = lcm(lm, i.se);
+    // }
+    // cout << lm ndl;
+
     return;
 }

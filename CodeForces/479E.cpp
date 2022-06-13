@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,46 @@ void presolve()
 
     return;
 }
-
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
-    }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
-    return;
 }
+// // vvi dp(5010, vi(5010, -1));
+// map<int, map<int, int>> dp;
+// int fnc(int n, int a, int b, int k, int done)
+// {
+//     if (done > k)
+//     {
+//         return 1;
+//     }
+//     // if (dp[done][a] != -1)
+//     if (dp[done].find(a) != dp[done].end())
+//     {
+//         return dp[done][a];
+//     }
+//     int now = a + 1;
+//     int ans = 0;
+//     while (now <= n and (abs(a - now) < abs(a - b)))
+//     {
+//         ans += fnc(n, now, b, k, done + 1) % Mod;
+//         // ans = ans % Mod;
+//         now++;
+//     }
+//     now = a - 1;
+//     while (now > 0 and (abs(a - now) < abs(a - b)))
+//     {
+//         ans += fnc(n, now, b, k, done + 1) % Mod;
+//         // ans = ans % Mod;
+//         now--;
+//     }
+//     return dp[done][a] = ans % Mod;
+// }
+
+// void solve()
+// {
+//     int n, a, b, k;
+//     cin >> n >> a >> b >> k;
+//     int ans = fnc(n, a, b, k, 1);
+//     cout << ans;
+//     //% Mod;
+//     return;
+// }

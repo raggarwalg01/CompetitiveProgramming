@@ -389,8 +389,8 @@ int32_t main()
 {
 
 #ifndef ONLINE_JUDGE
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
+    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt", "r", stdin);
+    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt", "w", stdout);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        cerr << "//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -426,19 +426,148 @@ void solve()
     cin >> n;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
+    // cout<<v ndl;
+    // vector<pair<pair<int, int>, vector<int>>> ans;
+
+    vi nev = v;
+    deque<int> t1, t2;
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        if (v[i] == i + 1)
+        {
+            t1.pb(v[i]);
+        }
+        else
+        {
+            t2.pb(v[i]);
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    if (sz(t1) == 0)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        cout << 1 ndl;
+        cout << 1 spc n ndl;
+        rep(i, 0, n)
+        {
+            cout << i + 1 spcend;
+        }
+        cndl;
+        return;
     }
-    cout << ans ndl;
+
+    dbg(t1, t2);
+    if (sz(t2) == 0)
+    {
+        cout << 0 ndl;
+        return;
+    }
+
+    vi temppp;
+    // vi temp ;
+    // idx
+    int jump = -1;
+    if (sz(t1) == 1)
+    {
+        if (t1.front() != 1)
+        {
+            int ele = t2.front();
+            t2.pop_front();
+            t1.push_front(ele);
+            // swap(v[0], v[t1.front() - 1]);
+            jump = 0;
+        }
+        else
+        {
+            int ele = t2.back();
+            t2.pop_back();
+            t1.pb(ele);
+            jump = n - 1;
+        }
+        // for (int i = 0; i < n; i++)
+        // {
+
+        //     int var = v[i];
+        //     if (v[i] == i + 1)
+        //     {
+        //         continue;
+        //     }
+
+        // }
+        // sort(all(temp));
+        // while (true)
+        // {
+
+        // int ch = false;
+        // rep(i, 0, n)
+        // {
+        //     if (v[i] == temp[i] or temp[i] == i + 1)
+        //     {
+        //         ch = true;
+        //     }
+        // }
+        // temppp = temp;
+        // if (ch == false)
+        //     break;
+        // next_permutation(all(temp));
+        // rotate(temp.begin() , temp.begin() + 1 , temp.end());
+        // }
+    }
+    // else
+    // {
+
+    dbg(t1, t2);
+    int ele1 = t1.front();
+    t1.pop_front();
+    t1.pb(ele1);
+    ele1 = t2.front();
+    t2.pop_front();
+    t2.pb(ele1);
+    dbg(t1, t2, jump);
+    rep(i, 0, n)
+    {
+        if (v[i] == i + 1 or i == jump)
+        {
+            int ele = t1.front();
+            t1.pop_front();
+            temppp.pb(ele);
+        }
+        else
+        {
+            int ele = t2.front();
+            t2.pop_front();
+            temppp.pb(ele);
+        }
+    }
+    // }
+    cout << 2 ndl;
+    cout << 1 spc n ndl;
+    cout << temppp ndl;
+    cout << 1 spc n ndl;
+    sort(all(v));
+    cout << v ndl;
+
+    // for (int i = 0; i < n; i++)
+    // {
+    //     if (v[i] == i + 1)
+    //         continue;
+    //     int lo = i;
+    //     int id = i;
+    //     for (int j = id; j < n; j++)
+    //     {
+    //         if (v[j] == i + 1)
+    //         {
+    //             id = j;
+    //             break;
+    //         }
+    //     }
+    //     rotate(v.begin() + lo, v.begin() + id, v.end());
+    //     // rotate(v.begin() + id + 1 , v.end() -1  , v.end());
+    //     ans.pb({{lo + 1, n}, {v}});
+    // }
+    // cout << sz(ans) ndl;
+    // trav(i, ans)
+    // {
+    //     cout << (i.fi).fi spc(i.fi).se ndl;
+    //     cout << i.se ndl;
+    // }
     return;
 }

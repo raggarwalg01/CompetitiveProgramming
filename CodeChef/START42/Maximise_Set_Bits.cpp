@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -408,37 +408,92 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
 }
-
+vi vals;
 void presolve()
 {
+    // int i = 1;
+    // while (power(2, i) < 1e9 + 7)
+    // {
+    //     vals.pb(power(2, i) - 1);
+    //     i++;
+    // }
+    // // vals.pb(power(2, i) - 1);
+    // // i++;
+
+    // dbg(vals);
 
     return;
 }
-
+int countSetBits(int n)
+{
+    int count = 0;
+    while (n)
+    {
+        count += n & 1;
+        n >>= 1ll;
+    }
+    return count;
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
-    }
-    // dbg(hash);
+    int n, k;
+    cin >> n >> k;
+    int val = 1;
     int ans = 0;
-    trav(i, hash)
+    // int cnt
+    while (k >= val)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int canset = min(n, (k / val));
+        ans += canset;
+        k = k - (canset * val);
+        val = val * 2;
     }
+    // cout<< countSetBits(1)
+    if (k > 0)
+    {
+        ans -= countSetBits(val / 2 - 1);
+        ans += countSetBits(val / 2 - 1 + k);
+    }
+
+    // cerr ndl;
     cout << ans ndl;
-    return;
+    // int n, k;
+    // cin >> n >> k;
+
+    // if (n >= k)
+    // {
+    //     cout << k ndl;
+    //     return;
+    // }
+
+    // int temp = n;
+    // int ans = 0;
+    // while (temp-- > 1)
+    // {
+    //     if (k == 0)
+    //         break;
+    //     auto it = lb(all(vals), k);
+    //     if (it == vals.end())
+    //         it--;
+    //     if (*it > k and (it > vals.begin()))
+    //     {
+    //         it--;
+    //     }
+    //     cerr << *it spcend;
+    //     cerr << (it - vals.begin() + 1) ndl;
+    //     ans += (it - vals.begin() + 1);
+    //     // break;
+    //     k = k - *it;
+    // }
+    // int setbits = countSetBits(k);
+
+    // cout << ans + setbits ndl;
+    // cerr ndl;
+    // return;
 }
+// 1073741823 1000000000

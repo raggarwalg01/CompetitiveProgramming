@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,33 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
+    vector<deque<int>> temps(k, deque<int>());
+
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        temps[i % k].pb(v[i]);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    trav(i, temps)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        sort(all(i));
     }
-    cout << ans ndl;
+    rep(i, 0, n)
+    {
+        v[i] = temps[i % k].front();
+        temps[i % k].pop_front();
+        // erase(temps[i % k].begin());
+    }
+    if (is_sorted(all(v)))
+    {
+        Yes
+    }
+    else
+    {
+        No;
+    }
     return;
 }

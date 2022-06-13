@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,47 @@ void presolve()
 
     return;
 }
-
+mapii dp[300];
+int fnc(vpi &v, int n, int id, int gd)
+{
+    if (gd == 1)
+    {
+        return 0;
+    }
+    if (id == -1)
+    {
+        if (gd == 1)
+        {
+            return 0;
+        }
+        return lmax;
+    }
+    if (dp[id].find(gd) != dp[id].end())
+    {
+        return dp[id][gd];
+    }
+    int ans1 = fnc(v, n, id - 1, gcd(gd, v[id].fi));
+    if (ans1 != lmax)
+    {
+        ans1 += v[id].se;
+    }
+    int ans2 = fnc(v, n, id - 1, gd);
+    return dp[id][gd] = min(ans1, ans2);
+}
 void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    vpi v(n);
+    rep(i, 0, n) cin >> v[i].fi;
+    rep(i, 0, n) cin >> v[i].se;
+    int ans = fnc(v, n, n - 1, 0);
+    if (ans == lmax)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        minus1;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
+    else
+        cout << ans;
+    // cout << v ndl;
     return;
 }

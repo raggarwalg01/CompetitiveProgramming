@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -280,6 +280,30 @@ bool is_palindrome(int n)
     // dbg(v);
     return is_palindrome(v);
 }
+int findPeriodofString(string A)
+{
+    string s = A;
+    int n = s.length();
+    rep(i, 1, n / 2 + 1)
+    {
+        if (n % i != 0)
+            continue;
+        bool ch = true;
+        rep(j, i, n)
+        {
+            if (s[j - i] != s[j])
+            {
+                ch = false;
+                break;
+            }
+        }
+        if (ch)
+        {
+            return i;
+        }
+    }
+    return n;
+}
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
@@ -401,14 +425,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +446,34 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, m;
+    cin >> n >> m;
+    map<int, vector<pair<int, int>>> hash;
+    rep(i, 1, n + 1)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        rep(j, 1, m + 1)
+        {
+            int x;
+            cin >> x;
+            hash[x].pb({i, j});
+        }
     }
-    // dbg(hash);
-    int ans = 0;
+    int sum = 0;
     trav(i, hash)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        vpi v = i.se;
+        int siz = sz(v);
+        // for (int i = 0; i < siz; i++)
+        // {
+        //     for (int j = 0; j < siz; j++)
+        //     {
+        //         if (i == j)
+        //             continue;
+        //         sum += abs(v[i].fi - v[j].fi) + abs(v[i].se - v[j].se);
+        //     }
+        // }
     }
-    cout << ans ndl;
+    cout << sum / 2;
+    // dbg(hash);
     return;
 }

@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -280,6 +280,30 @@ bool is_palindrome(int n)
     // dbg(v);
     return is_palindrome(v);
 }
+int findPeriodofString(string A)
+{
+    string s = A;
+    int n = s.length();
+    rep(i, 1, n / 2 + 1)
+    {
+        if (n % i != 0)
+            continue;
+        bool ch = true;
+        rep(j, i, n)
+        {
+            if (s[j - i] != s[j])
+            {
+                ch = false;
+                break;
+            }
+        }
+        if (ch)
+        {
+            return i;
+        }
+    }
+    return n;
+}
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
@@ -401,14 +425,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +443,61 @@ void presolve()
 
     return;
 }
+const int N = 1e5 + 10;
+vector<int> g[N];
+bool visited[N];
+vi heights;
+double dfs(int vertex, int parent)
+{
+
+    // take action on vertex after entering vertex
+
+    // visited[vertex] = true;
+    // if (sz(g[vertex]) == 0 or sz(g[vertex]) == 1)
+    // {
+    //     heights.pb(ht);
+    // }
+    double sum = 0;
+    int childnct = 0;
+    for (int child : g[vertex])
+    {
+
+        // take action on child before entering child node
+        if (child == parent)
+            continue;
+        // if (visited[child] == true)
+        // continue;
+
+        sum += dfs(child, vertex);
+        childnct++;
+
+        // take action on child after exiting child node
+    }
+
+    // take action on vertex before exiting vertex
+
+    return childnct == 0 ? 0 : ((1 + sum / childnct));
+}
 
 void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int m = n - 1;
+    rep(i, 0, m)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        int a, b;
+        cin >> a >> b;
+        g[a].pb(b);
+        g[b].pb(a);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
+    cout << dfs(1, -1);
+    return;
+    // ld ans = 0;
+    // trav(i, heights)
+    // {
+    //     ans += i;
+    // }
+    // cout << (ans / sz(heights));
     return;
 }

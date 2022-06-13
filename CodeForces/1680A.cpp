@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,20 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int l1, r1, l2, r2;
+    cin >> l1 >> r1 >> l2 >> r2;
+    if (l1 > l2)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        swap(l1, l2);
+        swap(r1, r2);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    if (r1 < l2)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        cout << l1 + l2 ndl;
     }
-    cout << ans ndl;
+    else
+    {
+        cout << max(l1, l2) ndl;
+    }
     return;
 }

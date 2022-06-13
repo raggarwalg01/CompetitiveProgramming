@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,39 @@ void presolve()
 
     return;
 }
+int n, k;
+vvi dp(2001, vi(2001, -1));
+int fnc(int id, int last)
+{
+    if (id == k)
+    {
+        return 1;
+    }
+    if (dp[id][last] != -1)
+    {
+        return dp[id][last];
+    }
+    int ans = 0;
+    for (int i = last; i <= n; i += last)
+    {
+        if (i <= n)
+            ans += fnc(id + 1, i) % Mod;
+        ans = ans % Mod;
+    }
+    return dp[id][last] = ans % Mod;
+}
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
-    }
-    // dbg(hash);
+    cin >> n >> k;
     int ans = 0;
-    trav(i, hash)
+    rep(i, 1, n + 1)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int val = fnc(1, i);
+        // cout << val spcend;
+        ans += val;
+        ans = ans % Mod;
     }
-    cout << ans ndl;
+    cout << ans;
     return;
 }

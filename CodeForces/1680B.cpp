@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -399,7 +399,6 @@ int32_t main()
     cerr << fixed << setprecision(10);
 
     presolve();
-
     int testcase = 1;
     cin >> testcase;
 
@@ -408,7 +407,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +421,50 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, m;
+    cin >> n >> m;
+    vector<string> s(n);
+    cin >> s;
+    for (int i = 0; i < n; i++)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        for (int j = 0; j < m; j++)
+        {
+            if (s[i][j] == 'E')
+                continue;
+            bool check = true;
+            int ii = i - 1;
+            int jj = j - 1;
+            for (; ii >= 0; ii--)
+            {
+                for (int kj = 0; kj < m; kj++)
+                {
+                    if (s[ii][kj] == 'R')
+                    {
+                        check = false;
+                        break;
+                        ;
+                    }
+                    if (check == false)
+                        break;
+                }
+            }
+            for (; jj >= 0; jj--)
+            {
+                for (int ki = 0; ki < n; ki++)
+                {
+                    if (s[ki][jj] == 'R')
+                    {
+                        check = false;
+                    }
+                    if (check == false)
+                        break;
+                }
+            }
+            if (check)
+            {
+                YES return;
+            }
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
-    return;
+    NO return;
 }

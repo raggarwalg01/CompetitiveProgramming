@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,62 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
+    int n, m;
+    cin >> n >> m;
+    vvi v(n, vi(m, 0));
     cin >> v;
-    umapii hash;
-    trav(i, v)
+
+    seti cols;
+    for (int i = 0; i < n; i++)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        vi temp = v[i];
+        sort(all(temp));
+        rep(j, 0, m)
+        {
+            if (temp[j] != v[i][j])
+            {
+                cols.ins(j);
+            }
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    if (sz(cols) > 2)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        minus1;
     }
-    cout << ans ndl;
+    else
+    {
+        if (sz(cols) == 0)
+        {
+            cout << 1 spc 1 ndl;
+            return;
+        }
+
+        bool ch = false;
+
+        int oo = *cols.begin();
+        int o2 = *cols.rbegin();
+        for (int i = 0; i < n; i++)
+        {
+            if (v[i][oo] == v[i][o2])
+            {
+                continue;
+                ;
+            }
+            else if (v[i][oo] < v[i][o2])
+            {
+                ch = true;
+                break;
+                ;
+            }
+        }
+        if (ch)
+        {
+            minus1;
+        }
+        else
+        {
+            cout << oo + 1 spc o2 + 1 ndl;
+        }
+    }
     return;
 }

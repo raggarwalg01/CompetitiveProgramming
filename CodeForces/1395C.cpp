@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,44 @@ void presolve()
 
     return;
 }
-
+bool can(vi &a, vi &b, int ans)
+{
+    int n = sz(a), m = sz(b);
+    bool c = false;
+    rep(i, 0, n)
+    {
+        c = false;
+        rep(j, 0, m)
+        {
+            if ((ans | (a[i] & b[j])) == ans)
+                c = true;
+        }
+        if (c == false)
+        {
+            return c;
+        }
+    }
+    return true;
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, m;
+    cin >> n >> m;
+    vi a(n), b(m);
+    cin >> a >> b;
+    sort(all(b));
+    int lo{0}, hi = power(2, 9);
+    int mid = (lo + hi) / 2;
+    int ans = lmax;
+    rep(i, 0, 2e9 - 1)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        if (can(a, b, i))
+        {
+            cout << i ndl;
+            return;
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
+    // cout << ans ndl;
+    // cout << hi ndl;
     return;
 }

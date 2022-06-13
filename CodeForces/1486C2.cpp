@@ -389,8 +389,8 @@ int32_t main()
 {
 
 #ifndef ONLINE_JUDGE
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
+    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt", "r", stdin);
+    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt", "w", stdout);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,83 @@ void presolve()
 
     return;
 }
-
+int query(int lo, int hi)
+{
+    cout << "?" spc lo spc hi << endl;
+    cout.flush();
+    int t;
+    cin >> t;
+    return t;
+}
 void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int lo = 1;
+    int hi = n;
+    int second;
+    int temp;
+    bool one = true;
+    cout << "?" spc lo spc hi ndl;
+    cout.flush();
+    cin >> temp;
+    second = temp;
+    one = false;
+    int t1 = lmax, t2 = lmax;
+    // if (second != 1)
+    // t1 = query(1, second);
+    // if (second != n)
+    //     t2 = query(second, n);
+    // cout << second ndl;
+    int ans = lo;
+    if (second != 1 and query(1, second) == second)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        int lo = 1;
+        int hi = second - 1;
+        ans = lo;
+        // cout << lo spc hi ndl;
+        while (hi >= lo)
+        {
+
+            int mid = (lo + hi) / 2;
+            int t = query(mid, second);
+            if (t == second)
+            {
+                ans = mid;
+                lo = mid + 1;
+            }
+            else
+            {
+                hi = mid - 1;
+            }
+        }
+        cout << "!" spc ans ndl;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    else
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int lo = second + 1;
+        int hi = n;
+        ans = hi;
+
+        // cout << lo spc hi ndl;
+        while (hi >= lo)
+        {
+
+            int mid = (lo + hi) / 2;
+            int t = query(second, mid);
+            if (t == second)
+            {
+                ans = mid;
+                hi = mid - 1;
+            }
+            else
+            {
+                lo = mid + 1;
+                // hi = mid - 1;
+            }
+        }
+        cout << "!" spc ans ndl;
     }
-    cout << ans ndl;
+
     return;
 }

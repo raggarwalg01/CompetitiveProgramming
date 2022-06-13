@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -280,6 +280,30 @@ bool is_palindrome(int n)
     // dbg(v);
     return is_palindrome(v);
 }
+int findPeriodofString(string A)
+{
+    string s = A;
+    int n = s.length();
+    rep(i, 1, n / 2 + 1)
+    {
+        if (n % i != 0)
+            continue;
+        bool ch = true;
+        rep(j, i, n)
+        {
+            if (s[j - i] != s[j])
+            {
+                ch = false;
+                break;
+            }
+        }
+        if (ch)
+        {
+            return i;
+        }
+    }
+    return n;
+}
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
@@ -408,7 +432,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -420,25 +444,199 @@ void presolve()
     return;
 }
 
+// const int N = 1e5 + 10;
+// vector<int> g[N];
+// bool visited[N];
+// vector<int> childdown(N, 0);
+
+// void dfs1(int vertex)
+// {
+
+//     visited[vertex] = true;
+//     int ct = 0;
+
+//     for (int child : g[vertex])
+//     {
+
+//         if (visited[child] == true)
+//             continue;
+
+//         dfs1(child);
+//         ct += childdown[child];
+//         // ct++;
+//     }
+//     childdown[vertex] = ct + 1;
+
+//     return;
+// }
+
+// int dfs2(int vertex)
+// {
+
+//     visited[vertex] = true;
+//     vi ans;
+//     int ans1 = 0;
+//     int ans2 = 0;
+//     if (g[vertex].size() == 0)
+//     {
+//         return 0;
+//     }
+//     if (g[vertex].size() == 1)
+//     {
+//         return childdown[g[vertex][0]];
+//     }
+//     ans1 = childdown[g[vertex][0]] + dfs2(g[vertex][1]);
+//     // cout << g[vertex][1] spc g[vertex][0] ndl;
+//     // cout << ans1 spc vertex ndl;
+//     ans2 = childdown[g[vertex][1]] + dfs2(g[vertex][0]);
+//     // cout << ans2 spc vertex ndl;
+//     return max(ans1, ans2);
+// }
+
+// void solve()
+// {
+//     // int ans = 0;
+//     int n;
+//     cin >> n;
+//     rep(i, 0, n + 2)
+//     {
+//         g[i].clear();
+//         childdown[i] = 0;
+//         visited[i] = false;
+//     }
+//     rep(i, 0, n - 1)
+//     {
+//         int a, b;
+//         cin >> a >> b;
+//         g[a].pb(b);
+//         // g[b].pb(a);
+//     }
+//     dfs1(1);
+//     rep(i, 0, n + 2)
+//     {
+//         // g[i].clear();
+//         // childdown[i] = 0;
+//         cerr << i spc childdown[i] ndl;
+//         visited[i] = false;
+//     }
+//     int ans = dfs2(1);
+//     cout << ans ndl;
+
+//     return;
+// }
+
+const int N = 3e5 + 10;
+vector<int> g[N];
+bool visited[N];
+vector<int> childdown(N, 0);
+vi dp(N, 0);
+void dfs(int u, int par)
+{
+    dp[u] = 0;
+    childdown[u] = 1;
+    trav(child, g[u])
+    {
+        if (child == par)
+            continue;
+
+        dfs(child, u);
+        childdown[u] += childdown[child];
+    }
+
+    vi v;
+    trav(child, g[u])
+    {
+        if (child == par)
+            continue;
+
+        v.pb(child);
+    }
+    if (sz(v) == 1)
+        dp[u] = childdown[v[0]] - 1;
+    else if (sz(v) >= 2)
+        dp[u] = max(childdown[v[0]] - 1 + dp[v[1]], childdown[v[1]] - 1 + dp[v[0]]);
+}
+
+// void dfs1(int vertex)
+// {
+//     visited[vertex] = true;
+//     int ct = 0;
+//     for (int child : g[vertex])
+//     {
+//         if (visited[child] == true)
+//             continue;
+//         dfs1(child);
+//         ct += childdown[child];
+//         // ct++;
+//     }
+//     childdown[vertex] = ct;
+//     return;
+// }
+
+// int dfs2(int vertex, int parent)
+// {
+
+//     visited[vertex] = true;
+//     int ans1 = 0;
+//     int ans2 = 0;
+//     int ans3 = 0;
+//     if (g[vertex].size() == 1)
+//     {
+//         return 0;
+//     }
+//     if (g[vertex].size() == 2)
+//     {
+//         return g[vertex][0] == parent ? childdown[g[vertex][1]] : childdown[g[vertex][0]];
+//     }
+//     // return 0;
+//     if (g[vertex][2] == parent)
+//     {
+//         // int val =
+//         ans1 = childdown[g[vertex][0]] + dfs2(g[vertex][1], vertex);
+//         ans1 = max(dfs2(g[vertex][0], vertex) + childdown[g[vertex][1]], ans1);
+//     }
+//     else if (g[vertex][1] == parent)
+//     {
+//         ans2 = childdown[g[vertex][0]] + dfs2(g[vertex][2], vertex);
+//         ans2 = max(dfs2(g[vertex][0], vertex) + childdown[g[vertex][2]], ans2);
+//     }
+//     else if (g[vertex][0] == parent)
+//     {
+//         ans2 = childdown[g[vertex][1]] + dfs2(g[vertex][2], vertex);
+//         ans2 = max(dfs2(g[vertex][1], vertex) + childdown[g[vertex][2]], ans3);
+//     }
+//     return max({ans1, ans2, ans3});
+// }
+
 void solve()
 {
+    // int ans = 0;
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    rep(i, 0, n + 2)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        g[i].clear();
+        childdown[i] = 0;
+        visited[i] = false;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    rep(i, 0, n - 1)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int a, b;
+        cin >> a >> b;
+        g[a].pb(b);
+        g[b].pb(a);
     }
-    cout << ans ndl;
+    dfs(1, -1);
+    cout << dp[1] ndl;
+    // rep(i, 0, n + 2)
+    // {
+    //     // g[i].clear();
+    //     // childdown[i] = 0;
+    //     // cerr << i spc childdown[i] ndl;
+    //     visited[i] = false;
+    // }
+    // int ans = dfs2(1, -1);
+    // cout << ans ndl;
+
     return;
 }

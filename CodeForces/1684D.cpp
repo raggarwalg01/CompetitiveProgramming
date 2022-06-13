@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,118 @@ void presolve()
 
     return;
 }
+int val = lmax;
+int ans = lmax;
+// vvi dp()
+int fnc(vi &nums, int i, int done, int left, int val, int eleleft, vi &pref)
+{
 
+    if (eleleft == 0)
+    {
+        ans = min(ans, val);
+        return ans;
+    }
+    if (left <= 0)
+    {
+        val = val + pref[eleleft] + done * eleleft;
+        ans = min(ans, val);
+        return ans;
+    }
+    int ans1 = lmax, ans2 = lmax;
+    if (left > 0)
+    {
+        ans1 = fnc(nums, i + 1, done + 1, left - 1, val, eleleft - 1, pref);
+    }
+    ans2 = fnc(nums, i + 1, done, left, val + nums[i] + done, eleleft - 1, pref);
+    return min(ans1, ans2);
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    ans = lmax;
+    int n, k;
+    cin >> n >> k;
+    vi nums(n);
+    cin >> nums;
+    vi v = nums;
+
+    set<pi> ste;
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        if ((n - 1 - i) <= v[i])
+        {
+            ste.ins({v[i] - (n - 1 - i), i});
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+
+    vi b(n);
+
+    int ctr = 0;
+    while (ctr < k and sz(ste))
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        pi tmp = *ste.rbegin();
+        ste.erase(--(ste.end()));
+        v[tmp.se] = (n - 1 - tmp.se);
+        b[tmp.se] = 1;
+        ctr++;
     }
-    cout << ans ndl;
+
+    ll sum = 0, jumps = 0;
+    repn(i, n - 1, 0)
+    {
+        sum += v[i];
+        if (b[i])
+        {
+            sum -= jumps;
+            jumps++;
+        }
+    }
+    cout << sum ndl;
+
+    // for (int i = 0; i < n; i++)
+    // {
+    //     nums[i] = nums[i] - (n - i - 1ll);
+    //     if (nums[i] <= 0)
+    //     {
+    //         nums[i] = 0;
+    //     }
+    // }
+    // sort(all(nums));
+    // int sum = 0;
+    // // int ans = 0;
+    // // sort(all(nums));
+    // reverse(all(nums));
+    // for (int i = k; i < n; i++)
+    // {
+    //     sum += nums[i];
+    // }
+    // cout << sum ndl;
+    ;
+    // int left = n;
+    // for (int i = 0; i < n ; i++){
+    //     if(nums[i] > left)
+    //     left--;
+    // }
+    // int damage = accumulate(all(nums), 0ll);
+    // int done = 0;
+    // int left = k;
+    // int val = 0;
+    // int eleleft = n;
+    // vi temp = nums;
+    // vi pref(n + 1);
+    // reverse(all(temp));
+    // for (int i = 0; i < n; i++)
+    // {
+    //     if (i == 0)
+    //     {
+    //         pref[i + 1] = temp[i];
+    //     }
+    //     else
+    //     {
+    //         pref[i + 1] = pref[i] + temp[i];
+    //     }
+    // }
+    // cout << fnc(nums, 0, done, left, val, eleleft, pref) ndl;
+    // // cout << ans ndl;
+
     return;
 }

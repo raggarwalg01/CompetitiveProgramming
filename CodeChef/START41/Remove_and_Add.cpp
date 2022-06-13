@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -426,19 +426,68 @@ void solve()
     cin >> n;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
+    // cout << v ndl;
+    // return;
+
+    int lo = 0;
+    int hi = 0;
+    int ans = lmax;
+    seti st;
+    vpi pairs;
+    while (lo < n and hi < n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        while (hi < n and st.find(v[hi]) == st.end())
+        {
+            st.insert(v[hi]);
+            hi++;
+        }
+        pairs.pb({lo, n - hi});
+        if (hi >= n)
+            break;
+        ;
+        while (v[lo] != v[hi] and lo < n)
+        {
+            st.erase(st.find(v[lo]));
+            lo++;
+        }
+        st.erase(st.find(v[lo]));
+
+        lo++;
+        // st.erase()
+        pairs.pb({lo, n - hi});
+        // break;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    // return;
+    // while (lo < n and hi < n)
+    // {
+    //     while (hi < n and st.find(v[hi]) == st.end() and 1)
+    //     {
+    //         st.insert(v[hi]);
+    //         hi++;
+    //     }
+    //     pairs.pb({lo + 1, n - hi});
+    //     while (lo < n and hi < n and st.find(v[hi]) == st.end() and 1)
+    //     {
+    //         if (st.empty())
+    //         {
+    //             break;
+    //         }
+    //         st.erase(st.find(v[lo]));
+    //         lo++;
+    //     }
+    //     pairs.pb({lo + 1, n - hi});
+    // }
+    // cout << ans ndl;
+    // return;
+    // cout << pairs;
+    trav(i, pairs)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int a = i.fi, b = i.se;
+        if (a > b)
+            swap(a, b);
+        ans = min(ans, a * 2 + b);
     }
     cout << ans ndl;
+
     return;
 }

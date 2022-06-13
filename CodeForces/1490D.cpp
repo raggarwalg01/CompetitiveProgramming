@@ -391,12 +391,10 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
-    cout << fixed << setprecision(10);
-    cerr << fixed << setprecision(10);
 
     presolve();
 
@@ -408,7 +406,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,6 +417,36 @@ void presolve()
 
     return;
 }
+void fnc(vi &v, vi &ans, int l, int r, int curr)
+{
+    if (l == r)
+    {
+        ans[l] = curr;
+        return;
+    }
+    if (l > r)
+    {
+        return;
+    }
+    // cout << l spc r ndl;
+    int id = 0;
+    int mx = 0;
+    rep(i, l, r + 1)
+    {
+        mx = max(mx, v[i]);
+    }
+    rep(i, l, r + 1)
+    {
+        if (mx == v[i])
+        {
+            id = i;
+        }
+    }
+    ans[id] = curr;
+    fnc(v, ans, l, id - 1, curr + 1);
+    fnc(v, ans, id + 1, r, curr + 1);
+    return;
+}
 
 void solve()
 {
@@ -426,19 +454,35 @@ void solve()
     cin >> n;
     vi v(n);
     cin >> v;
-    umapii hash;
+    int mx = *max_element(all(v));
+    // cout << mx;
+    // return;
+    int id = 0;
+    int curr = 0;
+    vi ans(n);
+    int ct = 0;
     trav(i, v)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+
+        if (i == mx)
+        {
+            id = ct;
+            // cout << id ndl;
+            // return;
+            ans[id] = curr;
+            break;
+            ;
+        }
+        ct++;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
+    // cout << ans;
+    // return;
+    curr++;
+    int l = 0;
+    int r = n - 1;
+    fnc(v, ans, l, id - 1, curr);
+    fnc(v, ans, id + 1, r, curr);
     cout << ans ndl;
+
     return;
 }

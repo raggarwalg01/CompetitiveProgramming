@@ -41,7 +41,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 
 #define pb push_back
 #define ins insert
-//#define sz                  size()
+// #define sz size()
 #define sz(x) ((int)(x).size())
 #define all(var) var.begin(), var.end()
 #define present(c, x) (c.find(x) != c.end())
@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -424,21 +424,48 @@ void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
+    vpi v(n), temp;
     trav(i, v)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        cin >> i.fi;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    trav(i, v)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        cin >> i.se;
     }
-    cout << ans ndl;
+    temp = v;
+    sort(all(v));
+    rep(i, 1, n)
+    {
+        if ((v[i].fi < v[i - 1].fi) or (v[i].se < v[i - 1].se))
+        {
+            minus1 return;
+        }
+    }
+    v = temp;
+
+    if (is_sorted(all(v)))
+    {
+        cout << 0 ndl;
+        return;
+    }
+    vpi ans;
+    rep(i, 0, n)
+    {
+        rep(j, i + 1, n)
+        {
+            if (v[i] > v[j])
+            {
+                swap(v[i], v[j]);
+                ans.pb({i + 1, j + 1});
+            }
+        }
+    }
+    cout << sz(ans) ndl;
+    trav(i, ans)
+    {
+        cout << i.fi spc i.se ndl;
+    }
+
     return;
 }

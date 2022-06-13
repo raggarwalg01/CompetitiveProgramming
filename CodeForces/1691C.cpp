@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,113 @@ void presolve()
 
     return;
 }
-
+///// 110       101   11 , 10  ------> 10 , 01
+////// 101    - 010   10 , 01 -------   01 ,, 10
+////// 100    - 010   10 , 00 ,,,-------- 01 , 10
+// int cost(string s)
+// {
+//     int n = sz(s);
+//     int num = 0;
+//     for (int i = 0; i < n - 1; i++)
+//     {
+//         num += 10 * (s[i] - '0') + (s[i + 1] - '0');
+//     }
+//     return num;
+// }
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    int l = -1, r = -1, cnt = 0;
+    for (int i = 0; i < n; i++)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        if (s[i] == '1')
+        {
+            l = i;
+            break;
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    for (int i = n - 1; i >= 0; i--)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        if (s[i] == '1')
+        {
+            r = i;
+            break;
+        }
     }
-    cout << ans ndl;
-    return;
+    for (int i = 0; i < n; i++)
+    {
+        if (s[i] == '1')
+        {
+            cnt++;
+        }
+    }
+    if (l == -1)
+    {
+        cout << 0 << '\n';
+        return;
+    }
+    int tot = cnt * 11;
+    bool used = false;
+    if (k >= n - 1 - r)
+    {
+        k -= (n - 1 - r);
+        tot -= 10;
+        if (l == r)
+        {
+            used = true;
+        }
+    }
+    if (!used && k >= l)
+    {
+        k -= l;
+        tot--;
+    }
+    cout << tot ndl;
 }
+// {
+//     int n, k;
+//     cin >> n >> k;
+//     string s;
+//     cin >> s;
+//     int firstone = -1;
+//     int lastone = -1;
+//     rep(i, 0, n)
+//     {
+//         if (s[i] == '1')
+//         {
+//             if (firstone == -1)
+//             {
+//                 firstone = i;
+//             }
+//             lastone = i;
+//         }
+//     }
+//     dbg(firstone, lastone);
+//     if (firstone == lastone and lastone == -1)
+//     {
+//         cout << 0 ndl;
+//         return;
+//     }
+//     int lastneed = n - 1 - lastone;
+//     if (k >= lastneed and lastone != n - 1)
+//     {
+//         s[lastone] = s[n - 1];
+//         k = k - lastneed;
+//         s[n - 1] = '1';
+//     }
+//     if (firstone != lastone and firstone != 0)
+//     {
+//         if (k >= firstone)
+//         {
+//             s[firstone] = s[0];
+//             s[0] = '1';
+//             k = k - firstone;
+//         }
+//     }
+//     dbg(firstone, lastone, s);
+//     cout << cost(s) ndl;
+//     return;
+// }

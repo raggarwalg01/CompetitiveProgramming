@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,53 @@ void presolve()
 
     return;
 }
-
+int query(int l, int r)
+{
+    cout << "?" spc l spc r << endl;
+    int sum;
+    cin >> sum;
+    cout.flush();
+    return sum;
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, t;
+    cin >> n >> t;
+
+    while (t--)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        int k;
+        cin >> k;
+        // int sum = query(1, n);
+        int lo = 1;
+        int hi = n;
+        int ans = 0;
+        ;
+        int qcnt = 0;
+        while (lo <= hi)
+        {
+            qcnt++;
+            if (qcnt > 20)
+                break;
+            int mid = (lo + hi) / 2;
+            int sum = query(1, mid);
+            int maxsum = mid;
+            int possiblezero = maxsum - sum;
+            if (possiblezero < k)
+            {
+                lo = mid + 1;
+                continue;
+            }
+            else if (possiblezero >= k)
+            {
+                ans = mid;
+                hi = mid - 1;
+                continue;
+            }
+            // ans = mid;
+            // hi = mid - 1;
+        }
+        cout << "!" spc ans << endl;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
     return;
 }

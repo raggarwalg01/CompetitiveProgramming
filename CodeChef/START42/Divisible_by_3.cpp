@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,18 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int a, b;
+    cin >> a >> b;
+    if (a % 3 == 0 or b % 3 == 0)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        cout << 0 ndl;
+        return;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    if (a % 3 == b % 3)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        cout << 1 ndl;
+        return;
     }
-    cout << ans ndl;
+    cout << 2 ndl;
     return;
 }

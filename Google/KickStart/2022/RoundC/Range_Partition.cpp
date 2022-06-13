@@ -382,8 +382,10 @@ void print(T &&t, Args &&...args)
 
 //=====================================================================================================//
 
-void solve();
+void solve(int t);
 void presolve();
+int testcase = 1;
+int iii = 1;
 
 int32_t main()
 {
@@ -391,7 +393,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -400,15 +402,15 @@ int32_t main()
 
     presolve();
 
-    int testcase = 1;
     cin >> testcase;
-
     int i = 1;
-    while (testcase--)
+    while (testcase > 0)
     {
-        // cout << "Case #" << i++ << ": ";
-        solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        cout << "Case #" << i++ << ": ";
+        solve(iii);
+        testcase--;
+        // i++;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +421,190 @@ void presolve()
 
     return;
 }
+bool **dp;
 
-void solve()
+void display(const vector<int> &v)
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
-    }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
+    cout << sz(v) ndl;
+    cout << v ndl;
+    // fncok();
+    // exit();
+    // testcase--;
+    // solve(iii++);
     return;
+}
+
+// A recursive function to print all subsets with the
+// help of dp[][]. Vector p[] stores current subset.
+void printSubsetsRec(vi arr, int i, int sum, vector<int> &p)
+{
+    // If we reached end and sum is non-zero. We print
+    // p[] only if arr[0] is equal to sum OR dp[0][sum]
+    // is true.
+
+    if (i == 0 && sum != 0 && dp[0][sum])
+    {
+        p.push_back(arr[i]);
+        // Display Only when Sum of elements of p is equal to sum
+        if (arr[i] == sum)
+        {
+            display(p);
+            // goto label;
+        }
+        return;
+    }
+
+    // If sum becomes 0
+    if (i == 0 && sum == 0)
+    {
+        display(p);
+        // goto label;
+        return;
+    }
+
+    // If given sum can be achieved after ignoring
+    // current element.
+    if (dp[i - 1][sum])
+    {
+        // Create a new vector to store path
+        vector<int> b = p;
+        printSubsetsRec(arr, i - 1, sum, b);
+    }
+
+    // If given sum can be achieved after considering
+    // current element.
+    if (sum >= arr[i] && dp[i - 1][sum - arr[i]])
+    {
+        p.push_back(arr[i]);
+        printSubsetsRec(arr, i - 1, sum - arr[i], p);
+    }
+    // label:
+    return;
+}
+
+// Prints all subsets of arr[0..n-1] with sum 0.
+void printAllSubsets(vi arr, int n, int sum)
+{
+    if (n == 0 || sum < 0)
+        return;
+
+    // Sum 0 can always be achieved with 0 elements
+    dp = new bool *[n];
+    for (int i = 0; i < n; ++i)
+    {
+        dp[i] = new bool[sum + 1];
+        dp[i][0] = true;
+    }
+
+    // Sum arr[0] can be achieved with single element
+    if (arr[0] <= sum)
+        dp[0][arr[0]] = true;
+
+    // Fill rest of the entries in dp[][]
+    for (int i = 1; i < n; ++i)
+        for (int j = 0; j < sum + 1; ++j)
+            dp[i][j] = (arr[i] <= j) ? dp[i - 1][j] ||
+                                           dp[i - 1][j - arr[i]]
+                                     : dp[i - 1][j];
+    if (dp[n - 1][sum] == false)
+    {
+        // printf("There are no subsets with sum %d\n", sum);
+        return;
+    }
+
+    // Now recursively traverse dp[][] to find all
+    // paths from dp[n-1][sum]
+    vector<int> p;
+    printSubsetsRec(arr, n - 1, sum, p);
+}
+
+void solve(int iii)
+{
+    int n, x1, y1;
+    cin >> n >> x1 >> y1;
+    seti s;
+    for (int i = 1; i <= n; i++)
+    {
+
+        s.ins(i);
+    }
+
+    int sum = (n * (n + 1)) / 2;
+
+    // for (int i = 1; i <= 1000; i++)
+    rep(i, 1, 1001)
+    {
+
+        int x = x1 * i;
+        int y = y1 * i;
+        if ((sum * x) % (x + y) != 0)
+        {
+            continue;
+        }
+        int s1 = (sum * x) / (x + y);
+
+        vi ans;
+        while (s1 > 0)
+        {
+
+            auto it = s.lower_bound(s1);
+            if (it == s.end())
+            {
+
+                it--;
+            }
+
+            ans.pb(*it);
+            s1 -= *it;
+            s.erase(it);
+        }
+
+        cout << "POSSIBLE" ndl;
+        cout << sz(ans) ndl;
+        for (auto i : ans)
+        {
+
+            cout << i << " ";
+        }
+
+        cout ndl;
+        return;
+    }
+
+    cout << "IMPOSSIBLE" ndl;
+    return;
+    //     return;
+    //     cout << "Case #" << iii++ << ": ";
+    //     int n;
+    //     int x, y;
+    //     cin >> n >> x >> y;
+
+    //     vi v(n, 0);
+    //     rep(i, 1, n + 1)
+    //     {
+    //         v[i - 1] = i;
+    //     }
+    //     int sum = accumulate(all(v), 0ll);
+    //     // cout << sum ndl;
+    //     // return;
+    //     // int
+    //     if ((sum * x) % (x + y) != 0)
+    //     {
+    //         cout << "IMPOSSIBLE\n";
+    //         return;
+    //     }
+    //     int sum1 = (sum * x) / (x + y);
+    //     // int sum1 = (x * sum) / y;
+    //     printAllSubsets(v, n, sum1);
+
+    // label:
+
+    //     // cndl;
+    //     // if (n % (x + y) != 0)
+    //     // {
+    //     //     cout << "IMPOSSIBLE\n";
+    //     //     return;
+    //     // }
+    //     // cout << "POSSIBLE\n";
+    // return;
 }

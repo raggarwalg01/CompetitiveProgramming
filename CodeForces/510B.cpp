@@ -36,7 +36,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 #define umapii unordered_map<int, int>
 #define vpi vector<pair<int, int>>
 #define vi vector<int>
-#define pi pair<int, int>
+// #define pi pair<int, int>
 #define vvi vector<vector<int>>
 
 #define pb push_back
@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,65 @@ void presolve()
 
     return;
 }
+vector<string> s(51);
+vector<vector<int>> vis(51, vi(51));
+int dx[] = {0, 0, 1, -1};
+int dy[] = {1, -1, 0, 0};
+string ds = "RLDU";
 
+int n, m;
+bool possible(int x, int y)
+{
+
+    return (x < n && x >= 0 && y < m && y >= 0);
+}
+
+int cycle;
+
+void dfs(int x, int y, int fx, int fy)
+{
+
+    if (vis[x][y])
+    {
+        cycle = 1;
+        return;
+    }
+    if (cycle)
+        return;
+    vis[x][y] = 1;
+    rep(i, 0, 4)
+    {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        if (possible(nx, ny))
+        {
+            if (s[nx][ny] == s[x][y] && (nx != fx || ny != fy))
+            {
+                dfs(nx, ny, x, y);
+            }
+        }
+        if (cycle)
+            return;
+    }
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    cin >> n >> m;
+    cin >> s;
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        rep(j, 0, m)
+        {
+            if (vis[i][j] == 1)
+                continue;
+            dfs(i, j, -1, -1);
+            if (cycle)
+
+            {
+                // cout << i spc j ndl;
+                Yes return;
+            }
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
-    return;
+    No;
 }

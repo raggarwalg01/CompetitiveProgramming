@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -283,7 +283,7 @@ bool is_palindrome(int n)
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
-int modM(int n, int m) { return ((n % M * m % M) + M) % M; }
+int modM(int n, int m, int M) { return ((n % M * m % M) + M) % M; }
 int modA(int n, int m) { return ((n % M + m % M) + M) % M; }
 int modS(int n, int m) { return ((n % M - m % M) + M) % M; }
 int modD(int n, int m) { return ((n % M * minv(m) % M) + M) % M; }
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,31 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
+    int n, Mod;
+    cin >> n >> Mod;
     vi v(n);
     cin >> v;
     umapii hash;
     trav(i, v)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        // i = i % Mod;
+        hash[i%Mod]++;
+        if (hash[i%Mod] >= 2)
+        {
+            zero;
+            return;
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    int ans = 1;
+    rep(i, 0, n)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        rep(j, i + 1, n)
+        {
+            ans = ans * abs(v[i]- v[j]);
+            ans = ans % Mod;
+        }
     }
-    cout << ans ndl;
+    cout << ans;
+
     return;
 }

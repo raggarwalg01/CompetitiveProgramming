@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,59 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    string s;
+    cin >> s;
+    int ctone = 0, ctzero = 0;
+    trav(i, s)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        if (i == '0')
+            ctzero++;
+        else
+            ctone++;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
-    return;
+    int n = sz(s);
 }
+// {
+///----> brute h bhai
+
+// int i = 0, j = n - 1;
+// // int ans = 0;
+// // int ans = lmin;
+// map<int, pair<int, int>> pref, suff;
+// int t0 = 0, t1 = 0;
+// pref[-1] = {t0, t1};
+// for (int i = 0; i < n; i++)
+// {
+//     if (s[i] == '0')
+//         t0++;
+//     else
+//         t1++;
+//     pref[i] = {t0, t1};
+// }
+// t0 = 0;
+// t1 = 0;
+// suff[n] = {t0, t1};
+// for (int j = n - 1; j >= 0; j--)
+// {
+
+//     if (s[j] == '0')
+//         t0++;
+//     else
+//         t1++;
+//     suff[j] = {t0, t1};
+// }
+// dbg(pref);
+// dbg(suff);
+// int ans = lmax;
+// for (int i = -1; i < n; i++)
+// {
+//     for (int j = i; j < n + 1; j++)
+//     {
+//         int zeroleft = ctzero - suff[j].fi - pref[i].fi;
+//         int onedone = suff[j].se + pref[i].se;
+//         ans = min(ans, max(zeroleft, onedone));
+//     }
+// }
+// cout << ans ndl;
+// return;
+// }

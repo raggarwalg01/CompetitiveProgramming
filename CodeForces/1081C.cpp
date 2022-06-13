@@ -283,7 +283,7 @@ bool is_palindrome(int n)
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
-int modM(int n, int m) { return ((n % M * m % M) + M) % M; }
+int modM(int n, int m, int M) { return ((n % M * m % M) + M) % M; }
 int modA(int n, int m) { return ((n % M + m % M) + M) % M; }
 int modS(int n, int m) { return ((n % M - m % M) + M) % M; }
 int modD(int n, int m) { return ((n % M * minv(m) % M) + M) % M; }
@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,81 @@ void presolve()
 
     return;
 }
-
+vvi dp(2020, vi(2020, -1));
+int fnc(vi &v, int n, int m, int k, int id, int tk)
+{
+    if (tk == 0)
+    {
+        return 1;
+    }
+    if (!(tk <= id + 1))
+    {
+        return 0;
+    }
+    if (id == 0)
+    {
+        if (tk > 1)
+        {
+            return 0;
+        }
+        if (tk == 1)
+        {
+            int tmp = m - 1;
+            // int tmp = 0;
+            // rep(j, 0, m)
+            // {
+            //     tmp += v[id + 1] != j + 1;
+            // }
+            return tmp;
+            //% 998244353;
+        }
+    }
+    if (dp[id][tk] != -1)
+    {
+        return dp[id][tk];
+    }
+    int ans = 0;
+    // int val = -1;
+    // rep(i, 1, m + 1)
+    // {
+    // if (v[id + 1] == i)
+    // {
+    v[id] = v[id + 1];
+    ans += fnc(v, n, m, k, id - 1, tk);
+    //% 998244353;
+    // ans += val;
+    //== -1 ? 0 : val;
+    ans = ans % 998244353;
+    // }
+    // else
+    // {
+    v[id] = v[id + 1] - 1;
+    int val = fnc(v, n, m, k, id - 1, tk - 1) % 998244353;
+    // % 998244353;
+    // cerr << val spcend;
+    ans += modM(val, m - 1, 998244353);
+    //  val *(m - 1);
+    ans = ans % 998244353;
+    // }
+    // }
+    // cerr ndl;
+    return dp[id][tk] = ans % 998244353;
+}
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
-    }
-    // dbg(hash);
+    int n, m, k;
+    cin >> n >> m >> k;
+    vi v(n + 1);
+
     int ans = 0;
-    trav(i, hash)
+    rep(i, 1, m + 1)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        v[n - 1] = i;
+        ans += fnc(v, n, m, k, n - 2, k);
+        //% 998244353;
+        ans = ans % 998244353;
     }
-    cout << ans ndl;
+    // int ans = fnc(v, n, m, k, n - 1, k);
+    cout << ans;
     return;
 }

@@ -78,7 +78,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 
 int M = 1e9 + 7;
 int Mod = 1e9 + 7;
-
+const ll INF = 9223372036854775807;
 // void SieveOfEratosthenes(bool Sieve[],int SieveCount){
 //
 //     memset(Sieve, true, SieveCount);
@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,6 +419,18 @@ void presolve()
 
     return;
 }
+void decToBinary(int n)
+{
+    // Size of an integer is assumed to be 32 bits
+    for (int i = 31; i >= 0; i--)
+    {
+        int k = n >> i;
+        if (k & 1)
+            cout << "1";
+        else
+            cout << "0";
+    }
+}
 
 void solve()
 {
@@ -426,19 +438,66 @@ void solve()
     cin >> n;
     vi v(n);
     cin >> v;
-    umapii hash;
+
+    int temp = 0;
+    for (int j = 0; j < 30; j++)
+    {
+
+        int count = 0;
+        for (int i = 0; i < n; i++)
+        {
+
+            if ((1ll << j) & v[i])
+            {
+
+                count++;
+            }
+
+            if (count == n)
+            {
+
+                temp += powermod(2, j, INF);
+            }
+        }
+    }
+
+    int ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+
+        int j = i + 1;
+        int num = v[i];
+        int count = 1;
+        while (j < n && num != temp)
+        {
+
+            num = (num & v[j]);
+            j++;
+            count++;
+        }
+
+        if (j == n && num != temp)
+        {
+
+            ans += count;
+            break;
+        }
+
+        ans += (count - 1);
+        i = j - 1;
+    }
+
+    cout << ans ndl;
+
+    // int n;
+    // cin >> n;
+    // vi v(n);
+    // cin >> v;
+    // // so1
     trav(i, v)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        // decToBinary(i);
+        // cndl;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
-    return;
+    // return;
 }

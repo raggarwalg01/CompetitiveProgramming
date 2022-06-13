@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -424,21 +424,39 @@ void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    vi a(n);
+    vi b(n);
+    cin >> a >> b;
+    mapii pref, pref2;
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        pref[i + 1] = a[i] * b[i] + pref[i];
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    int ans = pref[n];
+
+    for (int i = 0; i < n; i++)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int sum = 0;
+        int j = i, k = i + 1;
+        while (j >= 0 and k < n)
+        {
+            sum += a[j] * b[k] + a[k] * b[j];
+            ans = max(ans, sum + pref[n] - pref[k + 1] + pref[j]);
+            j--;
+            k++;
+        }
+
+        sum = a[i] * b[i];
+        j = i - 1, k = i + 1;
+        while (j >= 0 and k < n)
+        {
+            sum += a[j] * b[k] + a[k] * b[j];
+            ans = max(ans, sum + pref[n] - pref[k + 1] + pref[j]);
+            j--;
+            k++;
+        }
     }
-    cout << ans ndl;
+
+    cout << ans;
     return;
 }

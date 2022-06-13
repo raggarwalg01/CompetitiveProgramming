@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -424,21 +424,83 @@ void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    string a, b;
+    cin >> a >> b;
+    vi ans;
+
+    for (int i = n - 1; i >= 0; i--)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        if (a[i] == b[i])
+        {
+            continue;
+        }
+        if (a[0] == b[i])
+        {
+            ans.pb(1);
+            a[0] = (a[0] == '1') ? '0' : '1';
+        }
+        ans.pb(i + 1);
+        rep(jj, 0, i + 1)
+        {
+            a[jj] = (a[jj] == '1') ? '0' : '1';
+        }
+        reverse(a.begin(), a.begin() + i + 1);
+        // if (i == 0)
+        // {
+        //     if (a[0] == b[0])
+        //         continue;
+        //     else
+        //         ans.pb(1);
+        //     continue;
+        // }
+
+        // if (a[i] == b[i])
+        //     continue;
+
+        // if (a[0] != b[i])
+        // {
+        //     ans.pb(i + 1);
+        //     reverse(a.begin(), a.begin() + i);
+        //     rep(j, 0, i)
+        //     {
+        //         if (a[j] == '1')
+        //         {
+        //             a[j] = '0';
+        //         }
+        //         else
+        //         {
+        //             a[j] = '1';
+        //         }
+        //     }
+        // }
+        // else
+        // {
+        //     ans.pb(1);
+        //     if (a[0] == '1')
+        //     {
+        //         a[0] = '0';
+        //     }
+        //     else
+        //     {
+        //         a[0] = '1';
+        //     }
+        //     ans.pb(i + 1);
+        //     reverse(a.begin(), a.begin() + i + 1);
+        //     rep(j, 0, i)
+        //     {
+        //         if (a[j] == '1')
+        //         {
+        //             a[j] = '0';
+        //         }
+        //         else
+        //         {
+        //             a[j] = '1';
+        //         }
+        //     }
+        // }
+        // dbg(a, b);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
+    // cout << (a == b) ?: a spc b ndl;
+    cout << sz(ans) spc ans ndl;
     return;
 }

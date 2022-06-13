@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,42 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, k;
+    cin >> n >> k;
+    vi primes;
+
+    while (n % 2 == 0)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        n = n / 2;
+        primes.pb(2);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    for (int i = 3; i * i <= n; i++)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        while (n % i == 0)
+        {
+            n = n / i;
+            primes.pb(i);
+        }
     }
+    if (n != 1)
+    {
+        primes.pb(n);
+    }
+    if (sz(primes) < k)
+    {
+        minus1;
+        return;
+    }
+    rep(i, 0, k - 1)
+    {
+        cout << primes[i] spcend;
+    }
+    int ans = 1;
+    rep(i, k - 1, sz(primes))
+    {
+        ans = ans * primes[i];
+    }
+    dbg(primes);
     cout << ans ndl;
     return;
 }

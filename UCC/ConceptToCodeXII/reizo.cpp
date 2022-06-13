@@ -389,9 +389,9 @@ int32_t main()
 {
 
 #ifndef ONLINE_JUDGE
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
+    //freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,73 @@ void presolve()
 
     return;
 }
-
+void checkIfSortRotated(int arr[], int n)
+{
+    int minEle = INT_MAX;
+    int maxEle = INT_MIN;
+ 
+    int minIndex = -1;
+ 
+    // Find the minimum element
+    // and it's index
+    for (int i = 0; i < n; i++) {
+        if (arr[i] < minEle) {
+            minEle = arr[i];
+            minIndex = i;
+        }
+    }
+ 
+    int flag1 = 1;
+ 
+    // Check if all elements before minIndex
+    // are in increasing order
+    for (int i = 1; i < minIndex; i++) {
+        if (arr[i] < arr[i - 1]) {
+            flag1 = 0;
+            break;
+        }
+    }
+ 
+    int flag2 = 1;
+ 
+    // Check if all elements after minIndex
+    // are in increasing order
+    for (int i = minIndex + 1; i < n; i++) {
+        if (arr[i] < arr[i - 1]) {
+            flag2 = 0;
+            break;
+        }
+    }
+ 
+    // Check if last element of the array
+    // is smaller than the element just
+    // starting element of the array
+    // for arrays like [3,4,6,1,2,5] - not circular array
+    if (flag1 && flag2 && (arr[n - 1] < arr[0]))
+        cout << "Riezo";
+    else
+        cout << "No Riezo";
+}
 void solve()
 {
-    int n;
-    cin >> n;
+    int n; cin>> n ;
     vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+    // cin>> v;
+    // vi temp = v;
+
+    int arr[n];
+    rep(i,0,n){
+    	cin>>arr[i];
+    	v[i] = arr[i];
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
+    if(is_sorted(all(v))){
+    	cout<<"Riezo" ndl;
+    	return ;
     }
-    cout << ans ndl;
+    checkIfSortRotated(arr, n);
+    cndl;
+
+
     return;
 }
+

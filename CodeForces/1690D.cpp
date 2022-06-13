@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,25 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    mapii hash;
+
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        hash[i] = hash[i - 1] + (s[i] == 'B');
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    dbg(hash);
+    int ans = lmin;
+    for (int i = 0; i < n; i++)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        if (i + k > n)
+            break;
+        ;
+        ans = max(ans, hash[i + k - 1] - hash[i - 1]);
     }
-    cout << ans ndl;
+    cout << k - ans ndl;
     return;
 }

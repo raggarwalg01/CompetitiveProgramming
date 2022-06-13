@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -280,6 +280,30 @@ bool is_palindrome(int n)
     // dbg(v);
     return is_palindrome(v);
 }
+int findPeriodofString(string A)
+{
+    string s = A;
+    int n = s.length();
+    rep(i, 1, n / 2 + 1)
+    {
+        if (n % i != 0)
+            continue;
+        bool ch = true;
+        rep(j, i, n)
+        {
+            if (s[j - i] != s[j])
+            {
+                ch = false;
+                break;
+            }
+        }
+        if (ch)
+        {
+            return i;
+        }
+    }
+    return n;
+}
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
@@ -408,7 +432,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,6 +443,57 @@ void presolve()
 
     return;
 }
+int fnc(vi &v, int n, int id, int fd, vvi &dp)
+{
+    if (id == n - 1)
+    {
+        if (fd == 1)
+        {
+            return 0;
+        }
+        else
+        {
+            return v[id];
+        }
+    }
+    if (id == n - 2)
+    {
+        if (fd == 1)
+        {
+            return 0;
+        }
+        else
+        {
+            return v[id];
+        }
+    }
+    if (dp[id][fd] != -1)
+    {
+        return dp[id][fd];
+    }
+    int ans1 = lmax;
+    int ans2 = lmax;
+    if (fd == 1)
+    {
+        ans1 = fnc(v, n, id + 1, 2, dp);
+        if (id + 1 < n)
+            ans2 = fnc(v, n, id + 2, 2, dp);
+    }
+    else
+    {
+        ans1 = fnc(v, n, id + 1, 1, dp);
+        if (v[id] == 1)
+        {
+            ans1++;
+        }
+        if (id + 1 < n)
+        {
+            ans2 = fnc(v, n, id + 2, 1, dp);
+            ans2 += v[id] + v[id + 1];
+        }
+    }
+    return dp[id][fd] = min(ans1, ans2);
+}
 
 void solve()
 {
@@ -426,19 +501,11 @@ void solve()
     cin >> n;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
-    }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
+    vvi dp(n + 2, vi(3, -1));
+
+    int ans1 = fnc(v, n, 0, 2, dp);
+    cout << ans1 ndl;
+    // int ans2 = fnc(v, n, n - 1, 2);
+    // cout << min(ans1, ans2) ndl;
     return;
 }

@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -424,21 +424,38 @@ void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    vi a(n), b(n);
+    cin >> a >> b;
+    seti diff;
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+
+        diff.ins(a[i] - b[i]);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    int val = -1;
+    for (int i = 0; i < n; i++)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        if (a[i] < b[i])
+        {
+            NO return;
+        }
+        val = max(val, a[i] - b[i]);
     }
-    cout << ans ndl;
+    for (int i = 0; i < n; i++)
+    {
+        a[i] -= val;
+        if (a[i] == b[i])
+        {
+            continue;
+        }
+        if (a[i] <= 0 && b[i] == 0)
+        {
+            continue;
+        }
+        NO;
+        return;
+    }
+    YES;
+
     return;
 }

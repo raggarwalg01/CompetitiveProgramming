@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,78 @@ void presolve()
 
 void solve()
 {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
+    int cost = 0;
+    // vi vals;
+    mapii hash;
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        int num = v[i];
+        v[i] = v[i] % k;
+        // vals.pb(v[i]);
+        hash[v[i]]++;
+        cost += num / k;
     }
-    // dbg(hash);
+    // dbg(cost);
     int ans = 0;
-    trav(i, hash)
+    // for (int i = 1; i < k; i++)
+    // {
+    //     int a = i;
+    //     int b = k - i;
+    //     if (b < a)
+    //         break;
+    //     if (b == k)
+    //     {
+    //         ans += hash[b] / 2;
+    //         hash[b] = hash[b] % 2;
+    //         continue;
+    //     }
+    //     int mn = min(hash[a], hash[b]);
+    //     ans += mn;
+    //     hash[a] -= mn;
+    //     hash[b] -= mn;
+    // }
+    dbg(hash);
+    int lo = 1;
+    int hi = k - 1;
+    while (lo <= hi)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int tempp = 0;
+        if (hash[lo] <= 0)
+        {
+            lo++;
+            continue;
+        }
+        if (hash[hi] <= 0)
+        {
+            hi--;
+            continue;
+        }
+        int mn = min(hash[lo], hash[hi]);
+
+        if (lo + hi >= k)
+        {
+            hash[hi] -= mn;
+            hash[lo] -= mn;
+            if (lo == hi)
+            {
+                ans += mn / 2;
+            }
+            else
+            {
+                ans += mn;
+            }
+        }
+        else if (lo + hi < k)
+        {
+            lo++;
+        }
     }
-    cout << ans ndl;
+
+    // vi vals;
+    cout << cost + ans ndl;
     return;
 }

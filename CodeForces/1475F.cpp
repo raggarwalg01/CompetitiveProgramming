@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -280,6 +280,30 @@ bool is_palindrome(int n)
     // dbg(v);
     return is_palindrome(v);
 }
+int findPeriodofString(string A)
+{
+    string s = A;
+    int n = s.length();
+    rep(i, 1, n / 2 + 1)
+    {
+        if (n % i != 0)
+            continue;
+        bool ch = true;
+        rep(j, i, n)
+        {
+            if (s[j - i] != s[j])
+            {
+                ch = false;
+                break;
+            }
+        }
+        if (ch)
+        {
+            return i;
+        }
+    }
+    return n;
+}
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
@@ -408,7 +432,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +446,55 @@ void presolve()
 
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    vector<vector<ll>> matrix1(n, vector<ll>(n));
+    vector<vector<ll>> matrix2(n, vector<ll>(n));
+
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        rep(j, 0, n)
+        {
+            char chr;
+            cin >> chr;
+            matrix1[i][j] = chr - '0';
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+
+    rep(i, 0, n)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        rep(j, 0, n)
+        {
+            char chr;
+            cin >> chr;
+            matrix2[i][j] = chr - '0';
+        }
     }
-    cout << ans ndl;
+
+    rep(j, 0, n)
+    {
+        if (matrix1[0][j] != matrix2[0][j])
+        {
+            rep(i, 0, n)
+            {
+                matrix1[i][j] ^= 1;
+            }
+        }
+    }
+
+    rep(i, 0, n)
+    {
+        ll cnt = 0;
+        rep(j, 0, n)
+            cnt += (matrix1[i][j] == matrix2[i][j]);
+
+        if (cnt > 0 and cnt < n)
+        {
+            cout << "NO" << endl;
+            return;
+        }
+    }
+    cout << "YES" << endl;
+
     return;
 }

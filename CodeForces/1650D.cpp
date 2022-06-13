@@ -391,12 +391,10 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
-    cout << fixed << setprecision(10);
-    cerr << fixed << setprecision(10);
 
     presolve();
 
@@ -408,7 +406,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -426,19 +424,42 @@ void solve()
     cin >> n;
     vi v(n);
     cin >> v;
-    umapii hash;
+    deque<int> dq;
     trav(i, v)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        dq.pb(i);
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    int last = n;
+
+    vi ans(n + 1);
+
+    while (last > 1)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int ct = 0;
+        while (dq.back() != last)
+        {
+            int ele = dq.front();
+            dq.pop_front();
+            dq.push_back(ele);
+            ct++;
+        }
+        ans[last] = ct;
+        last--;
+        // deque<int> temp = dq;
+        // while (!temp.empty())
+        // {
+        //     cout << temp.front() spcend;
+        //     temp.pop_front();
+        // };
+        dq.pop_back();
+        // cndl;
     }
-    cout << ans ndl;
+
+    rep(i, 1, n + 1)
+    {
+        cout << ans[i] spcend;
+    }
+    cndl;
+
     return;
 }

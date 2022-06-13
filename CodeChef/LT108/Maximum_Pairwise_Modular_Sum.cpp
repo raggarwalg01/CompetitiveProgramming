@@ -285,7 +285,7 @@ int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
 int modM(int n, int m) { return ((n % M * m % M) + M) % M; }
 int modA(int n, int m) { return ((n % M + m % M) + M) % M; }
-int modS(int n, int m) { return ((n % M - m % M) + M) % M; }
+int modS(int n, int m, int M) { return ((n % M - m % M) + M) % M; }
 int modD(int n, int m) { return ((n % M * minv(m) % M) + M) % M; }
 
 //=====================================================================================================//
@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -420,25 +420,109 @@ void presolve()
     return;
 }
 
+void merge(int v[], int l, int r, int mid, vector<pair<int, int>> &p)
+{
+    int b[l + r + 1], i = l, k = l, j = mid + 1;
+    while (i <= mid && j <= r)
+    {
+        if (v[i] > v[j])
+        {
+            b[k] = v[j];
+            p.pb({v[i], v[j]});
+            p.pb({v[j], v[i]});
+            p.pb({v[j], v[j]});
+            k++;
+            j++;
+        }
+        else
+        {
+            p.pb({v[i], v[j]});
+            p.pb({v[j], v[i]});
+            p.pb({v[i], v[i]});
+            b[k] = v[i];
+            i++;
+            k++;
+        }
+    }
+
+    while (i <= mid)
+    {
+        b[k] = v[i];
+        p.pb({v[i], v[i]});
+        i++;
+        k++;
+    }
+    while (j <= r)
+    {
+        b[k] = v[j];
+        p.pb({v[j], v[j]});
+        j++;
+        k++;
+    }
+
+    for (int x = l; x <= r; x++)
+    {
+        v[x] = b[x];
+    }
+}
+
+void pairsgfg(int v[], int l, int r, vector<pair<int, int>> &p)
+{
+    if (l < r)
+    {
+        int mid = (l + r) / 2;
+        pairsgfg(v, l, mid, p);
+        pairsgfg(v, mid + 1, r, p);
+        merge(v, l, r, mid, p);
+    }
+}
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+
+    int n, m;
+    cin >> n >> m;
+    int v[n];
+    rep(i, 0, n)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        cin >>
+            v[i];
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+
+    vpi p;
+    pairsgfg(v, 0, n - 1, p);
+    // cout << sz(p);
+    int ans = -1;
+    trav(i, p)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        int temp = i.fi + i.se + ((i.fi - i.se + m)) % m;
+        ans = max(ans, temp);
     }
+
     cout << ans ndl;
+
     return;
 }
+// void solve()
+// {
+//     int n, m;
+
+//     cin >> n >> m;
+//     vi v(n);
+//     cin >> v;
+//     sort(all(v));
+//     int ans = 0;
+//     int one = v.back();
+//     trav(i, v)
+//     {
+//         int sec = i;
+//         int temp = one + sec;
+
+//         cout << sec spc m spc((one % m - sec % m + m) % m) ndl;
+//         ;
+//         ans = max(temp, ans);
+//     }
+//     cout << ans ndl;
+
+//     return;
+// }

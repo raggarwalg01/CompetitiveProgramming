@@ -1,4 +1,4 @@
-//==============================     raggarwalg01     ==============================//
+//==============================     Raghav Aggarwal     ==============================//
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -280,6 +280,30 @@ bool is_palindrome(int n)
     // dbg(v);
     return is_palindrome(v);
 }
+int findPeriodofString(string A)
+{
+    string s = A;
+    int n = s.length();
+    rep(i, 1, n / 2 + 1)
+    {
+        if (n % i != 0)
+            continue;
+        bool ch = true;
+        rep(j, i, n)
+        {
+            if (s[j - i] != s[j])
+            {
+                ch = false;
+                break;
+            }
+        }
+        if (ch)
+        {
+            return i;
+        }
+    }
+    return n;
+}
 
 int minv(int a) { return power(a, M - 2); }
 int mod(int n) { return (n % M + M) % M; }
@@ -408,7 +432,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -424,21 +448,64 @@ void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    if (n == 2)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        cout << "1 2" ndl;
+        return;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    if (n == 3)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        cout << "2 1 3" ndl;
+        return;
     }
-    cout << ans ndl;
+    vi v;
+    if (n % 2 == 0)
+    {
+        v.resize(n);
+    }
+    else
+    {
+        v.resize(n + 1);
+    }
+    int half = ceil_div(n, 2);
+    int half2 = half;
+    half2++;
+
+    for (int i = 0; i < sz(v); i += 2)
+    {
+        v[i] = half--;
+        if (i + 1 < sz(v))
+            v[i + 1] = half2++;
+    }
+
+    rep(i, 0, n)
+    {
+        cout << v[i] spcend;
+    }
+    cndl;
+    // rep(i, 0, n)
+    // {
+    //     v[i] = i + 1;
+    // }
+    // do
+    // {
+    //     bool ch = true;
+
+    //     rep(i, 0, n - 1)
+    //     {
+    //         int d = i + 1;
+    //         int diff = abs(v[i + 1] - v[i]);
+    //         if (diff % d != 0)
+    //         {
+    //             ch = false;
+    //             break;
+    //         }
+    //     }
+    //     if (ch)
+    //     {
+    //         cout << v ndl;
+    //         // return;
+    //     }
+    // } while (next_permutation(all(v)));
     return;
 }

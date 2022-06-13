@@ -69,7 +69,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 #define yes cout << "yes\n";
 #define no cout << "no\n";
 #define minus1 cout << "-1\n";
-#define zero cout << "0\n";
+// #define zero cout << "0\n";
 
 #define set_bits __builtin_popcountll
 #define precision(n) cout << fixed << setprecision(n);
@@ -391,7 +391,7 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
@@ -408,7 +408,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -422,23 +422,112 @@ void presolve()
 
 void solve()
 {
+    // make string a  zero and then to string b;
     int n;
     cin >> n;
-    vi v(n);
-    cin >> v;
-    umapii hash;
-    trav(i, v)
+    string a, b;
+    cin >> a >> b;
+    vi ans, ans2;
+    int par = 0;
+    // int zero = 0;
+    if (a == b)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        cout << 0 ndl;
+        return;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    char z = '0';
+    a.pb('0');
+    // b.pb('0');
+    for (int i = 0; i <= n; i++)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        if (a[i] == z)
+        {
+            continue;
+        }
+        else
+        {
+            if (i != 0)
+                ans.pb(i);
+            z = (z == '0') ? '1' : '0';
+        }
     }
-    cout << ans ndl;
+    // trav(i, ans)
+    // {
+    //     int num = i;
+    //     reverse(a.begin(), a.begin() + num);
+    //     rep(j, 0, num)
+    //     {
+    //         a[j] = (a[j] == '0') ? '1' : '0';
+    //     }
+    // }
+    // a.pop_back();
+    // reverse(all(b));
+    b.pb('0');
+    // b = a;
+    a = b;
+    ans2 = ans;
+    ans.clear();
+    z = '0';
+    for (int i = 0; i <= n; i++)
+    {
+        if (a[i] == z)
+        {
+            continue;
+        }
+        else
+        {
+            if (i != 0)
+                ans.pb(i);
+            z = (z == '0') ? '1' : '0';
+        }
+    }
+    // trav(i, ans)
+    // {
+    //     int num = i;
+    //     reverse(a.begin(), a.begin() + num);
+    //     rep(j, 0, num)
+    //     {
+    //         a[j] = (a[j] == '0') ? '1' : '0';
+    //     }
+    // }
+    // cout << a spcend;
+    reverse(all(ans));
+
+    cout << sz(ans) + sz(ans2) spc ans2 << ans ndl;
+    return;
+    // z = '0';
+    // for (int i = 0; i <= n; i++)
+    // {
+    //     if (b[i] == z)
+    //     {
+    //         continue;
+    //     }
+    //     else
+    //     {
+    //         ans2.pb(i);
+    //         z = (z == '0') ? '1' : '0';
+    //     }
+    // }
+    // reverse(all(ans2));
+    // cout << sz(ans) + sz(ans2) spc ans << ans2 ndl;
+
+    // for (int i = n - 1; i >= 0; i--)
+    // {
+    //     // if ((a[i] == '1' and par % 2 == 0) or (a[i] == '0' and par % 2 == 1))
+    //     // {
+    //     //     par++;
+    //     //     ans.pb(i + 1);
+    //     // }
+    // }
+    // par = 0;
+    // for (int i = n - 1; i >= 0; i--)
+    // {
+    //     if ((b[i] == '1' and par % 2 == 0) or (b[i] == '0' and par % 2 == 1))
+    //     {
+    //         par++;
+    //         ans.pb(i + 1);
+    //     }
+    // }
+    cout << sz(ans) spc ans ndl;
     return;
 }

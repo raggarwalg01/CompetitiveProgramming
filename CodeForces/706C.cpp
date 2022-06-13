@@ -395,20 +395,18 @@ int32_t main()
 #endif
 
     fastio();
-    cout << fixed << setprecision(10);
-    cerr << fixed << setprecision(10);
 
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +417,148 @@ void presolve()
 
     return;
 }
+// int dp[100000][2];
+vector<vector<int>> dp(100000, vector<int>(2, lmax));
+int fnc(vector<string> &s, vector<int> &cost, int n, int i, int done)
+{
+    if (i == 0)
+    {
+        if (s[0] <= s[1])
+        {
+            return 0;
+        }
+        string t = s[0];
+        reverse(all(t));
+        if (t <= s[1])
+        {
+            return cost[0];
+        }
+        return -1;
+    }
+    if (dp[i][done] != lmax)
+        return dp[i][done];
+    int ans1 = -1;
+    int ans2 = -1;
+    if (s[i] <= s[i + 1])
+    {
+        ans1 = fnc(s, cost, n, i - 1, 0);
+    }
+    // else
+    // {
+    string t = s[i];
+    reverse(all(t));
+    if (t <= s[i + 1])
+    {
+        s[i] = t;
+        ans2 = fnc(s, cost, n, i - 1, 1);
+        reverse(all(s[i]));
+    }
+    dbg(i, ans1, ans2);
+    // }
+    if (ans1 == -1 and ans2 == -1)
+    {
+        return dp[i][done] = -1;
+    }
+    if (ans1 == -1)
+        return dp[i][done] = ans2 + cost[i];
+    if (ans2 == -1)
+        return dp[i][done] = ans1;
+    return dp[i][done] = min(ans1, ans2 + cost[i]);
+}
 
+//     if (i == 1)
+//     {
+
+//         if (s[0] <= s[1])
+//         {
+//             return 0;
+//         }
+//         else
+//         {
+//             int cst1 = lmax;
+//             int cst2 = lmax;
+
+//             string s0 = s[0];
+//             string s1 = s[1];
+//             reverse(all(s1));
+//             reverse(all(s0));
+//             if (s0 <= s[1] or s1 >= s[0])
+//             {
+//                 if (s0 <= s[1])
+//                 {
+//                     cst1 = cost[0];
+//                 }
+//                 if (s1 >= s[0])
+//                 {
+//                     cst2 = cost[1];
+//                 }
+//                 return min(cst1, cst2);
+//             }
+//             return -1;
+//         }
+//     }
+//     int temp = lmax;
+//     int temp2 = lmax;
+//     if (s[i] >= s[i - 1])
+//     {
+//         temp = fnc(s, cost, n, i - 1, spend);
+//     }
+//     else
+//     {
+//         string tt = s[i];
+//         reverse(all(s));
+//         if (tt >= s[i - 1])
+//         {
+//             temp2 = fnc(s, cost, n, i - 1, spend + cost[i]);
+//         }
+//         else
+//         {
+//             return -1;
+//         }
+//     }
+//     if (temp == -1 and temp2 == -1)
+//     {
+//         return -1;
+//     }
+//     if (temp2 == -1)
+//         return temp;
+//     if (temp == -1)
+//         return temp2;
+//     return min(temp, temp2);
+// }
 void solve()
 {
     int n;
     cin >> n;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
+    vector<string> s(n);
+    cin >> s;
+    if (n == 1)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        cout << 0 ndl;
+        return;
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
+    int ans1 = fnc(s, v, n, n - 2, 0);
+    reverse(all(s[n - 1]));
+    // return;
+    int ans2 = fnc(s, v, n, n - 2, 1);
+    dbg(ans1, ans2);
+    if (ans1 == -1 and ans2 == -1)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        minus1;
+        return;
     }
-    cout << ans ndl;
+    if (ans1 == -1)
+    {
+        cout << ans2 + v[n - 1] ndl;
+        return;
+    }
+    if (ans2 == -1)
+    {
+        cout << ans1 ndl;
+        return;
+    }
+    cout << min(ans1, ans2 + v[n - 1]);
     return;
 }

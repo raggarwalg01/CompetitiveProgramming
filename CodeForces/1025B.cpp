@@ -401,14 +401,14 @@ int32_t main()
     presolve();
 
     int testcase = 1;
-    cin >> testcase;
+    // cin>>testcase;
 
     int i = 1;
     while (testcase--)
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,26 +419,98 @@ void presolve()
 
     return;
 }
-
+// void fnc(vpi &v, int n, int id, int gd)
+// {
+//     if (id == n)
+//     {
+//         if (gd != 1)
+//         {
+//             cout << gd;
+//             exit(0);
+//         }
+//         return;
+//     }
+//     fnc(v, n, id + 1, gcd(gd, v[id].fi));
+//     fnc(v, n, id + 1, gcd(gd, v[id].se));
+//     return;
+// }
+seti primes;
+void fnc(int n)
+{
+    while (n % 2 == 0)
+    {
+        n = n / 2;
+        primes.ins(2);
+    }
+    for (int i = 3; i * i <= n; i++)
+    {
+        while (n % i == 0)
+        {
+            n = n / i;
+            primes.ins(i);
+        }
+    }
+    if (n != 1)
+    {
+        primes.ins(n);
+    }
+    return;
+}
 void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
+    vpi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
+    //  982451653;
+    //
+    // int mxxx = 1e6;
+    // primes.pb(2);
+    // for (int i = 3; i <= mxxx; i += 2)
+    // {
+    //     if (isPrime(i))
+    //     {
+    //         // if (i == 978053)
+    //         // {
+    //         //     cout << "ho";
+    //         //     return;
+    //         // }
+    //         primes.pb(i);
+    //     }
+    // }
+    dbg(sz(primes));
+    // int mx = 0;
+    // trav(i, v)
+    // {
+    fnc(v[0].fi);
+    fnc(v[0].se);
+    // }
+
+    bool check = false;
+    trav(i, primes)
     {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
+        // if (i > mx)
+        //     break;
+        check = true;
+        rep(ii, 0, n)
+        {
+            if (v[ii].fi % i != 0 and v[ii].se % i != 0)
+            {
+                check = false;
+                break;
+                ;
+            }
+        }
+        if (check)
+        {
+            cout << i ndl;
+            return;
+        }
     }
-    // dbg(hash);
-    int ans = 0;
-    trav(i, hash)
-    {
-        ans += ((i.se) * (i.se - 1)) / 2;
-    }
-    cout << ans ndl;
-    return;
+    minus1
+
+        // dbg(v);
+
+        // fnc(v, n, 0, 0);
+        return;
 }

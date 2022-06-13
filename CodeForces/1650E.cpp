@@ -391,12 +391,10 @@ int32_t main()
 #ifndef ONLINE_JUDGE
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/input.txt","r",stdin);
     // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/output.txt","w",stdout);
-    // freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
+    freopen("/home/raggarwalg01/Desktop/CompetitiveProgramming/error.txt", "w", stderr);
 #endif
 
     fastio();
-    cout << fixed << setprecision(10);
-    cerr << fixed << setprecision(10);
 
     presolve();
 
@@ -408,7 +406,7 @@ int32_t main()
     {
         // cout << "Case #" << i++ << ": ";
         solve();
-        // cerr << "//=====================================================================================================//" ndl;
+        // cerr<<"//=====================================================================================================//" ndl;
     }
 
     cerr << "Time Taken : " << (float)clock() / CLOCKS_PER_SEC << " secs     ";
@@ -419,25 +417,75 @@ void presolve()
 
     return;
 }
+bool possible(int ans, int n, int d, vi v)
+{
+    int can = true;
+    int last = 0;
+    int days;
+    // v.pb(d+1);
+    int buffer = 0;
+    for (int i = 0; i < n; i++)
+    {
+        days = v[i] - last;
+        if (days >= ans)
+        {
+            if (days > 2 * ans)
+            {
+                buffer = 0;
+            }
+            last = v[i];
+        }
+        else
+        {
+            if (can == true)
+            {
+                can = false;
+                buffer = 1;
+
+                last = (i == 0 ? 0 : v[i - 1]);
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    if (buffer != 0)
+    {
+        return false;
+    }
+    return true;
+}
 
 void solve()
 {
-    int n;
-    cin >> n;
+    int n, d;
+    cin >> n >> d;
     vi v(n);
     cin >> v;
-    umapii hash;
-    trav(i, v)
-    {
-        int num = msb(i);
-        // cout << num spcend;
-        hash[num]++;
-    }
-    // dbg(hash);
+    int lo = 0;
+    int hi = d;
     int ans = 0;
-    trav(i, hash)
+    vi rev = v;
+    // reverse(all(v));
+    trav(i, rev)
     {
-        ans += ((i.se) * (i.se - 1)) / 2;
+        i = d - i + 1;
+    }
+    while (lo < hi)
+    {
+        int mid = (lo + hi) / 2;
+
+        if (possible(mid, n, d, v))
+        {
+            ans = max(ans, mid);
+            lo = mid + 1;
+        }
+        else
+        {
+            hi = mid - 1;
+        }
     }
     cout << ans ndl;
     return;
